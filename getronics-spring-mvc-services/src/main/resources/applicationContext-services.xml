@@ -1,0 +1,83 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"	
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd        
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        http://www.springframework.org/schema/jee 
+        http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
+        default-autowire="byName">
+	
+    <context:annotation-config />
+	<context:component-scan
+		base-package="es.getronics" />
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.h2.Driver" />
+		<property name="url"
+			value="jdbc:h2:~/test -script test.sql" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean> 
+	
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="packagesToScan" value="es.getronics.bom"></property>
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">
+			<props>				
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+		
+	<!-- End Database configuration -->
+
+	<!-- Transaction manager configuration -->
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+    <tx:annotation-driven transaction-manager="txManager"  order="100"/> 
+    
+    <aop:config>
+		<aop:pointcut id="all-service-methods" 
+			expression="execution(* es.getronics.services.impl.*ServiceImpl.*(..))"/>
+		<aop:pointcut id="all-converter-methods" 
+			expression="execution(* es.getronics.converter.*Converter.*(..))"/>
+        <aop:advisor advice-ref="local-tx-advice" pointcut-ref="all-service-methods"/>
+        <aop:advisor advice-ref="local-tx-advice" pointcut-ref="all-converter-methods"/>
+    </aop:config>
+	
+    <tx:advice id="local-tx-advice" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="find*" propagation="REQUIRED" isolation="READ_COMMITTED" read-only="true"/>
+            <tx:method name="convert*" propagation="REQUIRED" isolation="READ_COMMITTED" read-only="true"/>
+       		<tx:method name="*" propagation="REQUIRED" />        		       		
+        </tx:attributes>
+    </tx:advice>
+    
+    <bean id="mapperFactory" class="es.getronics.mapper.MapperFactory">
+		<property name="converters">
+			<list>
+				<bean id="empleadoConverter" class="es.getronics.converter.EmpleadoConverter"></bean>
+			</list>
+		</property>
+	</bean>
+	<!-- Jackson model mapper -->
+	<bean class="org.modelmapper.ModelMapper" id="modelMapper" factory-bean="mapperFactory" factory-method="create">		
+	</bean>
+</beans>
