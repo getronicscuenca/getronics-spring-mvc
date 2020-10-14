@@ -9,13 +9,20 @@ CREATE TABLE `empleado` (
   `APELLIDO_2` varchar(250) NOT NULL
 );
 
---
--- Índices para tablas volcadas
---
+CREATE TABLE `departamento` (
+  `ID` int(11) NOT NULL,
+  `NOMBRE_DEPARTAMENTO` varchar(250) NOT NULL,
+  `DESCRIPCION` varchar(250),
+  `FECHA` DATE DEFAULT SYSDATE
+);
 
---
--- Indices de la tabla `empleado`
---
+
 ALTER TABLE `empleado`
   ADD PRIMARY KEY (`ID`);
 COMMIT;
+
+
+ALTER TABLE `departamento`
+  ADD PRIMARY KEY (`ID`);
+COMMIT;
+

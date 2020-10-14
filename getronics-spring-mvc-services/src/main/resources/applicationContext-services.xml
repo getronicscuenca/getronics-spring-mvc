@@ -73,7 +73,9 @@
     <bean id="mapperFactory" class="es.getronics.mapper.MapperFactory">
 		<property name="converters">
 			<list>
-				<bean id="empleadoConverter" class="es.getronics.converter.EmpleadoConverter"></bean>
+				<bean id="departamentoConverter" class="es.getronics.converter.DepartamentoConverter"></bean>
+				<!-- <bean id="empleadoConverter" class="es.getronics.converter.EmpleadoConverter"></bean>-->
+				
 			</list>
 		</property>
 	</bean>
