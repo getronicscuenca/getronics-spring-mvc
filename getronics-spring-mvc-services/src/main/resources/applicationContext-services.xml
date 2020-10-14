@@ -25,7 +25,7 @@
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.h2.Driver" />
 		<property name="url"
-			value="jdbc:h2:./test -script test.sql" />
+			value="jdbc:h2:C:/Users/alatorre/test -script test.sql" />
 		<property name="username" value="sa" />
 		<property name="password" value="" />
 	</bean> 
@@ -74,6 +74,7 @@
 		<property name="converters">
 			<list>
 				<bean id="empleadoConverter" class="es.getronics.converter.EmpleadoConverter"></bean>
+				<bean id="departamentoConverter" class="es.getronics.converter.DepartamentoConverter"></bean>
 			</list>
 		</property>
 	</bean>
