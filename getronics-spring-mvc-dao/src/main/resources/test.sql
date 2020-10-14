@@ -17,7 +17,7 @@ CREATE TABLE `departamento` (
   `ID` int(11) NOT NULL,
   `NOMBRE` varchar(250) NOT NULL,
   `DESCRIPCION` varchar(250) NOT NULL,
-  `ALTA` varchar(250)
+  `ALTA` DATE
   
 );
 
