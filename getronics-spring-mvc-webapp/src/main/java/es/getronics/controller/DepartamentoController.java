@@ -60,6 +60,7 @@ public class DepartamentoController {
 		if (departamento.getId() != null) {
 			departamentoService.update(departamento);
 		} else {
+			departamento.fechaAlta();
 			departamentoService.insert(departamento);
 		}
 		return "redirect:/departamento";

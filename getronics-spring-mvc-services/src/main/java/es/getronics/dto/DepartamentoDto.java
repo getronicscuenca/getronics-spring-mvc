@@ -1,5 +1,8 @@
 package es.getronics.dto;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 public class DepartamentoDto {
 
 	private Long id;
@@ -43,4 +46,10 @@ public class DepartamentoDto {
 		this.nombre = nombre;
 	}
 
+	public void fechaAlta()
+	{
+		java.util.Date date= new java.util.Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		this.alta=dateFormat.format(date);
+	}
 }
