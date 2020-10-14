@@ -10,9 +10,16 @@ CREATE TABLE `empleado` (
 );
 
 --
--- Índices para tablas volcadas
+-- dices para tablas volcadas
 --
+CREATE TABLE `departamentos` (
+	`ID_DEPT` int(11) NOT NULL,
+	`NOMBRE_DEPT` varchar(250),
+	`FECHA` date
+);
 
+ALTER TABLE 'departamentos' 
+ADD PRIMARY KEY (`ID_DEPT`);
 --
 -- Indices de la tabla `empleado`
 --

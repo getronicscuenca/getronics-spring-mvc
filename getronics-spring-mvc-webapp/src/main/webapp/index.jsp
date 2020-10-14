@@ -6,6 +6,12 @@
 <body>
 <h2>Bienvenido al Curso Java getronics</h2>
 
+<b>Mostrar empleados</b>
+<br/>
 <a href="${ url }">Mostrar empleados</a>
+<br/>
+<b>Mostrar departamentos</b>
+<a href="departamento">Mostrar departamentos</a>
+<br/>
 </body>
 </html>

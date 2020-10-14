@@ -17,6 +17,9 @@
         http://www.springframework.org/schema/mvc 
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
+<context:component-scan base-package="es.getroanics.controller"></context:component-scan>
+
+		
 	<mvc:annotation-driven />
    	<mvc:interceptors>
    		<bean id="localeChangeInterceptor" class="es.getronics.controller.interceptors.LocaleChangeInterceptorGetronics" />
