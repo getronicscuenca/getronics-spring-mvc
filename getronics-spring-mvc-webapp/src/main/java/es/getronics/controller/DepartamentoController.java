@@ -1,5 +1,7 @@
 package es.getronics.controller;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ public class DepartamentoController {
 	private final String DEPARTAMENTO_VIEW = "departamento/departamento";
 	private final String DEPARTAMENTO_DETALLE = "departamento/detalle";
 	private final String ERROR_VIEW = "departamento/error";
+	private final String DEPARTAMENTO_ALTA = "departamento/alta";
 
 	@Autowired
 	DepartamentoService departamentoService;
@@ -47,7 +50,7 @@ public class DepartamentoController {
 		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
 
 	}
-	
+
 	@RequestMapping(value = "ver/{id}", method = RequestMethod.GET)
 	public ModelAndView showDepartamento(@PathVariable Long id, Model model) {
 		model.addAttribute("departamento", departamentoService.findById(id));
@@ -57,10 +60,13 @@ public class DepartamentoController {
 
 	@RequestMapping(value = "new", method = RequestMethod.POST)
 	public String insertarDepartmento(@ModelAttribute DepartamentoDto departamento, Model model) {
+		Date fecha = new Date();
+
 		if (departamento.getId() != null) {
 			departamentoService.update(departamento);
 		} else {
-			departamento.fechaAlta();
+//			departamento.fechaAlta();
+			departamento.setAlta(fecha);
 			departamentoService.insert(departamento);
 		}
 		return "redirect:/departamento";
@@ -68,15 +74,20 @@ public class DepartamentoController {
 
 	@RequestMapping("delete/{id}")
 	public String eliminarDepartamento(@PathVariable long id, Model model) {
-		
+
 		departamentoService.remove(id);
 		return "redirect:/departamento";
 
 	}
-	
-	@ExceptionHandler
-	public ModelAndView handleException(Exception ex)
+	@RequestMapping(value="alta/{id}",  method = RequestMethod.GET)
+	public ModelAndView editarFecha(@PathVariable long id, Model model)
 	{
+		model.addAttribute("departamento", departamentoService.findById(id));
+		return new ModelAndView(DEPARTAMENTO_ALTA, model.asMap());
+	}
+
+	@ExceptionHandler
+	public ModelAndView handleException(Exception ex) {
 		return new ModelAndView(ERROR_VIEW);
 	}
 }

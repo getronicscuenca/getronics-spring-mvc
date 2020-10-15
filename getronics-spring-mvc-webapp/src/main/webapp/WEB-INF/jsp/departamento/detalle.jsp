@@ -3,7 +3,15 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <h1>${ departamento.nombre }</h1>
 
-<p>fecha de creacion: ${ departamento.alta }</p><br>
+<spring:url value="alta/${ departamento.id }" var="url2"></spring:url>
+<p>fecha de creacion: ${ departamento.alta }
+	<form:form action="${ url2 }" >
+		<button type="submit">editar fecha</button>
+	</form:form>
+</p>
+
+
+
 <p>${ departamento.desc }</p>
 
 <spring:url value="/departamento" var="url"></spring:url>

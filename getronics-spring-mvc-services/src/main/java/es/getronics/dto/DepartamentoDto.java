@@ -1,24 +1,24 @@
 package es.getronics.dto;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class DepartamentoDto {
 
 	private Long id;
 	private String nombre;
 	private String desc;
-	private String alta;
+	private Date alta;
 
 	
 	
 	
 	
-	public String getAlta() {
+	public Date getAlta() {
 		return alta;
 	}
 
-	public void setAlta(String fecha) {
+	public void setAlta(Date fecha) {
 		this.alta = fecha;
 	}
 
@@ -46,10 +46,10 @@ public class DepartamentoDto {
 		this.nombre = nombre;
 	}
 
-	public void fechaAlta()
-	{
-		java.util.Date date= new java.util.Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		this.alta=dateFormat.format(date);
-	}
+//	public void fechaAlta()
+//	{
+//		java.util.Date date= new java.util.Date();
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//		this.alta=dateFormat.format(date);
+//	}
 }

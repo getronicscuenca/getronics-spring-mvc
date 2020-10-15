@@ -1,6 +1,8 @@
 package es.getronics.bom;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -18,15 +20,15 @@ public class Departamento implements Serializable {
 	@Column(name = "DESC")
 	private String desc;
 	@Column (name ="ALTA")
-	private String alta;
+	private Date alta;
 	
 	
 	
 	
-	public String getAlta() {
+	public Date getAlta() {
 		return alta;
 	}
-	public void setAlta(String alta) {
+	public void setAlta(Date alta) {
 		this.alta = alta;
 	}
 	public String getDesc() {
