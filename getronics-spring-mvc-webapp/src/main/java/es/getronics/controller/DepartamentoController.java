@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.dto.DepartamentoDto;
@@ -87,18 +88,26 @@ public class DepartamentoController {
 		model.addAttribute("departamento", departamentoService.findById(id));
 		return new ModelAndView(DEPARTAMENTO_ALTA, model.asMap());
 	}
+	
 
 	@ExceptionHandler
 	public ModelAndView handleException(Exception ex) {
 		return new ModelAndView(ERROR_VIEW);
 	}
-	@InitBinder("departamento")
-	public void initBinder(@PathVariable("dia") int dia,
-				@PathVariable("mes") int mes,
-				@PathVariable("ano") int ano, 
+	@RequestMapping(value="chAlta/{id}",method = RequestMethod.POST)
+	public String guardarFecha(@PathVariable long id, Model model)
+	{
+		return "redirect:/departamento";
+	}
+	@InitBinder("chAlta/{id}")
+	public void initBinder(@RequestParam("dia")String dia,
+			@RequestParam("mes") String mes,
+			@RequestParam("ano") String ano, 
 				WebDataBinder binder)
 	{
-		Date fecha =new Date(ano,mes,dia);
+		System.out.println(dia+"/"+mes+"/"+ano+"\n\n\n\n\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		Date fecha =new Date();
 		
 	}
 }
+

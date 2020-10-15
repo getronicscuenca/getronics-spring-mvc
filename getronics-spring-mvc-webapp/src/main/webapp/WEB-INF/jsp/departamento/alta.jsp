@@ -3,7 +3,7 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 
-<spring:url value="/departamento/chAlta" var="url"></spring:url>
+<spring:url value="/departamento/chAlta/${departamento.id}" var="url"></spring:url>
 <form:form  action="${ url }" modelAttribute="departamento">
 	
 	

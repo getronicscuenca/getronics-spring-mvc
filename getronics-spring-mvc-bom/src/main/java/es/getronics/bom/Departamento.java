@@ -21,31 +21,7 @@ public class Departamento implements Serializable {
 	private String desc;
 	@Column(name = "ALTA")
 	private Date alta;
-//	private int dia, mes, ano;
-//
-//	public int getDia() {
-//		return dia;
-//	}
-//
-//	public void setDia(int dia) {
-//		this.dia = dia;
-//	}
-//
-//	public int getMes() {
-//		return mes;
-//	}
-//
-//	public void setMes(int mes) {
-//		this.mes = mes;
-//	}
-//
-//	public int getAno() {
-//		return ano;
-//	}
-//
-//	public void setAno(int ano) {
-//		this.ano = ano;
-//	}
+
 
 	public Date getAlta() {
 		return alta;
