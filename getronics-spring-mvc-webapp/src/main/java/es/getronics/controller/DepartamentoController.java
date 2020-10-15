@@ -93,8 +93,12 @@ public class DepartamentoController {
 		return new ModelAndView(ERROR_VIEW);
 	}
 	@InitBinder("departamento")
-	public void initBinder(@PathVariable("dia") int dia,@PathVariable("mes") int mes,@PathVariable("ano") int ano, WebDataBinder binder)
+	public void initBinder(@PathVariable("dia") int dia,
+				@PathVariable("mes") int mes,
+				@PathVariable("ano") int ano, 
+				WebDataBinder binder)
 	{
+		Date fecha =new Date(ano,mes,dia);
 		
 	}
 }
