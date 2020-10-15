@@ -1,12 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>aqui estamos</title>
-</head>
-<body>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
-</body>
-</html>
+
+<spring:url value="/departamento/chAlta" var="url"></spring:url>
+<form:form  action="${ url }" modelAttribute="departamento">
+	
+	
+	dia:<form:input path="dia"/><br>
+	mes:<form:input path="mes"/><br>
+	año:<form:input path="ano"/><br>
+	<form:button value="submit">Guardar</form:button>
+</form:form>

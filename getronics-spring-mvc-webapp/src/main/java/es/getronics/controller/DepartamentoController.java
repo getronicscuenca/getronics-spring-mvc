@@ -7,7 +7,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,7 +81,7 @@ public class DepartamentoController {
 		return "redirect:/departamento";
 
 	}
-	@RequestMapping(value="alta/{id}",  method = RequestMethod.GET)
+	@RequestMapping(value="alta/{id}",  method = RequestMethod.POST)
 	public ModelAndView editarFecha(@PathVariable long id, Model model)
 	{
 		model.addAttribute("departamento", departamentoService.findById(id));
@@ -89,5 +91,10 @@ public class DepartamentoController {
 	@ExceptionHandler
 	public ModelAndView handleException(Exception ex) {
 		return new ModelAndView(ERROR_VIEW);
+	}
+	@InitBinder("departamento")
+	public void initBinder(@PathVariable("dia") int dia,@PathVariable("mes") int mes,@PathVariable("ano") int ano, WebDataBinder binder)
+	{
+		
 	}
 }
