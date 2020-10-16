@@ -105,8 +105,12 @@ public class DepartamentoController {
 			@RequestParam(value="ano", required=false) String ano, 
 				WebDataBinder binder)
 	{
-//		System.out.println(dia+"/"+mes+"/"+ano+"\n\n\n\n\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		binder.registerCustomEditor(Date.class, new DateMaker());
+		dia=(dia==null)?"0":dia;
+		mes=(mes==null)?"0":mes;
+		ano=(ano==null)?"0":ano;
+		
+		System.out.println(dia+"/"+mes+"/"+ano+"\n\n\n\n\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		binder.registerCustomEditor(Date.class, new DateMaker(dia,mes,ano));
 		
 	}
 }
