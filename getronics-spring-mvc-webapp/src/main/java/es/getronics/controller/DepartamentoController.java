@@ -99,14 +99,14 @@ public class DepartamentoController {
 	{
 		return "redirect:/departamento";
 	}
-	@InitBinder("chAlta/{id}")
-	public void initBinder(@RequestParam("dia")String dia,
-			@RequestParam("mes") String mes,
-			@RequestParam("ano") String ano, 
+	@InitBinder
+	public void initBinder(@RequestParam(value = "dia", required = false) String dia,
+			@RequestParam(value= "mes", required= false) String mes,
+			@RequestParam(value="ano", required=false) String ano, 
 				WebDataBinder binder)
 	{
-		System.out.println(dia+"/"+mes+"/"+ano+"\n\n\n\n\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		Date fecha =new Date();
+//		System.out.println(dia+"/"+mes+"/"+ano+"\n\n\n\n\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		binder.registerCustomEditor(Date.class, new DateMaker());
 		
 	}
 }
