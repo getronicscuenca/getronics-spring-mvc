@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import es.getronics.bom.Departamento;
+import es.getronics.bom.CustomDepartamentoEditor;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.services.DepartamentoService;
 
@@ -99,19 +101,27 @@ public class DepartamentoController {
 	{
 		return "redirect:/departamento";
 	}
+//	@InitBinder
+//	public void initBinder(@RequestParam(value = "dia", required = false) String dia,
+//			@RequestParam(value= "mes", required= false) String mes,
+//			@RequestParam(value="ano", required=false) String ano, 
+//				WebDataBinder binder)
+//	{
+//		dia=(dia==null)?"0":dia;
+//		mes=(mes==null)?"0":mes;
+//		ano=(ano==null)?"0":ano;
+//		
+//		System.out.println(dia+"/"+mes+"/"+ano+"\n\n\n\n\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+//		binder.registerCustomEditor(Date.class, new DepartamentoEditor(dia,mes,ano));
+//		
+//	}
 	@InitBinder
-	public void initBinder(@RequestParam(value = "dia", required = false) String dia,
-			@RequestParam(value= "mes", required= false) String mes,
-			@RequestParam(value="ano", required=false) String ano, 
-				WebDataBinder binder)
+	public void initBinder(@PathVariable long id, WebDataBinder binder)
 	{
-		dia=(dia==null)?"0":dia;
-		mes=(mes==null)?"0":mes;
-		ano=(ano==null)?"0":ano;
 		
-		System.out.println(dia+"/"+mes+"/"+ano+"\n\n\n\n\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		binder.registerCustomEditor(Date.class, new DateMaker(dia,mes,ano));
+		binder.registerCustomEditor(Departamento.class,new CustomDepartamentoEditor());
 		
 	}
+	
 }
 
