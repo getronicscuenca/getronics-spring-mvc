@@ -1,12 +1,18 @@
 package es.getronics.controller;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -18,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.bom.Departamento;
-import es.getronics.bom.CustomDepartamentoEditor;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.services.DepartamentoService;
 
@@ -64,9 +69,13 @@ public class DepartamentoController {
 	}
 
 	@RequestMapping(value = "new", method = RequestMethod.POST)
-	public String insertarDepartmento(@ModelAttribute DepartamentoDto departamento, Model model) {
+	public String insertarDepartmento(@Valid @ModelAttribute DepartamentoDto departamento,Errors err, Model model) {
 		Date fecha = new Date();
-
+		if(err.hasErrors())
+		{
+			return "redirect:/departamento";
+		}
+		
 		if (departamento.getId() != null) {
 			departamentoService.update(departamento);
 		} else {
@@ -97,31 +106,27 @@ public class DepartamentoController {
 		return new ModelAndView(ERROR_VIEW);
 	}
 	@RequestMapping(value="chAlta/{id}",method = RequestMethod.POST)
-	public String guardarFecha(@PathVariable long id, Model model)
+	public String guardarFecha(@PathVariable long id, @ModelAttribute DepartamentoDto departamento,
+			@RequestParam Date date)
 	{
+
+	
+		departamento=departamentoService.findById(id);
+		departamento.setAlta(date);
+		departamentoService.update(departamento);
+		
 		return "redirect:/departamento";
 	}
-//	@InitBinder
-//	public void initBinder(@RequestParam(value = "dia", required = false) String dia,
-//			@RequestParam(value= "mes", required= false) String mes,
-//			@RequestParam(value="ano", required=false) String ano, 
-//				WebDataBinder binder)
-//	{
-//		dia=(dia==null)?"0":dia;
-//		mes=(mes==null)?"0":mes;
-//		ano=(ano==null)?"0":ano;
-//		
-//		System.out.println(dia+"/"+mes+"/"+ano+"\n\n\n\n\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-//		binder.registerCustomEditor(Date.class, new DepartamentoEditor(dia,mes,ano));
-//		
-//	}
 	@InitBinder
-	public void initBinder(@PathVariable long id, WebDataBinder binder)
+	public void initBinder(WebDataBinder binder)
 	{
-		
-		binder.registerCustomEditor(Departamento.class,new CustomDepartamentoEditor());
+		SimpleDateFormat dateFormat =new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class,new CustomDateEditor(dateFormat, false));
 		
 	}
+	
+
 	
 }
 

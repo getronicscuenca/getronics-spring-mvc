@@ -22,7 +22,8 @@
 			</tr>
 		</c:forEach>
 	</tbody>
-	
+	<form:errors path="nombre"/>
+	<form:errors path="desc"/>
 	<spring:url value="/departamento" var="url"></spring:url>
 	<form:form action="${ url }" >
 		<button type="submit"><spring:message code="departamento.options.add"></spring:message></button>

@@ -2,44 +2,18 @@ package es.getronics.dto;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 
 public class DepartamentoDto {
 
 	private Long id;
+	@NotBlank(message="nombre cant be empty")
 	private String nombre;
+	@NotBlank(message="descripcion cant be empty")
 	private String desc;
 	private Date alta;
-	private int dia,mes,ano;
-	
-	
 
-	
-	
-	
-	
-	public int getDia() {
-		return dia;
-	}
-
-	public void setDia(int dia) {
-		this.dia = dia;
-	}
-
-	public int getMes() {
-		return mes;
-	}
-
-	public void setMes(int mes) {
-		this.mes = mes;
-	}
-
-	public int getAno() {
-		return ano;
-	}
-
-	public void setAno(int ano) {
-		this.ano = ano;
-	}
 
 	public Date getAlta() {
 		return alta;
@@ -73,10 +47,4 @@ public class DepartamentoDto {
 		this.nombre = nombre;
 	}
 
-//	public void fechaAlta()
-//	{
-//		java.util.Date date= new java.util.Date();
-//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//		this.alta=dateFormat.format(date);
-//	}
 }
