@@ -66,7 +66,8 @@ public class DepartamentoController {
 
 	@RequestMapping(value = "new", method = RequestMethod.POST)
 	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento, BindingResult bindingResult,
-			Model model) {
+			Model model) 
+	{
 		Date fecha = new Date();
 		if (bindingResult.hasErrors()) {
 			return "/departamento/departamento";
