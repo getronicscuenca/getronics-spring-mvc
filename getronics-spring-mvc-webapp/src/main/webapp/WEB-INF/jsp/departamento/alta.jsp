@@ -4,6 +4,9 @@
 
 
 <spring:url value="/departamento/chAlta/${departamento.id}" var="url"></spring:url>
+
+<form:errors path="*"/>
+
 <form:form action="${ url }" modelAttribute="departamento">
 
 	<h1>editar fecha de alta de: ${departamento.nombre}</h1>

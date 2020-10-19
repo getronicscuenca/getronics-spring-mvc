@@ -4,7 +4,22 @@
 
 <spring:url value="/departamento/new" var="url"></spring:url>
 <spring:message code="departamento.new.title" var="insertTitle"/>
-<srping:message code="departamento.update.title" var="updateTitle"/> 
+<spring:message code="departamento.update.title" var="updateTitle"/> 
+
+
+<style>
+      .error {
+         color: #ff0000;
+      }
+
+      .errorblock {
+         color: #000;
+         background-color: #ffEEEE;
+         border: 3px solid #ff0000;
+         padding: 8px;
+         margin: 16px;
+      }
+   </style>
 
 <c:choose>
 	<c:when test="${departamento.id == null}">
@@ -15,11 +30,19 @@
 	</c:otherwise>
 </c:choose>
 
+<form:errors path="*" cssClass="errorblock" element="div" />
+
 <form:form modelAttribute="departamento" action="${ url }">
-	
 	<h1>${ title }</h1>
+	
+	<form:errors path="*" cssClass="errorblock" element="div" />
+	
 	<form:hidden path="id"/>
-	<spring:message code="departamento.nombre"></spring:message><form:input path="nombre"/><br>
-	<spring:message code="departamento.desc"></spring:message><form:input path="desc"/><br>
+	<spring:message code="departamento.nombre"></spring:message>
+	<form:errors path="nombre" cssClass="error" />
+	<form:input path="nombre"/><br>
+	<spring:message code="departamento.desc"></spring:message>
+	<form:errors path="desc" cssClass="error" />
+	<form:input path="desc"/><br>
 	<form:button value="submit">Guardar</form:button>
 </form:form>
