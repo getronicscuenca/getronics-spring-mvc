@@ -1,9 +1,7 @@
-package es.getronics.controller;
+package es.getronics.validators;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-
-import es.getronics.dto.Nombre;
 
 public class NombreValidator implements ConstraintValidator<Nombre,String>{
 

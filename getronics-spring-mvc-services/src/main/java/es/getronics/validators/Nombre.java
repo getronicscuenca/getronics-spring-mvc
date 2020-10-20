@@ -1,11 +1,10 @@
-package es.getronics.dto;
-
-
+package es.getronics.validators;
+import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 
-import es.getronics.controller.NombreValidator;
+
 
 @Constraint(validatedBy = NombreValidator.class)
 public @interface Nombre {
