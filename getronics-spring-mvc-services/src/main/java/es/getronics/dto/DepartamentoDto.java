@@ -3,7 +3,7 @@ package es.getronics.dto;
 import java.util.Date;
 
 import org.hibernate.validator.constraints.NotBlank;
-import validator.Nombre
+
 
 
 
