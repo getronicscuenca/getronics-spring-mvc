@@ -11,6 +11,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,6 +37,9 @@ public class DepartamentoController {
 
 	@Autowired
 	DepartamentoService departamentoService;
+	
+	@Autowired
+	private Validator departamentoValidator;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listarDepartamentos(Model model) {
@@ -69,8 +73,7 @@ public class DepartamentoController {
 	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento, BindingResult bindingResult,
 			Model model) 
 	{
-		new DepartamentoValidator().validate(departamento, bindingResult);
-		
+        //new DepartamentoValidator().validate(departamento, bindingResult);
 		
 		Date fecha = new Date();
 		if (bindingResult.hasErrors()) {
@@ -115,6 +118,8 @@ public class DepartamentoController {
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setLenient(false);
+		//binder.setValidator(departamentoValidator);
+		//binder.setValidator(new DepartamentoValidator());
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
 
