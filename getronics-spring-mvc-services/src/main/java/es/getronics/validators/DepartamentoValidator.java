@@ -10,8 +10,8 @@ public class DepartamentoValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		// TODO Auto-generated method stub
-		return false;
+	
+		return DepartamentoDto.class.equals(clazz);
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class DepartamentoValidator implements Validator {
 		boolean espacioBlanco=departamento.getNombre().contains(" ");
 		boolean demasiadoGrande= (departamento.getNombre().length()>15);
 		boolean demasiadoPeke= (departamento.getNombre().length()<2);
-		boolean sinNumeros= departamento.getNombre().toLowerCase().matches("[a-z]*");
+		boolean sinNumeros= departamento.getNombre().toLowerCase().matches("(([a-z]*)(\s)*)*");
 		
 		if(espacioBlanco)
 			er.rejectValue("nombre","espaciosBlancos");
