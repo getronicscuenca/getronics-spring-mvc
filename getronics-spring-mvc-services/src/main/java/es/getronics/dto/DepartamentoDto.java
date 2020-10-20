@@ -3,14 +3,16 @@ package es.getronics.dto;
 import java.util.Date;
 
 import org.hibernate.validator.constraints.NotBlank;
+import validator.Nombre
+
 
 
 public class DepartamentoDto {
 
 	private Long id;
-	@NotBlank(message="nombre cant be empty")
+	@Nombre
 	private String nombre;
-	@NotBlank(message="descripcion cant be empty")
+	@NotBlank(message="La descripcion no puede estar vacia")
 	private String desc;
 	private Date alta;
 
