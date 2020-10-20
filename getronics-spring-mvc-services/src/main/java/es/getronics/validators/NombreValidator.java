@@ -3,10 +3,12 @@ package es.getronics.validators;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import org.hibernate.CacheMode;
+
 public class NombreValidator implements ConstraintValidator<Nombre,String>{
 
 	
-	@Override
+	
 	public void initialize(Nombre constraintAnnotation) {
 		// TODO Auto-generated method stub
 		
@@ -22,14 +24,16 @@ public class NombreValidator implements ConstraintValidator<Nombre,String>{
 		boolean demasiadoPeke= (value.length()<2);
 		boolean sinNumeros= value.toLowerCase().matches("[a-z]*");
 		
-		if( espacioBlanco || demasiadoGrande || demasiadoPeke || !sinNumeros)
-		{
-			return false;
-		}else
-			
-			return true;
-	}
+		return false;
+		
+//		if( espacioBlanco || demasiadoGrande || demasiadoPeke || !sinNumeros)
+//		{
+//			return false;
+//		}else
+//			
+//			return true;
+//		}
 
 	
-
+	}
 }

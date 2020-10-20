@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import es.getronics.validators.Nombre;
+
 
 
 
@@ -12,7 +12,6 @@ import es.getronics.validators.Nombre;
 public class DepartamentoDto {
 
 	private Long id;
-	@Nombre(message="El nombre es Ilegal")
 	private String nombre;
 	@NotBlank(message="La descripcion no puede estar vacia")
 	private String desc;

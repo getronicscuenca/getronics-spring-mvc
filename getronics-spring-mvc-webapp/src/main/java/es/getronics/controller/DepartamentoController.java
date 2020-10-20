@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.services.DepartamentoService;
+import es.getronics.validators.DepartamentoValidator;
 
 @RequestMapping("departamento")
 @Controller
@@ -68,6 +69,9 @@ public class DepartamentoController {
 	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento, BindingResult bindingResult,
 			Model model) 
 	{
+		new DepartamentoValidator().validate(departamento, bindingResult);
+		
+		
 		Date fecha = new Date();
 		if (bindingResult.hasErrors()) {
 			return "/departamento/departamento";
