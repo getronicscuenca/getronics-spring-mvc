@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.dto.EmpleadoDto;
+import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
 
 /**
@@ -33,7 +34,9 @@ public class EmpleadoController {
 	private final String ERROR_VIEW = "empleado/error";
 
 	@Autowired
-	EmpleadoService empleadoService;
+	private EmpleadoService empleadoService;
+	@Autowired
+	private DepartamentoService departamentoService;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView listarEmpleados(Model model) {
@@ -44,13 +47,18 @@ public class EmpleadoController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ModelAndView showNewPage(Model model) {
+		EmpleadoDto empleado = new EmpleadoDto();
 		model.addAttribute("empleado", new EmpleadoDto());
+		model.addAttribute("departamentos", departamentoService.findAll());
 		return new ModelAndView(EMPLEADO_VIEW, model.asMap());
 	}
 	
 	@RequestMapping(value="update/{id}", method=RequestMethod.GET)
 	public ModelAndView showUpdateEmpleado(@PathVariable Long id, Model model) {
-		model.addAttribute("empleado", empleadoService.findById(id));
+		EmpleadoDto empleado = empleadoService.findById(id);
+		model.addAttribute("empleado", empleado);
+		model.addAttribute("departamentos", departamentoService.findAll());
+		
 		return new ModelAndView(EMPLEADO_VIEW, model.asMap());
 	}
 	

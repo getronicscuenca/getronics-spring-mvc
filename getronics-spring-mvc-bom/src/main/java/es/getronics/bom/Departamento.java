@@ -3,6 +3,7 @@ package es.getronics.bom;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -21,6 +22,9 @@ public class Departamento implements Serializable {
 	private String desc;
 	@Column(name = "ALTA")
 	private Date alta;
+	
+	@OneToMany(mappedBy = "departamento")
+	private Set<Empleado> empleados;
 
 
 	public Date getAlta() {

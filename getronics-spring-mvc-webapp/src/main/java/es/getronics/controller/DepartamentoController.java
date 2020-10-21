@@ -35,9 +35,9 @@ public class DepartamentoController {
 	private final String DEPARTAMENTO_ALTA = "departamento/alta";
 
 	@Autowired
-	DepartamentoService departamentoService;
+	private DepartamentoService departamentoService;
 	@Autowired
-	DepartamentoValidator departamentoValidator;
+	private DepartamentoValidator departamentoValidator;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listarDepartamentos(Model model) {
@@ -70,10 +70,7 @@ public class DepartamentoController {
 	@RequestMapping(value = "new", method = RequestMethod.POST)
 	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento ,BindingResult bindingResult, Model model
 			) 
-	{
-		departamentoValidator.validate(departamento, bindingResult);
-		
-		
+	{	
 		Date fecha = new Date();
 		if (bindingResult.hasErrors()) {
 			return "/departamento/departamento";
@@ -115,6 +112,7 @@ public class DepartamentoController {
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
+		binder.setValidator(departamentoValidator);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));

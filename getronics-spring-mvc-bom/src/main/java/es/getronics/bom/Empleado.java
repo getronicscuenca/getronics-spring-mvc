@@ -21,6 +21,9 @@ public class Empleado implements Serializable {
 	private String apellido1;
 	@Column(name = "APELLIDO_2")
 	private String apellido2;
+	
+	@ManyToOne
+	private Departamento departamento;
 	/**
 	 * @return the id
 	 */
@@ -68,6 +71,14 @@ public class Empleado implements Serializable {
 	 */
 	public void setApellido2(String apellido2) {
 		this.apellido2 = apellido2;
+	}
+	
+	
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
