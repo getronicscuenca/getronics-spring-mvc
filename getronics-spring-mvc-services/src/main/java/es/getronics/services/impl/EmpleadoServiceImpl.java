@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.getronics.bom.Empleado;
+import es.getronics.converter.Converter;
+import es.getronics.converter.EmpleadoConverter;
+import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
 import es.getronics.dto.EmpleadoDto;
 import es.getronics.services.EmpleadoService;
@@ -29,7 +32,10 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 	EmpleadoDao empleadoDao;
 	
 	@Autowired
-	private ModelMapper modelMapper;
+	private DepartamentoDao departamentoDao;
+	
+	@Autowired
+	private Converter<Empleado, EmpleadoDto> empleadoConverter;
 		
 	public EmpleadoServiceImpl() {
 		super();
@@ -38,7 +44,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 	@Override
 	public EmpleadoDto findById(Long id) {
 		Empleado entity = empleadoDao.findById(id);
-		return modelMapper.map(entity, EmpleadoDto.class);
+		return empleadoConverter.convert(entity);
 	}
 
 	@Override
@@ -46,7 +52,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 		List<EmpleadoDto> result = new ArrayList<>();
 		List<Empleado> found = empleadoDao.findAll();
 		for(Empleado empleado: found) {
-			result.add(modelMapper.map(empleado, EmpleadoDto.class));
+			result.add(empleadoConverter.convert(empleado));
 		}
 		return result;
 	}
@@ -58,7 +64,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
 	@Override
 	public void update(EmpleadoDto dto) {
-		Empleado entity = modelMapper.map(dto, Empleado.class);
+		Empleado entity = empleadoConverter.map(dto);
 		empleadoDao.update(entity);
 	}
 
@@ -69,8 +75,10 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
 	@Override
 	public EmpleadoDto insert(EmpleadoDto dto) {
-		Empleado entity = modelMapper.map(dto, Empleado.class);
-		dto = modelMapper.map(empleadoDao.insert(entity), EmpleadoDto.class);
+		Empleado entity = empleadoConverter.map(dto);
+		entity.setDepartamento(departamentoDao.findById(dto.getIdDepartamento()));
+		dto = empleadoConverter.convert(empleadoDao.insert(entity));
+		
 		return dto;
 	}
 	

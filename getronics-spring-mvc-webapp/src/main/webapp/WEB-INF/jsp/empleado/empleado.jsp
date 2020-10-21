@@ -21,6 +21,8 @@
 	<spring:message code="empleado.nombre"></spring:message>: <form:input path="nombre" /><br/>
 	<spring:message code="empleado.apellido1"></spring:message><form:input path="apellido1"/><br/>
 	<spring:message code="empleado.apellido2"></spring:message><form:input path="apellido2"/><br/>
+	<spring:message code="empleado.departamento"></spring:message>
+	<form:radiobuttons path="idDepartamento" items="${departamentos}" itemLabel="nombre" itemValue="id" /><br/>
 	
 	<form:button value="submit">Enviar</form:button>
 </form:form>
