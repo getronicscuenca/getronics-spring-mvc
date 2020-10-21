@@ -66,8 +66,8 @@ public class DepartamentoController {
 	}
 
 	@RequestMapping(value = "new", method = RequestMethod.POST)
-	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento, BindingResult bindingResult,
-			Model model) 
+	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento ,BindingResult bindingResult, Model model
+			) 
 	{
 		new DepartamentoValidator().validate(departamento, bindingResult);
 		
