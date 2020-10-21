@@ -81,4 +81,6 @@
 	<!-- Jackson model mapper -->
 	<bean class="org.modelmapper.ModelMapper" id="modelMapper" factory-bean="mapperFactory" factory-method="create">		
 	</bean>
+	<!-- <bean id="departamentoValidator" class="es.getronics.validators.DepartamentoValidator"> </bean>-->
+	
 </beans>

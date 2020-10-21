@@ -1,13 +1,16 @@
 package es.getronics.validators;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import es.getronics.dto.DepartamentoDto;
-
+@Component
 public class DepartamentoValidator implements Validator {
 
+	
+	
 	@Override
 	public boolean supports(Class<?> clazz) {
 	
