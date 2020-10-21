@@ -2,6 +2,7 @@ package es.getronics.bom;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,14 +21,23 @@ public class Departamento implements Serializable{
 	private Long id;
 	@Column(name="NOMBRE_DEPT")
 	private String nombre;
+	@Column(name="DESCRIPCION")
+	private String descripcion;
 	@Column(name="FECHA")
-	private LocalDate fecha;
+	private Date fecha;
 	
 	
-	public LocalDate getFecha() {
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+	public Date getFecha() {
 		return fecha;
 	}
-	public void setFecha(LocalDate fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 	public Long getId() {

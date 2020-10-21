@@ -1,20 +1,33 @@
 package es.getronics.dto;
 
-import java.time.LocalDate;
+import java.util.Date;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 
 public class DepartamentoDto {
 	private Long id;
+	@NotEmpty(message="El nombre es requerido (validado con anotaciones)")
 	private String nombre;
-	private LocalDate fecha;
+	private String descripcion;
+	private Date fecha;
 	
 	
 	
 
-	public LocalDate getFecha() {
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(LocalDate fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 
