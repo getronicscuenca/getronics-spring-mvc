@@ -37,6 +37,8 @@ public class DepartamentoController {
 	@Autowired
 	DepartamentoService departamentoService;
 	
+	@Autowired
+	ValidadorDepart validadorDepart;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -79,7 +81,7 @@ public class DepartamentoController {
 	
 	@RequestMapping(value="new", method=RequestMethod.POST)
     public String insertarDepartamento( @ModelAttribute("departamento") @Valid DepartamentoDto departamento, BindingResult bindingResult, Model model) {
-		new ValidadorDepart().validate(departamento, bindingResult);
+		validadorDepart.validate(departamento, bindingResult);
         if(bindingResult.hasErrors()) {
             return DEPARTAMENTO_VIEW;
         }
