@@ -36,6 +36,7 @@ public class DepartamentoController {
 
 	@Autowired
 	DepartamentoService departamentoService;
+	DepartamentoValidator departamentoValidator;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listarDepartamentos(Model model) {
@@ -69,7 +70,7 @@ public class DepartamentoController {
 	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento ,BindingResult bindingResult, Model model
 			) 
 	{
-		new DepartamentoValidator().validate(departamento, bindingResult);
+		departamentoValidator.validate(departamento, bindingResult);
 		
 		
 		Date fecha = new Date();
