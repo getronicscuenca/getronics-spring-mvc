@@ -36,6 +36,7 @@ public class DepartamentoController {
 
 	@Autowired
 	DepartamentoService departamentoService;
+	@Autowired
 	DepartamentoValidator departamentoValidator;
 
 	@RequestMapping(method = RequestMethod.GET)

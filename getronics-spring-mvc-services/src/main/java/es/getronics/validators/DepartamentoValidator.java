@@ -8,6 +8,8 @@ import es.getronics.dto.DepartamentoDto;
 
 public class DepartamentoValidator implements Validator {
 
+	
+	
 	@Override
 	public boolean supports(Class<?> clazz) {
 	
