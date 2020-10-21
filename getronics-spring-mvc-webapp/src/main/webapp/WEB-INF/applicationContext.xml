@@ -18,23 +18,25 @@
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
 	<mvc:annotation-driven />
-   	<mvc:interceptors>
-   		<bean id="localeChangeInterceptor" class="es.getronics.controller.interceptors.LocaleChangeInterceptorGetronics" />
-   	</mvc:interceptors>
+	<mvc:interceptors>
+		<bean id="localeChangeInterceptor"
+			class="es.getronics.controller.interceptors.LocaleChangeInterceptorGetronics" />
+	</mvc:interceptors>
 	<!-- MESSAGES -->
-	
+
 	<bean
 		class="org.springframework.context.support.ResourceBundleMessageSource"
 		id="messageSource">
 		<property name="basename" value="messages" />
 	</bean>
-	
-	
-	
-	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver" >
+
+
+
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<property name="defaultLocale" value="en_EN" />
 	</bean>
-	
+
 	<!-- Mapea a nombres logicos de vista to recursos fisicos -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -43,7 +45,7 @@
 	</bean>
 
 	<bean id="validator"
-      class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 
-	
+
 </beans>

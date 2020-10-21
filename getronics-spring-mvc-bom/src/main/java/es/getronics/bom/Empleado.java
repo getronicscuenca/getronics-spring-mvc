@@ -3,7 +3,7 @@ package es.getronics.bom;
 import java.io.Serializable;
 
 import javax.persistence.*;
-
+//esto es un ajodida prueba de git
 @Entity
 @Table(name = "EMPLEADO")
 public class Empleado implements Serializable {
