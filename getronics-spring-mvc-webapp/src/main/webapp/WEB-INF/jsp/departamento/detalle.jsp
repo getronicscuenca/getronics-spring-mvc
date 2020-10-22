@@ -2,6 +2,9 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+
+
 <h1>${ departamento.nombre }</h1>
 
 <spring:url value="/departamento/alta/${ departamento.id }" var="url2"></spring:url>
@@ -10,6 +13,14 @@
 		<button type="submit">editar fecha</button>
 	</form:form>
 </p>
+
+<c:forEach items="${ departamento.empleados }" var="emple">
+			<tr>
+				<td>${ emple.id }</td>
+				<td>${ emple.nombre }</td>
+				
+			</tr>
+		</c:forEach>
 
 
 

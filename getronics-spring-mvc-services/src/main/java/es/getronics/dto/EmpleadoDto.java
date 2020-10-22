@@ -1,5 +1,8 @@
 package es.getronics.dto;
 
+import java.util.List;
+
+
 /**
  * Objeto de transferenca empleado
  * 
@@ -14,6 +17,7 @@ public class EmpleadoDto {
 	private String apellido2;
 	private Long idDepartamento;
 	private String departamento;
+	private List<EmpleadoDto> empleados;
 	
 	/**
 	 * @return the id
@@ -75,5 +79,12 @@ public class EmpleadoDto {
 	public void setDepartamento(String departamento) {
 		this.departamento = departamento;
 	}
+	public List<EmpleadoDto> getEmpleados() {
+		return empleados;
+	}
+	public void setEmpleados(List<EmpleadoDto> empleados) {
+		this.empleados = empleados;
+	}
+	
 	
 }

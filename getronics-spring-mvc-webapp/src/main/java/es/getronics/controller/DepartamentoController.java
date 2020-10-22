@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.dto.DepartamentoDto;
+import es.getronics.dto.EmpleadoDto;
 import es.getronics.services.DepartamentoService;
+import es.getronics.services.EmpleadoService;
 import es.getronics.validators.DepartamentoValidator;
 
 @RequestMapping("departamento")
@@ -36,6 +38,8 @@ public class DepartamentoController {
 
 	@Autowired
 	private DepartamentoService departamentoService;
+	@Autowired
+	private EmpleadoService empleadoService;
 	@Autowired
 	private DepartamentoValidator departamentoValidator;
 
@@ -62,7 +66,10 @@ public class DepartamentoController {
 
 	@RequestMapping(value = "ver/{id}", method = RequestMethod.GET)
 	public ModelAndView showDepartamento(@PathVariable Long id, Model model) {
-		model.addAttribute("departamento", departamentoService.findById(id));
+		DepartamentoDto dpt=departamentoService.findById(id);
+		dpt.setEmpleados(empleadoService.findAll(id));
+		model.addAttribute("departamento", dpt);
+//		model.addAttribute("departamento", departamentoService.findById(id));
 		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
 
 	}

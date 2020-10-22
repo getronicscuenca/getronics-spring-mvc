@@ -56,6 +56,20 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 		}
 		return result;
 	}
+	@Override
+	public List<EmpleadoDto>findAll(long id)
+	{
+		List<EmpleadoDto> result = new ArrayList<>();
+		List<Empleado> todos =empleadoDao.findAll();
+		for(Empleado empleado: todos)
+		{
+			if(empleado.getId()==id)
+			{
+				result.add(empleadoConverter.convert(empleado));
+			}
+		}
+		return result;
+	}
 
 	@Override
 	public List<EmpleadoDto> findAllOrderBy(String[] orderBy, boolean asc) {

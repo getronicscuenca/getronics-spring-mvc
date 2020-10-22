@@ -1,6 +1,7 @@
 package es.getronics.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -16,7 +17,19 @@ public class DepartamentoDto {
 	@NotBlank(message="La descripcion no puede estar vacia")
 	private String desc;
 	private Date alta;
+	private List<EmpleadoDto> empleados;
 
+
+	
+	
+	
+	public List<EmpleadoDto> getEmpleados() {
+		return empleados;
+	}
+
+	public void setEmpleados(List<EmpleadoDto> empleados) {
+		this.empleados = empleados;
+	}
 
 	public Date getAlta() {
 		return alta;
