@@ -24,6 +24,8 @@ public class Empleado implements Serializable {
 	
 	@ManyToOne
 	private Departamento departamento;
+	@OneToOne
+	private Departamento jefeDepartamento;
 	/**
 	 * @return the id
 	 */

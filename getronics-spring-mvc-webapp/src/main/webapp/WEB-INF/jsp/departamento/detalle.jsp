@@ -6,12 +6,15 @@
 
 
 <h1>${ departamento.nombre }</h1>
-
+<spring:url value="/departamento" var="url"></spring:url>
 <spring:url value="/departamento/alta/${ departamento.id }" var="url2"></spring:url>
 <p>fecha de creacion: ${ departamento.alta }
 	<form:form action="${ url2 }" >
 		<button type="submit">editar fecha</button>
 	</form:form>
+</p>
+<p>
+	Jefe: ${ departameto.jefe.nombre }
 </p>
 <table>
 	<thead>
@@ -22,6 +25,7 @@
 	<c:forEach items="${ departamento.empleados }" var="emple">
 		<tr>
 			<td>${ emple.nombre }</td>
+			<td> <a href="/departamento/ascenso/${ departamento.id }/${ emple.id }">ascender</a></td>
 					
 		</tr>
 	</c:forEach>
@@ -33,5 +37,5 @@
 
 <p>${ departamento.desc }</p>
 
-<spring:url value="/departamento" var="url"></spring:url>
+
 <a href="${ url }">Volver a departamentos</a>

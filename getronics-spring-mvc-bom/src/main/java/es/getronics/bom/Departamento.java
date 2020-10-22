@@ -25,6 +25,8 @@ public class Departamento implements Serializable {
 	
 	@OneToMany(mappedBy = "departamento")
 	private Set<Empleado> empleados;
+	@OneToOne(mappedBy ="jefeDepartamento")
+	private Empleado jefe;
 
 
 	public Date getAlta() {
