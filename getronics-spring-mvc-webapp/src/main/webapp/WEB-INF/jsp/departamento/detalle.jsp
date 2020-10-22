@@ -17,7 +17,7 @@
 	<thead>
 		<th>empleados:</th>
 	</thead>	
-</table>
+
 <tbody>
 	<c:forEach items="${ departamento.empleados }" var="emple">
 		<tr>
@@ -27,6 +27,7 @@
 	</c:forEach>
 
 </tbody>
+</table>
 
 
 
