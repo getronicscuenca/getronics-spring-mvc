@@ -1,7 +1,5 @@
 package es.getronics.dto;
 
-import java.util.List;
-
 /**
  * Objeto de transferenca empleado
  * 
