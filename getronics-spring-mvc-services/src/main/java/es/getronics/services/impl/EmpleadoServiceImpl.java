@@ -63,7 +63,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 		List<Empleado> todos =empleadoDao.findAll();
 		for(Empleado empleado: todos)
 		{
-			if(empleado.getId()==id)
+			if(empleado.getDepartamento().getId()==id)
 			{
 				result.add(empleadoConverter.convert(empleado));
 			}

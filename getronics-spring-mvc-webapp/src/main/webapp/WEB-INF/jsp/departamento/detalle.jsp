@@ -13,14 +13,20 @@
 		<button type="submit">editar fecha</button>
 	</form:form>
 </p>
+<table>
+	<thead>
+		<th>empleados:</th>
+	</thead>	
+</table>
+<tbody>
+	<c:forEach items="${ departamento.empleados }" var="emple">
+		<tr>
+			<td>${ emple.nombre }</td>
+					
+		</tr>
+	</c:forEach>
 
-<c:forEach items="${ departamento.empleados }" var="emple">
-			<tr>
-				<td>${ emple.id }</td>
-				<td>${ emple.nombre }</td>
-				
-			</tr>
-		</c:forEach>
+</tbody>
 
 
 
