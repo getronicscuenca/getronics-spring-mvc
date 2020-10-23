@@ -105,7 +105,7 @@ public class DepartamentoController {
 		model.addAttribute("departamento", departamentoService.findById(id));
 		return new ModelAndView(DEPARTAMENTO_ALTA, model.asMap());
 	}
-	@RequestMapping(value = "ascenso/{did}/{eid}", method = RequestMethod.POST)
+	@RequestMapping(value = "ascenso/{did}/{eid}")
 	public String ascender(@PathVariable long eid,@PathVariable long did, Model model) {
 		DepartamentoDto dpt=departamentoService.findById(did);
 		EmpleadoDto emp=empleadoService.findById(eid);

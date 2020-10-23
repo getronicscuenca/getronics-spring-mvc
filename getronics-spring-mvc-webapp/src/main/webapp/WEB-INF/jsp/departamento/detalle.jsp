@@ -14,7 +14,7 @@
 	</form:form>
 </p>
 <p>
-	Jefe: ${ departameto.jefe.nombre }
+	Jefe: ${ departamento.jefe.nombre }
 </p>
 <table>
 	<thead>
@@ -25,7 +25,7 @@
 	<c:forEach items="${ departamento.empleados }" var="emple">
 		<tr>
 			<td>${ emple.nombre }</td>
-			<td> <a href="/departamento/ascenso/${ departamento.id }/${ emple.id }">ascender</a></td>
+			<td> <a href="/getronics-spring-mvc-webapp/departamento/ascenso/${ departamento.id }/${ emple.id }">ascender</a></td>
 					
 		</tr>
 	</c:forEach>

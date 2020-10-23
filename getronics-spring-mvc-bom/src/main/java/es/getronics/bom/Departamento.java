@@ -18,14 +18,16 @@ public class Departamento implements Serializable {
 	private long id;
 	@Column(name = "NOMBRE")
 	private String nombre;
-	@Column(name = "DESC")
-	private String desc;
+	@Column(name = "DESCRIPCION")
+	private String descripcion;
 	@Column(name = "ALTA")
 	private Date alta;
 	
 	@OneToMany(mappedBy = "departamento")
 	private Set<Empleado> empleados;
+	
 	@OneToOne(mappedBy ="jefeDepartamento")
+	@JoinColumn(name="empleado_id")
 	private Empleado jefe;
 
 
@@ -38,11 +40,11 @@ public class Departamento implements Serializable {
 	}
 
 	public String getDesc() {
-		return desc;
+		return descripcion;
 	}
 
 	public void setDesc(String desc) {
-		this.desc = desc;
+		this.descripcion = desc;
 	}
 
 	public long getId() {
