@@ -25,6 +25,7 @@ public class Empleado implements Serializable {
 	@ManyToOne
 	private Departamento departamento;
 	@OneToOne
+	@JoinColumn(name="departamento_dni")
 	private Departamento jefeDepartamento;
 	/**
 	 * @return the id
