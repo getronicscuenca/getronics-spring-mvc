@@ -19,7 +19,15 @@ public class DepartamentoDto {
 	private Date alta;
 	private List<EmpleadoDto> empleados;
 	private EmpleadoDto jefe;
+	private String encargado;
 	
+	
+	public String getEncargado() {
+		return encargado;
+	}
+	public void setEncargado(String encargado) {
+		this.encargado = encargado;
+	}
 	public Long getId() {
 		return id;
 	}

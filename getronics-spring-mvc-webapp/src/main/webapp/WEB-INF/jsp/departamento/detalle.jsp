@@ -14,11 +14,9 @@
 	</form:form>
 </p>
 <p>
-	Jefe: ${ departamento.jefe.toString()}
+	Jefe: ${ departamento.encargado}
 </p>
-<p>
-	Prueba: ${ departamento.nombre}
-</p>
+
 <table>
 	<thead>
 		<th>empleados:</th>

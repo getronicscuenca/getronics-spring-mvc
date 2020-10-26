@@ -106,15 +106,15 @@ public class DepartamentoController {
 	}
 
 	@RequestMapping(value = "ascenso/{did}/{eid}")
-	public ModelAndView ascender(@PathVariable long eid, @PathVariable long did, Model model) {
+	public String ascender(@PathVariable long eid, @PathVariable long did, Model model) {
 
-//		departamentoService.link(did, eid);
-//		return "redirect:/departamento/ver/"+did;
-		DepartamentoDto dto =departamentoService.link(did, eid);
-		dto.setEmpleados(empleadoService.findAll(did));
-		dto.setJefe(empleadoService.findById(eid));
-		model.addAttribute("departamento", dto);
-		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
+		departamentoService.link(did, eid);
+		return "redirect:/departamento/ver/"+did;
+//		DepartamentoDto dto =departamentoService.link(did, eid);
+//		dto.setEmpleados(empleadoService.findAll(did));
+//		dto.setJefe(empleadoService.findById(eid));
+//		model.addAttribute("departamento", dto);
+//		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
 		
 	}
 

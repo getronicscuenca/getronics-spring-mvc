@@ -23,6 +23,7 @@ public class Empleado implements Serializable {
 	private String apellido2;
 	
 	@ManyToOne
+	@JoinColumn(name="DEPARTAMENTO_ID")
 	private Departamento departamento;
 	@OneToOne
 	private Departamento jefeDepartamento;

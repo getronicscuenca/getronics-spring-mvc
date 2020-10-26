@@ -14,6 +14,7 @@ public class DepartamentoConverter implements Converter<Departamento, Departamen
 		result.setId(source.getId());
 		result.setNombre(source.getNombre());
 		result.setAlta(source.getAlta());
+		result.setEncargado(source.getJefe().getNombre());
 		return result;
 	}
 
