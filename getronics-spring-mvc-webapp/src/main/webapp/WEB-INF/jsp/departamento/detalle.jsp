@@ -14,7 +14,7 @@
 	</form:form>
 </p>
 <p>
-	Jefe: ${ departamento.encargado}
+	Jefe: ${ departamento.jefe.getNombre()}
 </p>
 
 <table>
