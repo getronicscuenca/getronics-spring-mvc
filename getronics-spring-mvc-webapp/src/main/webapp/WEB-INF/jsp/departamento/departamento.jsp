@@ -44,5 +44,8 @@
 	<spring:message code="departamento.desc"></spring:message>
 	<form:errors path="desc" cssClass="error" /><br>
 	<form:input path="desc"/><br>
+	<form:select path="idEmpleado">
+	<form:options items="${empleados}" itemLabel="nombre" itemValue="id" />
+	</form:select><br>
 	<form:button value="submit">Guardar</form:button>
 </form:form>

@@ -5,10 +5,6 @@ import java.util.Date;
 import org.hibernate.validator.constraints.NotBlank;
 
 
-
-
-
-
 public class DepartamentoDto {
 
 	private Long id;

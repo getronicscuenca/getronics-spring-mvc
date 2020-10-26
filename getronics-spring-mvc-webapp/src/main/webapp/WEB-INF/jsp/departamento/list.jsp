@@ -14,6 +14,7 @@
 			<tr>
 				<td>${ departamento.id }</td>
 				<td>${ departamento.nombre }</td>
+				<td>${departamento.nombreEmpleado }</td>
 				<td>
 					<a href="<spring:url value="/departamento/delete/${ departamento.id }"></spring:url>">eliminar</a>
 					<a href="<spring:url value="/departamento/update/${ departamento.id }"></spring:url>">actualizar</a>
