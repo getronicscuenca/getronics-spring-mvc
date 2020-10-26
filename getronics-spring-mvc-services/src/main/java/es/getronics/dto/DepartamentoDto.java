@@ -16,7 +16,25 @@ public class DepartamentoDto {
 	@NotBlank(message="La descripcion no puede estar vacia")
 	private String desc;
 	private Date alta;
+	private Long idEmpleado;
+	private String nombreEmpleado;
 
+
+	public Long getIdEmpleado() {
+		return idEmpleado;
+	}
+
+	public void setIdEmpleado(Long idEmpleado) {
+		this.idEmpleado = idEmpleado;
+	}
+
+	public String getNombreEmpleado() {
+		return nombreEmpleado;
+	}
+
+	public void setNombreEmpleado(String nombreEmpleado) {
+		this.nombreEmpleado = nombreEmpleado;
+	}
 
 	public Date getAlta() {
 		return alta;

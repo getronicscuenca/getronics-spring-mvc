@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.dto.DepartamentoDto;
+import es.getronics.dto.EmpleadoDto;
 import es.getronics.services.DepartamentoService;
+import es.getronics.services.EmpleadoService;
 import es.getronics.validators.DepartamentoValidator;
 
 @RequestMapping("departamento")
@@ -38,6 +40,10 @@ public class DepartamentoController {
 	private DepartamentoService departamentoService;
 	@Autowired
 	private DepartamentoValidator departamentoValidator;
+	@Autowired
+	private EmpleadoDto empleado;
+	@Autowired
+	private EmpleadoService empleadoService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listarDepartamentos(Model model) {
@@ -50,12 +56,14 @@ public class DepartamentoController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView showNewPage(Model model) {
 		model.addAttribute("departamento", new DepartamentoDto());
+		model.addAttribute("empleados", empleadoService.findAll());
 		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
 	}
 
 	@RequestMapping(value = "update/{id}", method = RequestMethod.GET)
 	public ModelAndView showUpdateDepartamento(@PathVariable Long id, Model model) {
 		model.addAttribute("departamento", departamentoService.findById(id));
+		model.addAttribute("empleados", empleadoService.findAll());
 		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
 
 	}
@@ -77,9 +85,13 @@ public class DepartamentoController {
 		}
 
 		if (departamento.getId() != null) {
+			empleado=empleadoService.findById(departamento.getIdEmpleado());
+            departamento.setNombreEmpleado(empleado.getNombre());
 			departamentoService.update(departamento);
 		} else {
 			departamento.setAlta(fecha);
+			empleado=empleadoService.findById(departamento.getIdEmpleado());
+            departamento.setNombreEmpleado(empleado.getNombre());
 			departamentoService.insert(departamento);
 		}
 		return "redirect:/departamento";

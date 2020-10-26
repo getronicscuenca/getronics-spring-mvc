@@ -1,11 +1,14 @@
 package es.getronics.dto;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Objeto de transferenca empleado
  * 
  * @author jgarcia
  *
  */
+@Component
 public class EmpleadoDto {
 
 	private Long id;

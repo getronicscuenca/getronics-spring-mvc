@@ -15,13 +15,16 @@ public class Departamento implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	@Column(name = "NOMBRE")
 	private String nombre;
 	@Column(name = "DESC")
 	private String desc;
 	@Column(name = "ALTA")
 	private Date alta;
+	@JoinColumn(name="empleado_id")
+	private Long idEmpleado;
+	private String nombreEmpleado;
 	
 	@OneToMany(mappedBy = "departamento")
 	private Set<Empleado> empleados;
@@ -43,12 +46,28 @@ public class Departamento implements Serializable {
 		this.desc = desc;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getIdEmpleado() {
+		return idEmpleado;
+	}
+
+	public void setIdEmpleado(Long idEmpleado) {
+		this.idEmpleado = idEmpleado;
+	}
+
+	public String getNombreEmpleado() {
+		return nombreEmpleado;
+	}
+
+	public void setNombreEmpleado(String nombreEmpleado) {
+		this.nombreEmpleado = nombreEmpleado;
 	}
 
 	public String getNombre() {
