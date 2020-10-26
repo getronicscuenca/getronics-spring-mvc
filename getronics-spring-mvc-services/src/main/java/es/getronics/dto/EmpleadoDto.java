@@ -85,6 +85,9 @@ public class EmpleadoDto {
 	public void setEmpleados(List<EmpleadoDto> empleados) {
 		this.empleados = empleados;
 	}
-	
+	@Override
+	public String toString() {
+		return this.nombre+" "+this.apellido1+" "+this.apellido2;
+	}
 	
 }

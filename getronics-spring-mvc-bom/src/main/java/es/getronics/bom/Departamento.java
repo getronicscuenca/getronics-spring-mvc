@@ -30,6 +30,16 @@ public class Departamento implements Serializable {
 	@JoinColumn(name="empleado_id")
 	private Empleado jefe;
 
+	
+	
+
+	public Empleado getJefe() {
+		return jefe;
+	}
+
+	public void setJefe(Empleado jefe) {
+		this.jefe = jefe;
+	}
 
 	public Date getAlta() {
 		return alta;

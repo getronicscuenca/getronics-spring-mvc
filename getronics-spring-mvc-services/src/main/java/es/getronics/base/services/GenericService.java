@@ -70,6 +70,7 @@ public interface GenericService<T1, T2, ID extends Serializable> {
      * 
      * @param id de la entidad a borrar. 
      */
+
     void remove(ID id);
     /**
      * Obtiene todas las entidades almacenadas en la base de datos para el ejemplo suministrado.

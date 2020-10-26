@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.hibernate.cfg.NotYetImplementedException;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.getronics.bom.Departamento;
+import es.getronics.bom.Empleado;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
 import es.getronics.dto.DepartamentoDto;
@@ -21,6 +23,8 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 	
 	@Autowired
 	DepartamentoDao departamentoDao;
+	@Autowired
+	EmpleadoDao empleadoDao;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -36,6 +40,7 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 		return modelMapper.map(entity, DepartamentoDto.class);
 		
 	}
+	
 
 	@Override
 	public List<DepartamentoDto> findAll() {
@@ -57,7 +62,6 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 	public void update(DepartamentoDto dto) {
 		Departamento entity = modelMapper.map(dto, Departamento.class);
 		departamentoDao.update(entity);
-		
 	}
 
 	@Override
@@ -71,6 +75,17 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 		Departamento entity = modelMapper.map(dto, Departamento.class);
 		dto= modelMapper.map(departamentoDao.insert(entity), DepartamentoDto.class);
 		return dto;
+	}
+	public DepartamentoDto link(Long did,Long eid)
+	{
+		 
+		
+		Departamento departamentoEntity= departamentoDao.findById(did);
+		Empleado empleadoEntity =empleadoDao.findById(eid);
+		departamentoEntity.setJefe(empleadoEntity);
+		departamentoDao.update(departamentoEntity);
+		return modelMapper.map(empleadoEntity,DepartamentoDto.class);
+		
 	}
 
 	@Override

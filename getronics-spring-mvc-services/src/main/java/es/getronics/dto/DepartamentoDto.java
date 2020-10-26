@@ -20,8 +20,6 @@ public class DepartamentoDto {
 	private List<EmpleadoDto> empleados;
 	private EmpleadoDto jefe;
 	
-	
-	
 	public Long getId() {
 		return id;
 	}

@@ -66,7 +66,7 @@ public class DepartamentoController {
 
 	@RequestMapping(value = "ver/{id}", method = RequestMethod.GET)
 	public ModelAndView showDepartamento(@PathVariable Long id, Model model) {
-		DepartamentoDto dpt=departamentoService.findById(id);
+		DepartamentoDto dpt = departamentoService.findById(id);
 		dpt.setEmpleados(empleadoService.findAll(id));
 		model.addAttribute("departamento", dpt);
 //		model.addAttribute("departamento", departamentoService.findById(id));
@@ -75,9 +75,8 @@ public class DepartamentoController {
 	}
 
 	@RequestMapping(value = "new", method = RequestMethod.POST)
-	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento ,BindingResult bindingResult, Model model
-			) 
-	{	
+	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento,
+			BindingResult bindingResult, Model model) {
 		Date fecha = new Date();
 		if (bindingResult.hasErrors()) {
 			return "/departamento/departamento";
@@ -105,16 +104,18 @@ public class DepartamentoController {
 		model.addAttribute("departamento", departamentoService.findById(id));
 		return new ModelAndView(DEPARTAMENTO_ALTA, model.asMap());
 	}
+
 	@RequestMapping(value = "ascenso/{did}/{eid}")
-	public String ascender(@PathVariable long eid,@PathVariable long did, Model model) {
-		DepartamentoDto dpt=departamentoService.findById(did);
-		EmpleadoDto emp=empleadoService.findById(eid);
+	public ModelAndView ascender(@PathVariable long eid, @PathVariable long did, Model model) {
+
+//		departamentoService.link(did, eid);
+//		return "redirect:/departamento/ver/"+did;
+		DepartamentoDto dto =departamentoService.link(did, eid);
+		dto.setEmpleados(empleadoService.findAll(did));
+		dto.setJefe(empleadoService.findById(eid));
+		model.addAttribute("departamento", dto);
+		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
 		
-		dpt.setJefe(emp);
-		
-		departamentoService.update(dpt);
-		
-		return "redirect:/departamento/ver/"+did;
 	}
 
 	@RequestMapping(value = "chAlta/{id}", method = RequestMethod.POST)
