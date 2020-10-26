@@ -22,6 +22,10 @@ public class Empleado implements Serializable {
 	@Column(name = "APELLIDO_2")
 	private String apellido2;
 	
+	@OneToOne(mappedBy="empleadoJefe")
+	private Departamento dept;
+	
+	
 	@ManyToOne
 	private Departamento departamento;
 	/**

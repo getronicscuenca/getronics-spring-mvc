@@ -7,6 +7,7 @@
 	<thead>
 		<th>Id</th>
 		<th> <spring:message code="departamento.nombre"></spring:message></th>
+		<th> <spring:message code="departamento.empleado"></spring:message></th>
 		<th> <spring:message code="departamento.options"></spring:message></th>
 	</thead>
 	<tbody>
@@ -14,7 +15,7 @@
 			<tr>
 				<td>${ departamento.id }</td>
 				<td>${ departamento.nombre }</td>
-				<td>${departamento.nombreEmpleado }</td>
+				 <td>${departamento.nombreEmpleado }</td>
 				<td>
 					<a href="<spring:url value="/departamento/delete/${ departamento.id }"></spring:url>">eliminar</a>
 					<a href="<spring:url value="/departamento/update/${ departamento.id }"></spring:url>">actualizar</a>
