@@ -1,9 +1,11 @@
 package es.getronics.converter;
 
+import org.springframework.stereotype.Component;
+
 import es.getronics.bom.Tecnologia;
 import es.getronics.dto.TecnologiaDto;
 
-
+@Component
 public class TecnologiaConverter implements Converter<Tecnologia, TecnologiaDto>{
 
 	@Override
