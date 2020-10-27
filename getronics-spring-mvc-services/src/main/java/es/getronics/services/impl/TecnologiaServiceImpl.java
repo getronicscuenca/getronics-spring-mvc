@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.cfg.NotYetImplementedException;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,8 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 	private TecnologiaDao tecnologiaDao;
 	@Autowired
 	private Converter<Tecnologia,TecnologiaDto> tecnologiaConverter;
+	@Autowired
+	private ModelMapper modelMapper;
 	
 	public TecnologiaServiceImpl() {
 		super();
@@ -30,8 +33,9 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 	@Override
 	public TecnologiaDto findById(Long id) {
 		Tecnologia entity = tecnologiaDao.findById(id);
-		return tecnologiaConverter.convert(entity);
+		return modelMapper.map(entity, TecnologiaDto.class);
 	}
+		
 
 	@Override
 	public List<TecnologiaDto> findAll() {
@@ -39,7 +43,7 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 		List<Tecnologia> found =tecnologiaDao.findAll();
 		for(Tecnologia tecnologia: found)
 		{
-			result.add(tecnologiaConverter.convert(tecnologia));
+			result.add(modelMapper.map(tecnologia, TecnologiaDto.class));
 		}
 		return result;
 	}
@@ -51,7 +55,7 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 
 	@Override
 	public void update(TecnologiaDto dto) {
-		Tecnologia entity = tecnologiaConverter.map(dto);
+		Tecnologia entity = modelMapper.map(dto, Tecnologia.class);
 		tecnologiaDao.update(entity);
 		
 	}
@@ -64,7 +68,7 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 
 	@Override
 	public TecnologiaDto insert(TecnologiaDto dto) {
-		Tecnologia entity = tecnologiaConverter.map(dto);
+		Tecnologia entity =  modelMapper.map(dto, Tecnologia.class);
 		tecnologiaDao.insert(entity);
 		return dto;
 		

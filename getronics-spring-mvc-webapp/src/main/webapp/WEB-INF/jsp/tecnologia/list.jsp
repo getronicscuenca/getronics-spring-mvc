@@ -19,4 +19,8 @@
 			</tr>
 		</c:forEach>
 	</tbody>
+	<spring:url value="/tecnologia" var="url"></spring:url>
+	<form:form action="${ url }" >
+		<button type="submit">Nueva Tecnologia</button>
+	</form:form>
 </table>

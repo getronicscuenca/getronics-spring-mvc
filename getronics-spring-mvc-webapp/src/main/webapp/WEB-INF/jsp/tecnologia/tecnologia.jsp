@@ -11,7 +11,7 @@
 		<c:set  value="Actualizar tecnologia existente" var="title" />
 	</c:otherwise>
 </c:choose>
-<form:form modelAttribute="tecnologia" action="${ url }"
+<form:form modelAttribute="tecnologia" action="${ url }">
 <h1>${ title }</h1>
 	<form:hidden path="id"/>
 	Nombre: <form:input path="nombre" /><br/>
