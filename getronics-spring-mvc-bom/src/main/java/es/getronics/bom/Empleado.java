@@ -3,6 +3,9 @@ package es.getronics.bom;
 import java.io.Serializable;
 
 import javax.persistence.*;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 //esto es un ajodida prueba de git
 @Entity
 @Table(name = "EMPLEADO")
@@ -15,10 +18,13 @@ public class Empleado implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	@Length(min=1,max=18)@NotBlank
 	@Column(name = "NOMBRE")
 	private String nombre;
+	@Length(min=1)@NotBlank
 	@Column(name = "APELLIDO_1")
 	private String apellido1;
+	@Length(min=1)@NotBlank
 	@Column(name = "APELLIDO_2")
 	private String apellido2;
 	

@@ -35,8 +35,6 @@
 <form:form modelAttribute="departamento" action="${ url }">
 	<h1>${ title }</h1>
 	
-	<form:errors path="*" cssClass="errorblock" element="div" />
-	
 	<form:hidden path="id"/>
 	<spring:message code="departamento.nombre"></spring:message>
 	<form:errors path="nombre" cssClass="error" /><br>
@@ -46,6 +44,8 @@
 	<form:input path="desc"/><br><br>
 	<form:select path="idEmpleado">
 	<form:options items="${empleados}" itemLabel="nombre" itemValue="id" />
-	</form:select><br><br>
+	</form:select>
+	<form:errors path="idEmpleado" cssClass="error" />
+	<br><br>
 	<form:button value="submit">Guardar</form:button>
 </form:form>

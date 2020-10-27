@@ -1,15 +1,13 @@
 package es.getronics.dto;
 
 import java.util.Date;
+import org.springframework.stereotype.Component;
 
-import org.hibernate.validator.constraints.NotBlank;
-
-
+@Component
 public class DepartamentoDto {
 
 	private Long id;
 	private String nombre;
-	@NotBlank(message="La descripcion no puede estar vacia")
 	private String desc;
 	private Date alta;
 	private Long idEmpleado;

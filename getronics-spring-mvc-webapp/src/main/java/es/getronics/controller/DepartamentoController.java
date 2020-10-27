@@ -80,9 +80,9 @@ public class DepartamentoController {
 			) 
 	{	
 		Date fecha = new Date();
-		if (bindingResult.hasErrors()) {
+		/*if (bindingResult.hasErrors()) {
 			return "/departamento/departamento";
-		}
+		}*/
 
 		if (departamento.getId() != null) {
 			empleado=empleadoService.findById(departamento.getIdEmpleado());
@@ -92,6 +92,7 @@ public class DepartamentoController {
 			departamento.setAlta(fecha);
 			empleado=empleadoService.findById(departamento.getIdEmpleado());
             departamento.setNombreEmpleado(empleado.getNombre());
+            System.out.println(departamento.getNombre() + " " + departamento.getDesc() + " " + departamento.getAlta() + " " + departamento.getIdEmpleado() + " " + departamento.getNombreEmpleado());
 			departamentoService.insert(departamento);
 		}
 		return "redirect:/departamento";
@@ -124,7 +125,7 @@ public class DepartamentoController {
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		binder.setValidator(departamentoValidator);
+		//binder.setValidator(departamentoValidator);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));

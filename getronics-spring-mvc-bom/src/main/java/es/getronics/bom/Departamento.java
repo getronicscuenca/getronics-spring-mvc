@@ -7,6 +7,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name = "DEPARTAMENTO")
 public class Departamento implements Serializable {
@@ -16,8 +19,12 @@ public class Departamento implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	//Solo he añadido estas 2 restricciones que el nombre tenga que estar entre (1,25) y que no sea vacio
+	@Length(min=1,max=25) @NotBlank
 	@Column(name = "NOMBRE")
 	private String nombre;
+	//Y aquí que la descripcion tenga un máximo de 100 caracteres y que no sea vacia
+	@Length(max=100) @NotBlank
 	@Column(name = "DESCRIPCION")
 	private String desc;
 	@Column(name = "ALTA")
