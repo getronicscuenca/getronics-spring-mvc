@@ -47,7 +47,6 @@ public class EmpleadoController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ModelAndView showNewPage(Model model) {
-		EmpleadoDto empleado = new EmpleadoDto();
 		model.addAttribute("empleado", new EmpleadoDto());
 		model.addAttribute("departamentos", departamentoService.findAll());
 		return new ModelAndView(EMPLEADO_VIEW, model.asMap());
