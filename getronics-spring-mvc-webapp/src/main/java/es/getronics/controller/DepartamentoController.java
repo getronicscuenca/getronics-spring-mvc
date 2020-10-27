@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
+import es.getronics.exceptions.DepartamentoExistenteException;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
 import es.getronics.validators.DepartamentoValidator;
@@ -36,6 +38,8 @@ public class DepartamentoController {
 	private final String ERROR_VIEW = "departamento/error";
 	private final String DEPARTAMENTO_ALTA = "departamento/alta";
 
+	
+	private boolean existente = false;
 	@Autowired
 	private DepartamentoService departamentoService;
 	@Autowired
@@ -76,24 +80,27 @@ public class DepartamentoController {
 	}
 
 	@RequestMapping(value = "new", method = RequestMethod.POST)
-	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento ,BindingResult bindingResult, Model model
-			) 
-	{	
+	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento,
+			BindingResult bindingResult, Model model) throws DepartamentoExistenteException {
 		Date fecha = new Date();
-		/*if (bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			return "/departamento/departamento";
-		}*/
+		}
 
 		if (departamento.getId() != null) {
-			empleado=empleadoService.findById(departamento.getIdEmpleado());
-            departamento.setNombreEmpleado(empleado.getNombre());
+			empleado = empleadoService.findById(departamento.getIdEmpleado());
+			departamento.setNombreEmpleado(empleado.getNombre());
 			departamentoService.update(departamento);
 		} else {
-			departamento.setAlta(fecha);
-			empleado=empleadoService.findById(departamento.getIdEmpleado());
-            departamento.setNombreEmpleado(empleado.getNombre());
-            System.out.println(departamento.getNombre() + " " + departamento.getDesc() + " " + departamento.getAlta() + " " + departamento.getIdEmpleado() + " " + departamento.getNombreEmpleado());
-			departamentoService.insert(departamento);
+			
+			if (departamento.comprobarDepartamento(departamento, departamentoService, existente) == true) {				
+				departamento.setAlta(fecha);
+				empleado = empleadoService.findById(departamento.getIdEmpleado());
+				departamento.setNombreEmpleado(empleado.getNombre());
+				departamentoService.insert(departamento);
+			} else {
+				throw new DepartamentoExistenteException("Este departamento ya existe");
+			}
 		}
 		return "redirect:/departamento";
 	}
@@ -125,11 +132,17 @@ public class DepartamentoController {
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		//binder.setValidator(departamentoValidator);
+		binder.setValidator(departamentoValidator);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
+
+	@ExceptionHandler
+	public ModelAndView handleException(Exception ex) {
+		return new ModelAndView(ERROR_VIEW);
+	}
+	
 
 	@ModelAttribute("departamento")
 	public DepartamentoDto createDepartamentoDtoModel() {

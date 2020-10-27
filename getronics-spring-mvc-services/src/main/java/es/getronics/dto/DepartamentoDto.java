@@ -1,18 +1,21 @@
 package es.getronics.dto;
 
 import java.util.Date;
-import org.springframework.stereotype.Component;
+import java.util.List;
 
-@Component
+import es.getronics.exceptions.DepartamentoExistenteException;
+import es.getronics.services.DepartamentoService;
+
 public class DepartamentoDto {
 
+	
+	
 	private Long id;
 	private String nombre;
 	private String desc;
 	private Date alta;
 	private Long idEmpleado;
 	private String nombreEmpleado;
-
 
 	public Long getIdEmpleado() {
 		return idEmpleado;
@@ -62,4 +65,15 @@ public class DepartamentoDto {
 		this.nombre = nombre;
 	}
 
+	public boolean comprobarDepartamento(DepartamentoDto departamentoDto, DepartamentoService departamentoService, boolean existente) {
+		List<DepartamentoDto> departamentos = departamentoService.findAll();
+		for (DepartamentoDto depart_list : departamentos) {
+			if (depart_list.getNombre().equals(departamentoDto.getNombre())) {
+				existente=false;
+			}else {
+				existente=true;
+			}
+		}
+		return existente;
+	}
 }
