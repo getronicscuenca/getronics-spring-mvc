@@ -74,7 +74,6 @@ public class DepartamentoController {
 		DepartamentoDto dpt = departamentoService.findById(id);
 		dpt.setEmpleados(empleadoService.findAll(id));
 		model.addAttribute("departamento", dpt);
-//		model.addAttribute("departamento", departamentoService.findById(id));
 		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
 
 	}
@@ -82,6 +81,7 @@ public class DepartamentoController {
 	@RequestMapping(value = "new", method = RequestMethod.POST)
 	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento,
 			BindingResult bindingResult, Model model) {
+		System.out.println(departamento.getTecnologia().toString()+"+++++++++\n\n\n");
 		Date fecha = new Date();
 		if (bindingResult.hasErrors()) {
 			return "/departamento/departamento";

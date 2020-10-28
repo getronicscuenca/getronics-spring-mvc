@@ -1,7 +1,10 @@
 package es.getronics.services.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.cfg.NotYetImplementedException;
 import org.modelmapper.ModelMapper;
@@ -10,8 +13,10 @@ import org.springframework.stereotype.Service;
 
 import es.getronics.bom.Departamento;
 import es.getronics.bom.Empleado;
+import es.getronics.bom.Tecnologia;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
+import es.getronics.dao.TecnologiaDao;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.services.DepartamentoService;
 
@@ -24,6 +29,8 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 	DepartamentoDao departamentoDao;
 	@Autowired
 	EmpleadoDao empleadoDao;
+	@Autowired
+	TecnologiaDao tecnologiaDao;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -60,6 +67,12 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 	@Override
 	public void update(DepartamentoDto dto) {
 		Departamento entity = modelMapper.map(dto, Departamento.class);
+		List<String> list=dto.getTecnologia();
+		Set<Tecnologia> set= new HashSet<Tecnologia>();
+		for (String id : list) {
+			set.add(tecnologiaDao.findById(Long.parseLong(id)));
+		}
+		entity.setTecnologias(set);
 		departamentoDao.update(entity);
 	}
 
@@ -72,6 +85,12 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 	@Override
 	public DepartamentoDto insert(DepartamentoDto dto) {
 		Departamento entity = modelMapper.map(dto, Departamento.class);
+		List<String> list=dto.getTecnologia();
+		Set<Tecnologia> set= new HashSet<Tecnologia>();
+		for (String id : list) {
+			set.add(tecnologiaDao.findById(Long.parseLong(id)));
+		}
+		entity.setTecnologias(set);
 		dto= modelMapper.map(departamentoDao.insert(entity), DepartamentoDto.class);
 		return dto;
 	}
