@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import es.getronics.bom.Departamento;
 import es.getronics.bom.Empleado;
 import es.getronics.bom.Tecnologia;
+import es.getronics.converter.DepartamentoConverter;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
 import es.getronics.dao.TecnologiaDao;
@@ -31,6 +32,8 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 	EmpleadoDao empleadoDao;
 	@Autowired
 	TecnologiaDao tecnologiaDao;
+	
+	DepartamentoConverter departamentoConverter;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -66,13 +69,7 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 
 	@Override
 	public void update(DepartamentoDto dto) {
-		Departamento entity = modelMapper.map(dto, Departamento.class);
-		List<String> list=dto.getTecnologia();
-		Set<Tecnologia> set= new HashSet<Tecnologia>();
-		for (String id : list) {
-			set.add(tecnologiaDao.findById(Long.parseLong(id)));
-		}
-		entity.setTecnologias(set);
+		Departamento entity = departamentoConverter.map(dto);
 		departamentoDao.update(entity);
 	}
 
@@ -84,13 +81,7 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 
 	@Override
 	public DepartamentoDto insert(DepartamentoDto dto) {
-		Departamento entity = modelMapper.map(dto, Departamento.class);
-		List<String> list=dto.getTecnologia();
-		Set<Tecnologia> set= new HashSet<Tecnologia>();
-		for (String id : list) {
-			set.add(tecnologiaDao.findById(Long.parseLong(id)));
-		}
-		entity.setTecnologias(set);
+		Departamento entity = departamentoConverter.map(dto);
 		dto= modelMapper.map(departamentoDao.insert(entity), DepartamentoDto.class);
 		return dto;
 	}
