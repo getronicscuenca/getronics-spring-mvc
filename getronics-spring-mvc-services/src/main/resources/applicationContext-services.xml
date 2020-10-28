@@ -24,8 +24,7 @@
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.h2.Driver" />
-		<property name="url"
-			value="jdbc:h2:C:/Users/ddelamo/test -script test.sql" />
+		<property name="url" value="jdbc:h2:~/data/test" />
 		<property name="username" value="sa" />
 		<property name="password" value="" />
 	</bean> 
