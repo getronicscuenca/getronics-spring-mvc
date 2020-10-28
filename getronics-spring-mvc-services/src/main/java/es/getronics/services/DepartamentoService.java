@@ -6,4 +6,6 @@ import es.getronics.dto.DepartamentoDto;
 
 public interface DepartamentoService extends GenericService<DepartamentoDto, Departamento, Long> {
 
+	boolean findByName(DepartamentoDto example);
+	
 }

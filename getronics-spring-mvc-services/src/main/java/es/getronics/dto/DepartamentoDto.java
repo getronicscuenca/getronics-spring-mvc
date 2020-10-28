@@ -65,15 +65,5 @@ public class DepartamentoDto {
 		this.nombre = nombre;
 	}
 
-	public boolean comprobarDepartamento(DepartamentoDto departamentoDto, DepartamentoService departamentoService, boolean existente) {
-		List<DepartamentoDto> departamentos = departamentoService.findAll();
-		for (DepartamentoDto depart_list : departamentos) {
-			if (depart_list.getNombre().equals(departamentoDto.getNombre())) {
-				existente=false;
-			}else {
-				existente=true;
-			}
-		}
-		return existente;
-	}
+	
 }

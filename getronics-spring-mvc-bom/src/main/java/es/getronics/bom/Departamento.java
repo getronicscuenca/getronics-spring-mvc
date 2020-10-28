@@ -21,13 +21,13 @@ public class Departamento implements Serializable {
 	private Long id;
 	//Solo he añadido estas 2 restricciones que el nombre tenga que estar entre (1,25) y que no sea vacio
 	
-	@Column(name = "NOMBRE")
 	//@Length(min=1,max=25) @NotBlank
+	@Column(name = "NOMBRE")
 	private String nombre;
 	//Y aquí que la descripcion tenga un máximo de 100 caracteres y que no sea vacia
 	
-	@Column(name = "DESCRIPCION")
 	//@Length(max=100) @NotBlank
+	@Column(name = "DESCRIPCION")
 	private String desc;
 	
 	@Column(name = "ALTA")

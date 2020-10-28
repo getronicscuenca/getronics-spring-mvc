@@ -38,8 +38,6 @@ public class DepartamentoController {
 	private final String ERROR_VIEW = "departamento/error";
 	private final String DEPARTAMENTO_ALTA = "departamento/alta";
 
-	
-	private boolean existente = false;
 	@Autowired
 	private DepartamentoService departamentoService;
 	@Autowired
@@ -92,8 +90,8 @@ public class DepartamentoController {
 			departamento.setNombreEmpleado(empleado.getNombre());
 			departamentoService.update(departamento);
 		} else {
-			
-			if (departamento.comprobarDepartamento(departamento, departamentoService, existente) == true) {				
+
+			if (departamentoService.findByName(departamento) == true) {
 				departamento.setAlta(fecha);
 				empleado = empleadoService.findById(departamento.getIdEmpleado());
 				departamento.setNombreEmpleado(empleado.getNombre());
@@ -142,7 +140,6 @@ public class DepartamentoController {
 	public ModelAndView handleException(Exception ex) {
 		return new ModelAndView(ERROR_VIEW);
 	}
-	
 
 	@ModelAttribute("departamento")
 	public DepartamentoDto createDepartamentoDtoModel() {
