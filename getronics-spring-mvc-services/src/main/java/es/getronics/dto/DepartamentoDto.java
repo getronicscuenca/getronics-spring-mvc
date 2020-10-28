@@ -20,8 +20,19 @@ public class DepartamentoDto {
 	private List<EmpleadoDto> empleados;
 	private EmpleadoDto jefe;
 	private String encargado;
+	private long tecnologia;
 	
 	
+	
+	
+	
+	
+	public long getTecnologia() {
+		return tecnologia;
+	}
+	public void setTecnologia(long tecnologia) {
+		this.tecnologia = tecnologia;
+	}
 	public String getEncargado() {
 		return encargado;
 	}

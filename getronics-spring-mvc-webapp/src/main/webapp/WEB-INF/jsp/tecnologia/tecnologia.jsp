@@ -14,8 +14,9 @@
 <form:form modelAttribute="tecnologia" action="${ url }">
 <h1>${ title }</h1>
 	<form:hidden path="id"/>
-	Nombre: <form:input path="nombre" /><br/>
+	Nombre:<form:input path="nombre" /><br/>
 	Descripcion:<form:input path="descripcion"/><br/>
+	
 	
 	
 	<form:button value="submit">Enviar</form:button>

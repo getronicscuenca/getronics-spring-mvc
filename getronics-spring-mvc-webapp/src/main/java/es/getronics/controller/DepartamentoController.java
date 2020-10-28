@@ -24,6 +24,7 @@ import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
+import es.getronics.services.TecnologiaService;
 import es.getronics.validators.DepartamentoValidator;
 
 @RequestMapping("departamento")
@@ -36,6 +37,8 @@ public class DepartamentoController {
 	private final String ERROR_VIEW = "departamento/error";
 	private final String DEPARTAMENTO_ALTA = "departamento/alta";
 
+	@Autowired
+	private TecnologiaService tecnologiaService;
 	@Autowired
 	private DepartamentoService departamentoService;
 	@Autowired
@@ -54,12 +57,14 @@ public class DepartamentoController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView showNewPage(Model model) {
 		model.addAttribute("departamento", new DepartamentoDto());
+		model.addAttribute("tecnologias", tecnologiaService.findAll());
 		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
 	}
 
 	@RequestMapping(value = "update/{id}", method = RequestMethod.GET)
 	public ModelAndView showUpdateDepartamento(@PathVariable Long id, Model model) {
 		model.addAttribute("departamento", departamentoService.findById(id));
+		model.addAttribute("tecnologias", tecnologiaService.findAll());
 		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
 
 	}
