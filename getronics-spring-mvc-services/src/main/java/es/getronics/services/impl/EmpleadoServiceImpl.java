@@ -96,4 +96,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 	public List<EmpleadoDto> findByExample(EmpleadoDto example) {
 		throw new NotYetImplementedException("Método no implementado todavía");
 	}
+
+
+
 }
