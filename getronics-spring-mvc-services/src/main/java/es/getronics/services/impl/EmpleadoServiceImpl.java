@@ -29,7 +29,7 @@ import es.getronics.services.EmpleadoService;
 public class EmpleadoServiceImpl implements EmpleadoService {
 
 	@Autowired
-	EmpleadoDao empleadoDao;
+	private EmpleadoDao empleadoDao;
 	
 	@Autowired
 	private DepartamentoDao departamentoDao;

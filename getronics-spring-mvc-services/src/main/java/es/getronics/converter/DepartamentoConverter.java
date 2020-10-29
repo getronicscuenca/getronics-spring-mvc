@@ -18,9 +18,9 @@ import es.getronics.dto.DepartamentoDto;
 public class DepartamentoConverter implements Converter<Departamento, DepartamentoDto>{
 	
 	@Autowired
-	ModelMapper mapper;
+	private ModelMapper mapper;
 	@Autowired
-	TecnologiaDao tecnologiaDao;
+	private TecnologiaDao tecnologiaDao;
 
 	@Override
 	public DepartamentoDto convert(Departamento source) {

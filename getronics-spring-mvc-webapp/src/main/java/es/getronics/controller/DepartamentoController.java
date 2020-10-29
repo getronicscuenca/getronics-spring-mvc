@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import es.getronics.base.exceptions.FechaPasadaException;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
 import es.getronics.services.DepartamentoService;
@@ -88,7 +89,12 @@ public class DepartamentoController {
 		}
 
 		if (departamento.getId() != null) {
-			departamentoService.update(departamento);
+			try {
+				departamentoService.update(departamento);
+			} catch (FechaPasadaException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			departamento.setAlta(fecha);
 			departamentoService.insert(departamento);
@@ -115,12 +121,7 @@ public class DepartamentoController {
 
 		departamentoService.link(did, eid);
 		return "redirect:/departamento/ver/"+did;
-//		DepartamentoDto dto =departamentoService.link(did, eid);
-//		dto.setEmpleados(empleadoService.findAll(did));
-//		dto.setJefe(empleadoService.findById(eid));
-//		model.addAttribute("departamento", dto);
-//		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
-		
+
 	}
 
 	@RequestMapping(value = "chAlta/{id}", method = RequestMethod.POST)
@@ -129,7 +130,13 @@ public class DepartamentoController {
 
 		departamento = departamentoService.findById(id);
 		departamento.setAlta(date);
-		departamentoService.update(departamento);
+		
+		try {
+			departamentoService.update(departamento);
+		} catch (FechaPasadaException e) {
+			
+			e.printStackTrace();
+		}
 
 		return "redirect:/departamento";
 	}

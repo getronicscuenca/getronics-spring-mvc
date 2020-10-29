@@ -1,24 +1,25 @@
 package es.getronics.services.impl;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
+
 
 import org.hibernate.cfg.NotYetImplementedException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.getronics.base.exceptions.FechaPasadaException;
 import es.getronics.bom.Departamento;
 import es.getronics.bom.Empleado;
-import es.getronics.bom.Tecnologia;
+import es.getronics.converter.Converter;
 import es.getronics.converter.DepartamentoConverter;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
 import es.getronics.dao.TecnologiaDao;
 import es.getronics.dto.DepartamentoDto;
+import es.getronics.dto.EmpleadoDto;
 import es.getronics.services.DepartamentoService;
 
 
@@ -27,13 +28,12 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 
 	
 	@Autowired
-	DepartamentoDao departamentoDao;
+	private DepartamentoDao departamentoDao;
 	@Autowired
-	EmpleadoDao empleadoDao;
-	@Autowired
-	TecnologiaDao tecnologiaDao;
+	private EmpleadoDao empleadoDao;
 	
-	DepartamentoConverter departamentoConverter;
+	@Autowired
+	private Converter<Departamento, DepartamentoDto> departamentoConverter;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -67,8 +67,20 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 		throw new NotYetImplementedException("metodo no implementado todavia");
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
-	public void update(DepartamentoDto dto) {
+	public void update(DepartamentoDto dto) throws FechaPasadaException {
+		Date alta=dto.getAlta();
+		Date ayer=new Date();
+		ayer.setDate(ayer.getDate()-1);
+		ayer.setHours(23);
+		if(alta!=null)
+		{
+			if(alta.before(ayer))
+			{
+				throw new FechaPasadaException("La fecha no puede Ser de ayer");
+			}
+		}
 		Departamento entity = departamentoConverter.map(dto);
 		departamentoDao.update(entity);
 	}

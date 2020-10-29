@@ -3,6 +3,8 @@ package es.getronics.base.services;
 import java.io.Serializable;
 import java.util.List;
 
+import es.getronics.base.exceptions.FechaPasadaException;
+
 /**
  * Define los metodos genericos de un servicio de negocio
  * @author jgarcia
@@ -41,8 +43,9 @@ public interface GenericService<T1, T2, ID extends Serializable> {
      * Hace un update de la entidad.
      * 
      * @param entity el entity a actualizar
+     * @throws FechaPasadaException 
      */
-    void update(T1 entity);
+    void update(T1 entity) throws FechaPasadaException;
     
     /**
      * Hace un update de la entidad si ya existe o un save si no existe.
