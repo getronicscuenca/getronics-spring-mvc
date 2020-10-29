@@ -45,7 +45,7 @@ public interface GenericService<T1, T2, ID extends Serializable> {
      * @param entity el entity a actualizar
      * @throws FechaPasadaException 
      */
-    void update(T1 entity) throws FechaPasadaException;
+    void update(T1 entity) ;
     
     /**
      * Hace un update de la entidad si ya existe o un save si no existe.

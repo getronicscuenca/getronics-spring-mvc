@@ -69,11 +69,12 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void update(DepartamentoDto dto) throws FechaPasadaException {
+	public void updateDepartamento(DepartamentoDto dto) throws FechaPasadaException {
 		Date alta=dto.getAlta();
 		Date ayer=new Date();
 		ayer.setDate(ayer.getDate()-1);
 		ayer.setHours(23);
+		ayer.setMinutes(59);
 		if(alta!=null)
 		{
 			if(alta.before(ayer))
@@ -81,8 +82,7 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 				throw new FechaPasadaException("La fecha no puede Ser de ayer");
 			}
 		}
-		Departamento entity = departamentoConverter.map(dto);
-		departamentoDao.update(entity);
+		this.update(dto);
 	}
 
 	@Override
@@ -125,6 +125,13 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 	@Override
 	public List<DepartamentoDto> findByExample(DepartamentoDto example) {
 		throw new NotYetImplementedException("metodo no implementado todavia");
+	}
+
+	@Override
+	public void update(DepartamentoDto dto) {
+		Departamento entity = departamentoConverter.map(dto);
+		departamentoDao.update(entity);
+		
 	}
 	
 	

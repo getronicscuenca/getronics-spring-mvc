@@ -90,10 +90,12 @@ public class DepartamentoController {
 
 		if (departamento.getId() != null) {
 			try {
-				departamentoService.update(departamento);
+				departamentoService.updateDepartamento(departamento);
 			} catch (FechaPasadaException e) {
-				// TODO Auto-generated catch block
+				
+				
 				e.printStackTrace();
+				return "/departamento/alta/"+departamento.getId();
 			}
 		} else {
 			departamento.setAlta(fecha);
@@ -110,7 +112,7 @@ public class DepartamentoController {
 
 	}
 
-	@RequestMapping(value = "alta/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "alta/{id}", method = RequestMethod.GET)
 	public ModelAndView editarFecha(@PathVariable long id, Model model) {
 		model.addAttribute("departamento", departamentoService.findById(id));
 		return new ModelAndView(DEPARTAMENTO_ALTA, model.asMap());
@@ -120,25 +122,32 @@ public class DepartamentoController {
 	public String ascender(@PathVariable long eid, @PathVariable long did, Model model) {
 
 		departamentoService.link(did, eid);
-		return "redirect:/departamento/ver/"+did;
+		return "/departamento/ver/"+did;
 
 	}
 
 	@RequestMapping(value = "chAlta/{id}", method = RequestMethod.POST)
-	public String guardarFecha(@PathVariable long id, @ModelAttribute DepartamentoDto departamento,
-			@RequestParam Date date) {
+	public ModelAndView guardarFecha(@PathVariable long id, @ModelAttribute DepartamentoDto departamento,
+			@RequestParam Date date,Model model) {
 
 		departamento = departamentoService.findById(id);
 		departamento.setAlta(date);
 		
 		try {
-			departamentoService.update(departamento);
+			departamentoService.updateDepartamento(departamento);
 		} catch (FechaPasadaException e) {
 			
-			e.printStackTrace();
+		
+			model.addAttribute("departamento", departamentoService.findById(id));
+			model.addAttribute("errores",e.getMessage());
+			return new ModelAndView(DEPARTAMENTO_ALTA, model.asMap());
+				
+		
 		}
 
-		return "redirect:/departamento";
+		List<DepartamentoDto> departamentos = departamentoService.findAll();
+		model.addAttribute("departamentos", departamentos);
+		return new ModelAndView(LIST_VIEW, model.asMap());
 	}
 
 	@InitBinder

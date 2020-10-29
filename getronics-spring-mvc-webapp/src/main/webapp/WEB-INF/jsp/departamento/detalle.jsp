@@ -9,7 +9,7 @@
 <spring:url value="/departamento" var="url"></spring:url>
 <spring:url value="/departamento/alta/${ departamento.id }" var="url2"></spring:url>
 <p>fecha de creacion: ${ departamento.alta }
-	<form:form action="${ url2 }" >
+	<form:form action="${ url2 }" method="GET">
 		<button type="submit">editar fecha</button>
 	</form:form>
 </p>
