@@ -28,8 +28,6 @@ public class Empleado implements Serializable {
 	@Column(name = "APELLIDO_2")
 	private String apellido2;
 	
-	@OneToOne
-	private Departamento dept;
 	
 	
 	@ManyToOne

@@ -1,3 +1,4 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
-<p><spring:message code="departamento.existente"></spring:message></p>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<p>${problema }</p>

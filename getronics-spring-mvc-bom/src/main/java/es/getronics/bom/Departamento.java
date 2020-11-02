@@ -1,12 +1,9 @@
 package es.getronics.bom;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
-
 import javax.persistence.*;
-
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -36,7 +33,10 @@ public class Departamento implements Serializable {
 	@Column(name="NOMBRE_EMPLEADO")
 	private String nombreEmpleado;
 	
-	@OneToOne @JoinColumn(name="empleadoJefe")
+	
+	@ManyToMany(mappedBy="departamentos")
+	private Set<Tecnologias> tecnologia;
+	
 	private Empleado empleadoJefe;
 	
 
@@ -81,6 +81,14 @@ public class Departamento implements Serializable {
 
 	public void setNombreEmpleado(String nombreEmpleado) {
 		this.nombreEmpleado = nombreEmpleado;
+	}
+
+	public Set<Tecnologias> getTecnologia() {
+		return tecnologia;
+	}
+
+	public void setTecnologia(Set<Tecnologias> tecnologia) {
+		this.tecnologia = tecnologia;
 	}
 
 	public String getNombre() {

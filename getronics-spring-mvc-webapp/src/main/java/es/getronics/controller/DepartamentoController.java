@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.dto.DepartamentoDto;
-import es.getronics.dto.EmpleadoDto;
 import es.getronics.exceptions.DepartamentoExistenteException;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
@@ -42,8 +41,6 @@ public class DepartamentoController {
 	private DepartamentoService departamentoService;
 	@Autowired
 	private DepartamentoValidator departamentoValidator;
-	@Autowired
-	private EmpleadoDto empleado;
 	@Autowired
 	private EmpleadoService empleadoService;
 
@@ -80,25 +77,18 @@ public class DepartamentoController {
 	@RequestMapping(value = "new", method = RequestMethod.POST)
 	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento,
 			BindingResult bindingResult, Model model) throws DepartamentoExistenteException {
-		Date fecha = new Date();
 		if (bindingResult.hasErrors()) {
 			return "/departamento/departamento";
 		}
 
 		if (departamento.getId() != null) {
-			empleado = empleadoService.findById(departamento.getIdEmpleado());
-			departamento.setNombreEmpleado(empleado.getNombre());
+			departamento.setNombreEmpleado(empleadoService.findById(departamento.getIdEmpleado()).getNombre());
 			departamentoService.update(departamento);
 		} else {
+			System.out.println(departamentoService.empleadoAsignado(departamento));
+			System.out.println(departamentoService.findByName(departamento));
+			departamentoService.validarDepartamento(departamento);
 
-			if (departamentoService.findByName(departamento) == true) {
-				departamento.setAlta(fecha);
-				empleado = empleadoService.findById(departamento.getIdEmpleado());
-				departamento.setNombreEmpleado(empleado.getNombre());
-				departamentoService.insert(departamento);
-			} else {
-				throw new DepartamentoExistenteException("Este departamento ya existe");
-			}
 		}
 		return "redirect:/departamento";
 	}
@@ -136,9 +126,11 @@ public class DepartamentoController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
 
-	@ExceptionHandler
-	public ModelAndView handleException(Exception ex) {
-		return new ModelAndView(ERROR_VIEW);
+	@ExceptionHandler(DepartamentoExistenteException.class)
+	public ModelAndView handleException(DepartamentoExistenteException ex) {
+		ModelAndView model = new ModelAndView(ERROR_VIEW);
+		model.addObject("problema", ex.getMessage());
+		return model;
 	}
 
 	@ModelAttribute("departamento")

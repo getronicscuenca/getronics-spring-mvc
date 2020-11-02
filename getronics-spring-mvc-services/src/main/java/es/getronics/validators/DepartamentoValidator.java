@@ -19,7 +19,6 @@ public class DepartamentoValidator implements Validator {
 	public void validate(Object target, Errors er) {
 		ValidationUtils.rejectIfEmptyOrWhitespace(er, "nombre", "nombreVacio");
 		ValidationUtils.rejectIfEmpty(er, "desc", "descripcionVacia");
-		ValidationUtils.rejectIfEmpty(er, "idEmpleado", "idEmpleado");
 		
 	}
 

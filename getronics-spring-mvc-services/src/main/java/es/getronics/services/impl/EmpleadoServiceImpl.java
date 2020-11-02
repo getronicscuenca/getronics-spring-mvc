@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import es.getronics.bom.Empleado;
 import es.getronics.converter.Converter;
-import es.getronics.converter.EmpleadoConverter;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
 import es.getronics.dto.EmpleadoDto;
@@ -29,7 +28,7 @@ import es.getronics.services.EmpleadoService;
 public class EmpleadoServiceImpl implements EmpleadoService {
 
 	@Autowired
-	EmpleadoDao empleadoDao;
+	private EmpleadoDao empleadoDao;
 	
 	@Autowired
 	private DepartamentoDao departamentoDao;
