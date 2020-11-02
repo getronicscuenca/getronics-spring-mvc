@@ -2,8 +2,9 @@ package es.getronics.services.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
-
+import java.util.Set;
 
 import org.hibernate.cfg.NotYetImplementedException;
 import org.modelmapper.ModelMapper;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import es.getronics.base.exceptions.FechaPasadaException;
 import es.getronics.bom.Departamento;
 import es.getronics.bom.Empleado;
+import es.getronics.bom.Tecnologia;
 import es.getronics.converter.Converter;
 import es.getronics.converter.DepartamentoConverter;
 import es.getronics.dao.DepartamentoDao;
@@ -20,6 +22,7 @@ import es.getronics.dao.EmpleadoDao;
 import es.getronics.dao.TecnologiaDao;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
+import es.getronics.dto.TecnologiaDto;
 import es.getronics.services.DepartamentoService;
 
 
@@ -34,6 +37,8 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 	
 	@Autowired
 	private Converter<Departamento, DepartamentoDto> departamentoConverter;
+	@Autowired
+	private Converter<Tecnologia, TecnologiaDto> tecnologiaConverter;
 	
 	@Autowired
 	private ModelMapper modelMapper;
@@ -46,7 +51,17 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 	@Override
 	public DepartamentoDto findById(Long id){
 		Departamento entity = departamentoDao.findById(id);
-		return modelMapper.map(entity, DepartamentoDto.class);
+		DepartamentoDto dto=modelMapper.map(entity, DepartamentoDto.class);
+		Set<Tecnologia> tecnologias =entity.getTecnologias();
+		List<TecnologiaDto> result = new ArrayList();
+		
+		for (Tecnologia tecnologia : tecnologias) {
+			result.add(tecnologiaConverter.convert(tecnologia));
+		}
+		dto.setTecnologias(result);
+		
+		return dto;
+		
 		
 	}
 	

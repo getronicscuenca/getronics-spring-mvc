@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import es.getronics.bom.Tecnologia;
+
 
 
 
@@ -20,7 +22,7 @@ public class DepartamentoDto {
 	private List<EmpleadoDto> empleados;
 	private EmpleadoDto jefe;
 	private String encargado;
-	private List<String> tecnologia;
+	private List<TecnologiaDto> tecnologias;
 	
 	
 	
@@ -28,11 +30,11 @@ public class DepartamentoDto {
 	
 	
 	
-	public List<String> getTecnologia() {
-		return tecnologia;
+	public List<TecnologiaDto> getTecnologias() {
+		return tecnologias;
 	}
-	public void setTecnologia(List<String> tecnologias) {
-		this.tecnologia = tecnologias;
+	public void setTecnologias(List<TecnologiaDto> tecnologias) {
+		this.tecnologias = tecnologias;
 	}
 	public String getEncargado() {
 		return encargado;

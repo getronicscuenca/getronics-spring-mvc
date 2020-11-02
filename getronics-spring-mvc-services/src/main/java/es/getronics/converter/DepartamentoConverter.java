@@ -11,6 +11,7 @@ import es.getronics.bom.Departamento;
 import es.getronics.bom.Tecnologia;
 import es.getronics.dao.TecnologiaDao;
 import es.getronics.dto.DepartamentoDto;
+import es.getronics.dto.TecnologiaDto;
 
 
 
@@ -37,11 +38,11 @@ public class DepartamentoConverter implements Converter<Departamento, Departamen
 	@Override
 	public Departamento map(DepartamentoDto dto) {
 		Departamento result =mapper.map(dto, Departamento.class);
-		if(dto.getTecnologia()!=null)
+		if(dto.getTecnologias()!=null)
 		{
 			Set<Tecnologia> set= new HashSet<Tecnologia>();
-			for (String id : dto.getTecnologia()) {
-				set.add(tecnologiaDao.findById(Long.parseLong(id)));
+			for (TecnologiaDto tecnologia : dto.getTecnologias()) {
+				set.add(tecnologiaDao.findById(tecnologia.getId()));
 			}
 			result.setTecnologias(set);
 		}

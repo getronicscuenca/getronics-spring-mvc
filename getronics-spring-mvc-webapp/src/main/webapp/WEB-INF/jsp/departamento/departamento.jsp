@@ -44,6 +44,6 @@
 	<spring:message code="departamento.desc"></spring:message>
 	<form:errors path="desc" cssClass="error" /><br>
 	<form:input path="desc"/><br>
-	<form:checkboxes path="tecnologia" items="${tecnologias}" itemLabel="nombre" itemValue="id" /><br/>
+	<form:checkboxes path="tecnologias" items="${tecnologias}" itemLabel="nombre" itemValue="id" /><br/>
 	<form:button value="submit">Guardar</form:button>
 </form:form>

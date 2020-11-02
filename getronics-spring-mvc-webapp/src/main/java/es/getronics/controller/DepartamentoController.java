@@ -119,10 +119,14 @@ public class DepartamentoController {
 	}
 
 	@RequestMapping(value = "ascenso/{did}/{eid}")
-	public String ascender(@PathVariable long eid, @PathVariable long did, Model model) {
+	public ModelAndView ascender(@PathVariable long eid, @PathVariable long did, Model model) {
 
 		departamentoService.link(did, eid);
-		return "/departamento/ver/"+did;
+		DepartamentoDto dpt = departamentoService.findById(did);
+		dpt.setEmpleados(empleadoService.findAll(did));
+		model.addAttribute("departamento", dpt);
+		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
+		
 
 	}
 

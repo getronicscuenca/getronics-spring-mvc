@@ -34,9 +34,28 @@
 </tbody>
 </table>
 
+<table>
+	<thead>
+		<th>Tecnologias:</th>
+	</thead>	
+
+<tbody>
+	<c:forEach items="${ departamento.tecnologia }" var="tecnologia">
+		<tr>
+			<td>${ tecnologia.getNombre() }</td>
+			
+					
+		</tr>
+	</c:forEach>
+
+</tbody>
+</table>
 
 
-<p>${ departamento.desc }</p>
+
+
+
+<p>descripcion <br>${ departamento.desc }</p>
 
 
 <a href="${ url }">Volver a departamentos</a>
