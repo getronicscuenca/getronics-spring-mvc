@@ -87,13 +87,10 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
 	@Override
 	public boolean findByName(DepartamentoDto departamentoDto) {
-		List<Departamento> entity = departamentoDao.findAll();
-		for (Departamento departamento : entity) {
-			if (departamento.getNombre().equals(departamentoDto.getNombre())) {
-				return false;
-			}
-		}
-		return true;
+		Departamento example = new Departamento();
+		example.setNombre(departamentoDto.getNombre());
+		List<Departamento> entity = departamentoDao.findByExample(example);
+		return entity != null;
 	}
 
 }
