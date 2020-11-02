@@ -39,7 +39,7 @@ public class Departamento implements Serializable {
 			inverseJoinColumns= @JoinColumn(name="FK_TECNOLOGIA")
 	)
 	@ManyToMany
-	Set<Tecnologia> tecnologias;
+	private Set<Tecnologia> tecnologias;
 
 	
 	

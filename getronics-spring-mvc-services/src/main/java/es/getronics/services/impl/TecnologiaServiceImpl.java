@@ -43,7 +43,7 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 		List<Tecnologia> found =tecnologiaDao.findAll();
 		for(Tecnologia tecnologia: found)
 		{
-			result.add(modelMapper.map(tecnologia, TecnologiaDto.class));
+			result.add(tecnologiaConverter.convert(tecnologia));
 		}
 		return result;
 	}

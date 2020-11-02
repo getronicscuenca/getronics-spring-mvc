@@ -40,7 +40,7 @@
 	</thead>	
 
 <tbody>
-	<c:forEach items="${ departamento.tecnologia }" var="tecnologia">
+	<c:forEach items="${ departamento.tecnologias }" var="tecnologia">
 		<tr>
 			<td>${ tecnologia.getNombre() }</td>
 			
