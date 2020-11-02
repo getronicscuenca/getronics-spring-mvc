@@ -104,6 +104,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 		return entity.isEmpty();
 	}
 
+	
 	@Override
 	public boolean primerDepartamento(DepartamentoDto departamentoDto) {
 		List<Departamento> entity = departamentoDao.findAll();
@@ -114,6 +115,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 		return false;
 	}
 
+	
 	@Override
 	public boolean empleadoAsignado(DepartamentoDto dto) {
 		EmpleadoDto empleado = new EmpleadoDto();
@@ -128,8 +130,10 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 			}
 		}
 		return true;
+
 	}
 
+	
 	@Override
 	public void validarDepartamento(DepartamentoDto departamento) throws DepartamentoExistenteException {
 		

@@ -8,8 +8,11 @@ import es.getronics.exceptions.DepartamentoExistenteException;
 public interface DepartamentoService extends GenericService<DepartamentoDto, Departamento, Long> {
 
 	boolean findByName(DepartamentoDto example);
-	boolean primerDepartamento(DepartamentoDto example);
+
+	boolean primerDepartamento(DepartamentoDto departamentoDto);
+
 	boolean empleadoAsignado(DepartamentoDto dto);
-	void validarDepartamento(DepartamentoDto dto) throws DepartamentoExistenteException;
+
+	void validarDepartamento(DepartamentoDto departamento) throws DepartamentoExistenteException;
 	
 }
