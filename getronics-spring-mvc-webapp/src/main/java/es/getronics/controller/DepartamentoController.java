@@ -85,8 +85,6 @@ public class DepartamentoController {
 			departamento.setNombreEmpleado(empleadoService.findById(departamento.getIdEmpleado()).getNombre());
 			departamentoService.update(departamento);
 		} else {
-			System.out.println(departamentoService.empleadoAsignado(departamento));
-			System.out.println(departamentoService.findByName(departamento));
 			departamentoService.validarDepartamento(departamento);
 
 		}
