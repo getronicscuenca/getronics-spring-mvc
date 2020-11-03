@@ -1,5 +1,11 @@
 package es.getronics.controller;
 
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyEditor;
+import java.beans.PropertyEditorSupport;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +14,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,8 +28,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.base.exceptions.FechaPasadaException;
+import es.getronics.bom.Tecnologia;
+import es.getronics.converter.Converter;
+import es.getronics.converter.TecnoConverter;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
+import es.getronics.dto.TecnologiaDto;
+import es.getronics.editors.TecnologiaEditor;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
 import es.getronics.services.TecnologiaService;
@@ -46,6 +58,8 @@ public class DepartamentoController {
 	private EmpleadoService empleadoService;
 	@Autowired
 	private DepartamentoValidator departamentoValidator;
+	@Autowired 
+	private TecnologiaEditor tecnologiaEditor;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listarDepartamentos(Model model) {
@@ -80,28 +94,34 @@ public class DepartamentoController {
 	}
 
 	@RequestMapping(value = "new", method = RequestMethod.POST)
-	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento,
+	public ModelAndView insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento,
 			BindingResult bindingResult, Model model) {
-		
+
 		Date fecha = new Date();
 		if (bindingResult.hasErrors()) {
-			return "/departamento/departamento";
+			model.addAttribute("departamento", departamento);
+			model.addAttribute("tecnologias", tecnologiaService.findAll());
+			System.out.println("111111111111111111111111111111111");
+			return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
 		}
 
 		if (departamento.getId() != null) {
 			try {
 				departamentoService.updateDepartamento(departamento);
 			} catch (FechaPasadaException e) {
-				
-				
-				e.printStackTrace();
-				return "/departamento/alta/"+departamento.getId();
+
+				model.addAttribute("departamento", departamento);
+				System.out.println("2222222222222222222222222222222222222222");
+				return new ModelAndView(DEPARTAMENTO_ALTA, model.asMap());
 			}
 		} else {
 			departamento.setAlta(fecha);
 			departamentoService.insert(departamento);
 		}
-		return "redirect:/departamento";
+		List<DepartamentoDto> departamentos = departamentoService.findAll();
+		model.addAttribute("departamentos", departamentos);
+		System.out.println("333333333333333333333333333333333");
+		return new ModelAndView(LIST_VIEW, model.asMap());
 	}
 
 	@RequestMapping("delete/{id}")
@@ -126,27 +146,24 @@ public class DepartamentoController {
 		dpt.setEmpleados(empleadoService.findAll(did));
 		model.addAttribute("departamento", dpt);
 		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
-		
 
 	}
 
 	@RequestMapping(value = "chAlta/{id}", method = RequestMethod.POST)
 	public ModelAndView guardarFecha(@PathVariable long id, @ModelAttribute DepartamentoDto departamento,
-			@RequestParam Date date,Model model) {
+			@RequestParam Date date, Model model) {
 
 		departamento = departamentoService.findById(id);
 		departamento.setAlta(date);
-		
+
 		try {
 			departamentoService.updateDepartamento(departamento);
 		} catch (FechaPasadaException e) {
-			
-		
+
 			model.addAttribute("departamento", departamentoService.findById(id));
-			model.addAttribute("errores",e.getMessage());
+			model.addAttribute("errores", e.getMessage());
 			return new ModelAndView(DEPARTAMENTO_ALTA, model.asMap());
-				
-		
+
 		}
 
 		List<DepartamentoDto> departamentos = departamentoService.findAll();
@@ -157,9 +174,11 @@ public class DepartamentoController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.setValidator(departamentoValidator);
+		binder.registerCustomEditor(TecnologiaDto.class, tecnologiaEditor);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+		
 	}
 
 	@ModelAttribute("departamento")
