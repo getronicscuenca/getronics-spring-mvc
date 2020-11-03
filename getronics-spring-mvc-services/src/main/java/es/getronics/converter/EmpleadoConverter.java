@@ -30,8 +30,10 @@ public class EmpleadoConverter implements Converter<Empleado, EmpleadoDto> {
 		result.setNombre(source.getNombre());
 		result.setApellido1(source.getApellido1());
 		result.setApellido2(source.getApellido2());
+		if(source.getDepartamento()!=null) {
 		result.setIdDepartamento(source.getDepartamento().getId());
 		result.setDepartamento(source.getDepartamento().getNombre());
+		}
 		
 
 		return result;

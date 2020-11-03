@@ -47,8 +47,6 @@ public class DepartamentoConverter implements Converter<Departamento, Departamen
 			result.setTecnologias(set);
 		}
 		
-	
-		
 		return result;
 	}
 
