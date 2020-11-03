@@ -18,12 +18,17 @@
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
 	<mvc:annotation-driven />
+	
+	<mvc:view-controller path="/index" view-name="index" />
+	<mvc:resources location="/WEB-INF/assets/" mapping="/assets/**" />
+	<mvc:resources location="/WEB-INF/css/" mapping="/css/**" />
+	
 	<mvc:interceptors>
 		<bean id="localeChangeInterceptor"
 			class="es.getronics.controller.interceptors.LocaleChangeInterceptorGetronics" />
 	</mvc:interceptors>
 	<!-- MESSAGES -->
-
+	
 	<bean
 		class="org.springframework.context.support.ResourceBundleMessageSource"
 		id="messageSource">
@@ -37,12 +42,16 @@
 		<property name="defaultLocale" value="en_EN" />
 	</bean>
 
-	<!-- Mapea a nombres logicos de vista to recursos fisicos -->
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/jsp/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
+
+	<!-- Configuramos las vista -->
+	<bean id="tilesConfigurer"
+          class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"
+          p:definitions="/WEB-INF/tiles-defs/template.xml" />
+
+    <bean id="tilesViewResolver"
+          class="org.springframework.web.servlet.view.UrlBasedViewResolver"
+          p:viewClass="org.springframework.web.servlet.view.tiles2.TilesView" />
+
 
 	<bean id="validator"
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />

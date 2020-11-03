@@ -66,6 +66,7 @@
         <tx:attributes>
             <tx:method name="find*" propagation="REQUIRED" isolation="READ_COMMITTED" read-only="true"/>
             <tx:method name="convert*" propagation="REQUIRED" isolation="READ_COMMITTED" read-only="true"/>
+            <tx:method name="map*" propagation="REQUIRED" isolation="READ_COMMITTED" read-only="true"/>
        		<tx:method name="*" propagation="REQUIRED" />        		       		
         </tx:attributes>
     </tx:advice>
