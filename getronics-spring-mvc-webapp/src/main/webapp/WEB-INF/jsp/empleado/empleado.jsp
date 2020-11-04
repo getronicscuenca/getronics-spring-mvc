@@ -1,28 +1,56 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ include file="../common/taglibs.jsp"%>
 
 <spring:url value="/empleado/new" var="url"></spring:url>
-<spring:message code="empleado.new.title" var="insertTitle"/>
-<spring:message code="empleado.update.title" var="updateTitle"/>
-<c:choose >
+<spring:message code="empleado.new.title" var="insertTitle" />
+<spring:message code="empleado.update.title" var="updateTitle" />
+<c:choose>
 	<c:when test="${ alumno.id == null}">
 		<c:set value="${ insertTitle }" var="title" />
 	</c:when>
 	<c:otherwise>
-		<c:set  value="${ updateTitle }" var="title" />
+		<c:set value="${ updateTitle }" var="title" />
 	</c:otherwise>
 </c:choose>
 
-<form:form modelAttribute="empleado" action="${ url }" >
-	
-	<h1>${ title }</h1>
-	<form:hidden path="id"/>
-	<spring:message code="empleado.nombre"></spring:message>: <form:input path="nombre" /><br/>
-	<spring:message code="empleado.apellido1"></spring:message><form:input path="apellido1"/><br/>
-	<spring:message code="empleado.apellido2"></spring:message><form:input path="apellido2"/><br/>
-	<spring:message code="empleado.departamento"></spring:message>
-	<form:radiobuttons path="idDepartamento" items="${departamentos}" itemLabel="nombre" itemValue="id" /><br/>
-	
-	<form:button value="submit">Enviar</form:button>
-</form:form>
+<div class="row justify-content-center mt-5">
+	<div class="col-md-8">
+		<div class="card card-sm">
+			<form:form modelAttribute="empleado" action="${ url }"
+				cssClass="form-horizontal">
+
+				<fieldset>
+					<legend class="text-center header">${ title }</legend>
+					<form:hidden path="id" />
+					<div class="row justify-content-center">
+						<div class="form-group col-md-11">
+							<label for="nombre"><spring:message
+									code="empleado.nombre"></spring:message></label>
+							<form:input path="nombre" cssClass="form-control" />
+						</div>
+						<div class="form-group col-md-11">
+							<label for="nombre"><spring:message
+									code="empleado.apellido1"></spring:message></label>
+							<form:input path="apellido1" cssClass="form-control" />
+						</div>
+						<div class="form-group col-md-11">
+							<label for="nombre"><spring:message
+									code="empleado.apellido2"></spring:message></label>
+							<form:input path="apellido2" cssClass="form-control" />
+						</div>
+						<div class="form-group col-md-11">
+							<label><spring:message code="empleado.departamento"></spring:message></label>
+							<div class="custom-control custom-radio">
+								<form:radiobuttons path="idDepartamento"
+									items="${departamentos}" itemLabel="nombre" itemValue="id" />
+							</div>
+						</div>
+						<div class="form-group col-md-11">
+							<form:button value="submit" class="btn btn-info"><spring:message code="common.button.send"></spring:message></form:button>
+						</div>
+
+					</div>
+				</fieldset>
+			</form:form>
+		</div>
+	</div>
+</div>
