@@ -104,9 +104,6 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 		return entity.isEmpty();
 	}
 	
-	
-
-	
 	@Override
 	public boolean primerDepartamento(DepartamentoDto departamentoDto) {
 		List<Departamento> entity = departamentoDao.findAll();
