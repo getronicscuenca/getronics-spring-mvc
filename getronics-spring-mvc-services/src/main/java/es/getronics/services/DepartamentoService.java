@@ -5,5 +5,5 @@ import es.getronics.bom.Departamento;
 import es.getronics.dto.DepartamentoDto;
 
 public interface DepartamentoService extends GenericService<DepartamentoDto, Departamento, Long> {
-
+	String findByName(DepartamentoDto departamento);
 }

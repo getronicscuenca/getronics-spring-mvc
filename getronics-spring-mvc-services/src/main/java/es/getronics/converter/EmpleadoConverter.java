@@ -1,9 +1,5 @@
-/**
- * 
- */
 package es.getronics.converter;
 
-import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,18 +28,19 @@ public class EmpleadoConverter implements Converter<Empleado, EmpleadoDto> {
 		result.setApellido2(source.getApellido2());
 		result.setIdDepartamento(source.getDepartamento().getId());
 		result.setDepartamento(source.getDepartamento().getNombre());
+		result.setJefe(source.getJefe().getId());
 		return result;
 	}
 
 	@Override
 	public Empleado map(EmpleadoDto dto) {
-		Empleado result = new Empleado();
-		result.setId(dto.getId());
-		result.setNombre(dto.getNombre());
-		result.setApellido1(dto.getApellido1());
-		result.setApellido2(dto.getApellido2());
-		result.setDepartamento(departamentoDao.findById(dto.getIdDepartamento()));
-		return result;
+		 Empleado result = new Empleado();
+	        result.setId(dto.getId());
+	        result.setNombre(dto.getNombre());
+	        result.setApellido1(dto.getApellido1());
+	        result.setApellido2(dto.getApellido2());
+	        result.setDepartamento(departamentoDao.findById(dto.getIdDepartamento()));
+	        return result;
 	}
 
 

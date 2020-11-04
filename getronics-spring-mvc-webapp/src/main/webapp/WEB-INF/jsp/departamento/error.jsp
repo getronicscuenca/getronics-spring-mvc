@@ -1,1 +1,1 @@
-<h1>Error controlado por el manejador de excepciones</h1>
+<h1>Ese nombre de departamento ya existe, inserte uno nuevo</h1>

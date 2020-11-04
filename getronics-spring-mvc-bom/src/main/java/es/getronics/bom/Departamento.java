@@ -1,7 +1,6 @@
 package es.getronics.bom;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -18,29 +17,25 @@ public class Departamento implements Serializable {
 	private long id;
 	@Column(name = "NOMBRE")
 	private String nombre;
-	@Column(name = "DESC")
+	@Column(name = "DESCRIPCION")
 	private String desc;
 	@Column(name = "ALTA")
 	private Date alta;
 	
+	
+	@Column(name="ID_JEFE")
+	//@OneToOne(mappedBy="id")
+	private Empleado jefe;
+	
 	@OneToMany(mappedBy = "departamento")
 	private Set<Empleado> empleados;
 
-
-	public Date getAlta() {
-		return alta;
+	public Empleado getJefe() {
+		return jefe;
 	}
 
-	public void setAlta(Date alta) {
-		this.alta = alta;
-	}
-
-	public String getDesc() {
-		return desc;
-	}
-
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setJefe(Empleado jefe) {
+		this.jefe = jefe;
 	}
 
 	public long getId() {
@@ -57,6 +52,30 @@ public class Departamento implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
+	public Date getAlta() {
+		return alta;
+	}
+
+	public void setAlta(Date alta) {
+		this.alta = alta;
+	}
+
+	public Set<Empleado> getEmpleados() {
+		return empleados;
+	}
+
+	public void setEmpleados(Set<Empleado> empleados) {
+		this.empleados = empleados;
 	}
 
 	@Override

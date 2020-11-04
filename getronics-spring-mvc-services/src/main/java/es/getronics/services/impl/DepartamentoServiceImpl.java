@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import es.getronics.bom.Departamento;
 import es.getronics.dao.DepartamentoDao;
-import es.getronics.dao.EmpleadoDao;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.services.DepartamentoService;
 
@@ -91,6 +90,16 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 		throw new NotYetImplementedException("metodo no implementado todavia");
 	}
 	
-	
+	@Override
+	public String findByName(DepartamentoDto departamento){
+		List<Departamento> lista =departamentoDao.findAll();
+		for(Departamento dep:lista) {
+			if(dep.getNombre().equals(departamento.getNombre())) {
+				return dep.getNombre();
+			}
+		}
+		return "";
+		
+	}
 	
 }

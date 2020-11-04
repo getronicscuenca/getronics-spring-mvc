@@ -9,8 +9,6 @@ import es.getronics.dto.DepartamentoDto;
 @Component
 public class DepartamentoValidator implements Validator {
 
-	
-	
 	@Override
 	public boolean supports(Class<?> clazz) {
 	
@@ -23,7 +21,7 @@ public class DepartamentoValidator implements Validator {
 		DepartamentoDto departamento =(DepartamentoDto) target;
 		
 		boolean espacioBlanco=departamento.getNombre().contains(" ");
-		boolean demasiadoGrande= (departamento.getNombre().length()>15);
+		boolean demasiadoGrande= (departamento.getNombre().length()>20);
 		boolean demasiadoPeke= (departamento.getNombre().length()<2);
 		boolean sinNumeros= departamento.getNombre().toLowerCase().matches("(([a-z]*)(\s)*)*");
 		

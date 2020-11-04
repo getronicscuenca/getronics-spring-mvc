@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +21,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import es.getronics.base.excepcion.excepciones;
 import es.getronics.dto.DepartamentoDto;
+import es.getronics.dto.EmpleadoDto;
 import es.getronics.services.DepartamentoService;
+import es.getronics.services.EmpleadoService;
 import es.getronics.validators.DepartamentoValidator;
 
 @RequestMapping("departamento")
@@ -38,24 +42,34 @@ public class DepartamentoController {
 	private DepartamentoService departamentoService;
 	@Autowired
 	private DepartamentoValidator departamentoValidator;
+	@Autowired
+	private EmpleadoService empleadoService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listarDepartamentos(Model model) {
 		List<DepartamentoDto> departamentos = departamentoService.findAll();
+		List<EmpleadoDto> empleados = empleadoService.findAll();
+
 		model.addAttribute("departamentos", departamentos);
+		model.addAttribute("empleados", empleados);
+
 		return new ModelAndView(LIST_VIEW, model.asMap());
 
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView showNewPage(Model model) {
+		model.addAttribute("jefe", empleadoService.findAll());
 		model.addAttribute("departamento", new DepartamentoDto());
+
 		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
 	}
 
 	@RequestMapping(value = "update/{id}", method = RequestMethod.GET)
 	public ModelAndView showUpdateDepartamento(@PathVariable Long id, Model model) {
 		model.addAttribute("departamento", departamentoService.findById(id));
+		List<EmpleadoDto> jefe = empleadoService.findAll();
+		model.addAttribute("jefe", jefe);
 		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
 
 	}
@@ -63,24 +77,32 @@ public class DepartamentoController {
 	@RequestMapping(value = "ver/{id}", method = RequestMethod.GET)
 	public ModelAndView showDepartamento(@PathVariable Long id, Model model) {
 		model.addAttribute("departamento", departamentoService.findById(id));
+		model.addAttribute("jefe", empleadoService.findById(id));
+
 		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
 
 	}
 
 	@RequestMapping(value = "new", method = RequestMethod.POST)
-	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento ,BindingResult bindingResult, Model model
-			) 
-	{	
+	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento,
+			BindingResult bindingResult, Model model) throws excepciones {
 		Date fecha = new Date();
+		String depar = departamentoService.findByName(departamento);
 		if (bindingResult.hasErrors()) {
 			return "/departamento/departamento";
 		}
 
-		if (departamento.getId() != null) {
-			departamentoService.update(departamento);
-		} else {
+		if (depar.equals("") || depar.equals(null)) {
+
 			departamento.setAlta(fecha);
 			departamentoService.insert(departamento);
+		} else {
+			if (departamento.getId() != null) {
+				departamento.setAlta(fecha);
+				departamentoService.update(departamento);
+			} else {
+				throw new excepciones(depar);
+			}
 		}
 		return "redirect:/departamento";
 	}
@@ -121,6 +143,14 @@ public class DepartamentoController {
 	@ModelAttribute("departamento")
 	public DepartamentoDto createDepartamentoDtoModel() {
 		return new DepartamentoDto();
+	}
+
+	@ExceptionHandler(excepciones.class)
+	public ModelAndView handleException(excepciones ex) {
+		ModelAndView model = new ModelAndView(ERROR_VIEW);
+		model.addObject("error", ex.getMensaje());
+		return model;
+
 	}
 
 }

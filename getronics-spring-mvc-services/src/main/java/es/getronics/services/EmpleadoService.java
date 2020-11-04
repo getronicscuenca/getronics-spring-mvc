@@ -10,5 +10,4 @@ import es.getronics.dto.EmpleadoDto;
  * @author jgarcia
  */
 public interface EmpleadoService extends GenericService<EmpleadoDto, Empleado, Long> {
-
 }
