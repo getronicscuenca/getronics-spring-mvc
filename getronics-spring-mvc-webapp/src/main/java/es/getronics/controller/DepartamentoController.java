@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import es.getronics.base.excepcion.excepciones;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
 import es.getronics.services.DepartamentoService;
@@ -85,7 +83,7 @@ public class DepartamentoController {
 
 	@RequestMapping(value = "new", method = RequestMethod.POST)
 	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento,
-			BindingResult bindingResult, Model model) throws excepciones {
+			BindingResult bindingResult, Model model) {
 		Date fecha = new Date();
 		String depar = departamentoService.findByName(departamento);
 		if (bindingResult.hasErrors()) {
@@ -100,9 +98,7 @@ public class DepartamentoController {
 			if (departamento.getId() != null) {
 				departamento.setAlta(fecha);
 				departamentoService.update(departamento);
-			} else {
-				throw new excepciones(depar);
-			}
+		}
 		}
 		return "redirect:/departamento";
 	}
@@ -143,14 +139,6 @@ public class DepartamentoController {
 	@ModelAttribute("departamento")
 	public DepartamentoDto createDepartamentoDtoModel() {
 		return new DepartamentoDto();
-	}
-
-	@ExceptionHandler(excepciones.class)
-	public ModelAndView handleException(excepciones ex) {
-		ModelAndView model = new ModelAndView(ERROR_VIEW);
-		model.addObject("error", ex.getMensaje());
-		return model;
-
 	}
 
 }
