@@ -24,6 +24,7 @@
 	<mvc:resources location="/WEB-INF/assets/"
 		mapping="/assets/**" />
 	<mvc:resources location="/WEB-INF/css/" mapping="/css/**" />
+	<mvc:resources location="/WEB-INF/js/" mapping="/js/**" />
 
 	<mvc:interceptors>
 		<bean id="localeChangeInterceptor"
@@ -36,8 +37,6 @@
 		id="messageSource">
 		<property name="basename" value="messages" />
 	</bean>
-
-
 
 	<bean id="localeResolver"
 		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
