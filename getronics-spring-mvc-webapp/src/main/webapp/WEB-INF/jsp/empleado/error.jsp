@@ -1,1 +1,0 @@
-<h1>Error controlado por el manejador de excepciones</h1>

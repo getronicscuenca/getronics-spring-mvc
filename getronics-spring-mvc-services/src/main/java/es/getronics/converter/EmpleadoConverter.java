@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package es.getronics.converter;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,22 +29,24 @@ public class EmpleadoConverter implements Converter<Empleado, EmpleadoDto> {
 		result.setNombre(source.getNombre());
 		result.setApellido1(source.getApellido1());
 		result.setApellido2(source.getApellido2());
-		result.setIdDepartamento(source.getDepartamento().getId());
-		result.setDepartamento(source.getDepartamento().getNombre());
-		result.setJefe(source.getJefe().getId());
+		if(source.getDepartamento() != null) {
+			result.setIdDepartamento(source.getDepartamento().getId());
+			result.setDepartamento(source.getDepartamento().getNombre());
+		}
+		
 		return result;
 	}
 
 	@Override
 	public Empleado map(EmpleadoDto dto) {
-		 Empleado result = new Empleado();
-	        result.setId(dto.getId());
-	        result.setNombre(dto.getNombre());
-	        result.setApellido1(dto.getApellido1());
-	        result.setApellido2(dto.getApellido2());
-	        result.setDepartamento(departamentoDao.findById(dto.getIdDepartamento()));
-	        return result;
+		Empleado result = new Empleado();
+		result.setId(dto.getId());
+		result.setNombre(dto.getNombre());
+		result.setApellido1(dto.getApellido1());
+		result.setApellido2(dto.getApellido2());
+		if(dto.getIdDepartamento() != null) {
+			result.setDepartamento(departamentoDao.findById(dto.getIdDepartamento()));
+		}
+		return result;
 	}
-
-
 }
