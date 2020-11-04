@@ -21,6 +21,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import es.getronics.bom.Departamento;
+import es.getronics.bom.Empleado;
+import es.getronics.dao.DepartamentoDao;
+import es.getronics.dao.EmpleadoDao;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.exceptions.DepartamentoExistenteException;
 import es.getronics.services.DepartamentoService;
@@ -36,7 +40,12 @@ public class DepartamentoController {
 	private final String DEPARTAMENTO_DETALLE = "departamento/detalle";
 	private final String ERROR_VIEW = "departamento/error";
 	private final String DEPARTAMENTO_ALTA = "departamento/alta";
-
+	private final String DEPARTAMENTO_REDIRECT = "redirect:/departamento";
+	
+	@Autowired
+	private DepartamentoDao departamentoDao;
+	@Autowired
+	private EmpleadoDao empleadoDao;
 	@Autowired
 	private DepartamentoService departamentoService;
 	@Autowired
@@ -92,15 +101,27 @@ public class DepartamentoController {
 	}
 
 	@RequestMapping("delete/{id}")
-	public String eliminarDepartamento(@PathVariable long id, Model model) {
-
+	public ModelAndView eliminarDepartamento(@PathVariable Long id, Model model) {
+		/*if() {
+			
+		}else {
 		departamentoService.remove(id);
-		return "redirect:/departamento";
+		return new ModelAndView(DEPARTAMENTO_REDIRECT);
+		}*/
+		
+
+		List<Empleado> empleado= empleadoDao.findAll();
+		for(Empleado todos: empleado) {
+			if(todos.getDepartamento().getId().equals(id)) {
+				//empleadoDao.remove(todos);
+			}
+		}
+		return new ModelAndView(DEPARTAMENTO_REDIRECT);
 
 	}
 
 	@RequestMapping(value = "alta/{id}", method = RequestMethod.POST)
-	public ModelAndView editarFecha(@PathVariable long id, Model model) {
+	public ModelAndView editarFecha(@PathVariable Long id, Model model) {
 		model.addAttribute("departamento", departamentoService.findById(id));
 		return new ModelAndView(DEPARTAMENTO_ALTA, model.asMap());
 	}

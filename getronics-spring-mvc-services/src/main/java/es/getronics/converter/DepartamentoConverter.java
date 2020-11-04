@@ -1,5 +1,6 @@
 package es.getronics.converter;
 
+
 import org.springframework.stereotype.Component;
 
 import es.getronics.bom.Departamento;
@@ -8,6 +9,8 @@ import es.getronics.dto.DepartamentoDto;
 @Component
 public class DepartamentoConverter implements Converter<Departamento, DepartamentoDto>{
 
+	
+	
 	@Override
 	public DepartamentoDto convert(Departamento source) {
 		DepartamentoDto result = new DepartamentoDto();
@@ -21,7 +24,6 @@ public class DepartamentoConverter implements Converter<Departamento, Departamen
 
 	@Override
 	public Departamento map(DepartamentoDto dto) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -103,6 +103,8 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 		List<Departamento> entity = departamentoDao.findByExample(example);
 		return entity.isEmpty();
 	}
+	
+	
 
 	
 	@Override
