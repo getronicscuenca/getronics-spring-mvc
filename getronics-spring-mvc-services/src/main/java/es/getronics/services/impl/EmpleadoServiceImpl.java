@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.cfg.NotYetImplementedException;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +57,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
 	@Override
 	public List<EmpleadoDto> findAllOrderBy(String[] orderBy, boolean asc) {
-		throw new NotYetImplementedException("MÃ©todo no implementado todavÃ­a");
+		throw new NotYetImplementedException("Método no implementado todavía");
 	}
 
 	@Override
@@ -69,13 +68,12 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
 	@Override
 	public void saveOrUpdate(EmpleadoDto entity) {
-		throw new NotYetImplementedException("MÃ©todo no implementado todavÃ­a");
+		throw new NotYetImplementedException("Método no implementado todavía");
 	}
 
 	@Override
 	public EmpleadoDto insert(EmpleadoDto dto) {
 		Empleado entity = empleadoConverter.map(dto);
-		entity.setDepartamento(departamentoDao.findById(dto.getIdDepartamento()));
 		dto = empleadoConverter.convert(empleadoDao.insert(entity));
 		
 		return dto;
@@ -88,14 +86,11 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
 	@Override
 	public void remove(EmpleadoDto entity) {
-		throw new NotYetImplementedException("MÃ©todo no implementado todavÃ­a");
+		throw new NotYetImplementedException("Método no implementado todavía");
 	}
 
 	@Override
 	public List<EmpleadoDto> findByExample(EmpleadoDto example) {
-		throw new NotYetImplementedException("MÃ©todo no implementado todavÃ­a");
+		throw new NotYetImplementedException("Método no implementado todavía");
 	}
-
-
-
 }

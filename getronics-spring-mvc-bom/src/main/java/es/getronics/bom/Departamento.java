@@ -34,14 +34,16 @@ public class Departamento implements Serializable {
 	private String nombreEmpleado;
 	
 	
-	@ManyToMany(mappedBy="departamentos")
+	@ManyToMany(mappedBy="departamentos", cascade = CascadeType.ALL)
 	private Set<Tecnologias> tecnologia;
 	
 	private Empleado empleadoJefe;
 	
 
+
 	@OneToMany(mappedBy = "departamento")
 	private Set<Empleado> empleados;
+
 	
 	public Empleado getEmpleadoJefe() {
 		return empleadoJefe;

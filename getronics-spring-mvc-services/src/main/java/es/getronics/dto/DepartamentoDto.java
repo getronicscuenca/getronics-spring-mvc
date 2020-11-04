@@ -1,8 +1,11 @@
 package es.getronics.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
+import es.getronics.bom.Empleado;
 import es.getronics.exceptions.DepartamentoExistenteException;
 import es.getronics.services.DepartamentoService;
 
@@ -16,6 +19,15 @@ public class DepartamentoDto {
 	private Date alta;
 	private Long idEmpleado;
 	private String nombreEmpleado;
+	private Set<Empleado> empleadoLista;
+
+	public Set<Empleado> getEmpleadoLista() {
+		return empleadoLista;
+	}
+
+	public void setEmpleadoLista(Set<Empleado> empleadoLista) {
+		this.empleadoLista = empleadoLista;
+	}
 
 	public Long getIdEmpleado() {
 		return idEmpleado;
@@ -64,6 +76,7 @@ public class DepartamentoDto {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
 
 	
 }
