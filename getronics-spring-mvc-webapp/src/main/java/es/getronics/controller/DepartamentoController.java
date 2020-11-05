@@ -35,17 +35,13 @@ import es.getronics.validators.DepartamentoValidator;
 @Controller
 public class DepartamentoController {
 
-	private final String LIST_VIEW = "departamento/list";
-	private final String DEPARTAMENTO_VIEW = "departamento/departamento";
-	private final String DEPARTAMENTO_DETALLE = "departamento/detalle";
+	private final String LIST_VIEW = "departamento.list";
+	private final String DEPARTAMENTO_VIEW = "departamento.departamento";
+	private final String DEPARTAMENTO_DETALLE = "departamento.detalle";
 	private final String ERROR_VIEW = "departamento/error";
-	private final String DEPARTAMENTO_ALTA = "departamento/alta";
-	private final String DEPARTAMENTO_REDIRECT = "redirect:/departamento";
-	
-	@Autowired
-	private DepartamentoDao departamentoDao;
-	@Autowired
-	private EmpleadoDao empleadoDao;
+	private final String DEPARTAMENTO_ALTA = "departamento.alta";
+
+
 	@Autowired
 	private DepartamentoService departamentoService;
 	@Autowired
@@ -87,7 +83,7 @@ public class DepartamentoController {
 	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento,
 			BindingResult bindingResult, Model model) throws DepartamentoExistenteException {
 		if (bindingResult.hasErrors()) {
-			return "/departamento/departamento";
+			return "departamento.departamento";
 		}
 
 		if (departamento.getId() != null) {
@@ -101,7 +97,7 @@ public class DepartamentoController {
 	}
 
 	@RequestMapping("delete/{id}")
-	public ModelAndView eliminarDepartamento(@PathVariable Long id, Model model) {
+	public String eliminarDepartamento(@PathVariable Long id, Model model) {
 		/*if() {
 			
 		}else {
@@ -110,13 +106,14 @@ public class DepartamentoController {
 		}*/
 		
 
-		List<Empleado> empleado= empleadoDao.findAll();
+		/*List<Empleado> empleado= empleadoDao.findAll();
 		for(Empleado todos: empleado) {
 			if(todos.getDepartamento().getId().equals(id)) {
 				//empleadoDao.remove(todos);
 			}
-		}
-		return new ModelAndView(DEPARTAMENTO_REDIRECT);
+		}*/
+		departamentoService.remove(id);
+		return "redirect:/departamento";
 
 	}
 

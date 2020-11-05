@@ -1,8 +1,6 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ include file="../common/taglibs.jsp"%>
 
-
+<h3 class="mt-5"><spring:message code="departamento.list.title"></spring:message> </h3>
 <table>
 	<thead>
 		<th>Id</th>

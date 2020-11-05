@@ -114,16 +114,16 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 		return false;
 	}
 
-	
+	//Rehacer bien, está a medias
 	@Override
 	public boolean empleadoAsignado(DepartamentoDto dto) {
 		EmpleadoDto empleado = new EmpleadoDto();
 		List<Empleado> empleados = empleadoDao.findAll();
 		List<Departamento> entity = departamentoDao.findAll();
 		empleado = empleadoService.findById(dto.getIdEmpleado());
-		if (empleados.size() > 0) {
+		if (empleados.isEmpty()==false) {
 			for (Departamento departamento : entity) {
-				if (empleado.getNombre() == departamento.getNombreEmpleado()) {
+				if (empleado.getId() == dto.getIdEmpleado()) {
 					return false;
 				}
 			}
