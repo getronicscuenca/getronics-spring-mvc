@@ -94,7 +94,6 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 	@Override
 	public EmpleadoDto insert(EmpleadoDto dto) {
 		Empleado entity = empleadoConverter.map(dto);
-		entity.setDepartamento(departamentoDao.findById(dto.getIdDepartamento()));
 		dto = empleadoConverter.convert(empleadoDao.insert(entity));
 		
 		return dto;

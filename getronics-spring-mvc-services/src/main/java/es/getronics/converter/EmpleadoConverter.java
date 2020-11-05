@@ -3,7 +3,6 @@
  */
 package es.getronics.converter;
 
-import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,6 +35,11 @@ public class EmpleadoConverter implements Converter<Empleado, EmpleadoDto> {
 		}
 		
 
+		if(source.getDepartamento() != null) {
+			result.setIdDepartamento(source.getDepartamento().getId());
+			result.setDepartamento(source.getDepartamento().getNombre());
+		}
+		
 		return result;
 	}
 
@@ -46,9 +50,9 @@ public class EmpleadoConverter implements Converter<Empleado, EmpleadoDto> {
 		result.setNombre(dto.getNombre());
 		result.setApellido1(dto.getApellido1());
 		result.setApellido2(dto.getApellido2());
-		result.setDepartamento(departamentoDao.findById(dto.getIdDepartamento()));
+		if(dto.getIdDepartamento() != null) {
+			result.setDepartamento(departamentoDao.findById(dto.getIdDepartamento()));
+		}
 		return result;
 	}
-
-
 }
