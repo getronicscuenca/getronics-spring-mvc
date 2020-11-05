@@ -87,7 +87,7 @@ public class DepartamentoController {
 	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento,
 			BindingResult bindingResult, Model model) throws DepartamentoExistenteException {
 		if (bindingResult.hasErrors()) {
-			return "/departamento/departamento";
+			return DEPARTAMENTO_VIEW;
 		}
 
 		if (departamento.getId() != null) {

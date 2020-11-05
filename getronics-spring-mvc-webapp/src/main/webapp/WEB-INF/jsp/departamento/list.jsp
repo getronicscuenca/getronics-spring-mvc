@@ -3,7 +3,7 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 
-<table>
+<table class="table table-striped blue">
 	<thead>
 		<th>Id</th>
 		<th> <spring:message code="departamento.nombre"></spring:message></th>
