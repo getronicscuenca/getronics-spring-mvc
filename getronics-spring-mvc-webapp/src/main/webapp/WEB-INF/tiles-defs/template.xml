@@ -26,4 +26,8 @@
         <put-attribute name="body" value="/WEB-INF/jsp/empleado/empleado.jsp" />
     </definition>
     
+    <definition name="tecnologia.list" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/tecnologias/list.jsp" />
+    </definition>
+    
 </tiles-definitions>
