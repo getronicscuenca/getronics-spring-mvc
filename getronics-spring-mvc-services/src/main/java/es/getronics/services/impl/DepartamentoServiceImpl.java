@@ -16,6 +16,7 @@ import es.getronics.dao.EmpleadoDao;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
 import es.getronics.exceptions.DepartamentoExistenteException;
+import es.getronics.exceptions.EmpleadosExistentes;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
 
@@ -103,57 +104,15 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 		List<Departamento> entity = departamentoDao.findByExample(example);
 		return entity.isEmpty();
 	}
-	
+
 	@Override
-	public boolean primerDepartamento(DepartamentoDto departamentoDto) {
-		List<Departamento> entity = departamentoDao.findAll();
-		List<Empleado> empleados = empleadoDao.findAll();
-		if (entity.size() == 0 || empleados.size() == 0) {
-			return true;
+	public void comprobarEmpleados(Long idDepart) throws EmpleadosExistentes {
+		Departamento departamento = departamentoDao.findById(idDepart);
+		if(departamento.getNombreEmpleado()!=null) {
+			throw new EmpleadosExistentes("Error al eliminar, el departamento posee empleados");
 		}
-		return false;
 	}
 
 	
-	@Override
-	public boolean empleadoAsignado(DepartamentoDto dto) {
-		EmpleadoDto empleado = new EmpleadoDto();
-		List<Empleado> empleados = empleadoDao.findAll();
-		List<Departamento> entity = departamentoDao.findAll();
-		empleado = empleadoService.findById(dto.getIdEmpleado());
-		if (empleados.size() > 0) {
-			for (Departamento departamento : entity) {
-				if (empleado.getNombre() == departamento.getNombreEmpleado()) {
-					return false;
-				}
-			}
-		}
-		return true;
-
-	}
-
-	
-	@Override
-	public void validarDepartamento(DepartamentoDto departamento) throws DepartamentoExistenteException {
-		
-		if (primerDepartamento(departamento) == true) {
-			departamento.setAlta(new Date());
-			departamento.setNombreEmpleado("");
-			insert(departamento);
-		} else if (primerDepartamento(departamento) == false && findByName(departamento) == true
-				&& empleadoAsignado(departamento) == true) {
-			departamento.setAlta(new Date());
-			departamento.setNombreEmpleado(empleadoService.findById(departamento.getIdEmpleado()).getNombre());
-			insert(departamento);
-		} else {
-			if(findByName(departamento) == false) {
-				throw new DepartamentoExistenteException("El departamento " + "'" + departamento.getNombre() + "'" + " ya existe.");
-			}else if(empleadoAsignado(departamento) == false) {
-				throw new DepartamentoExistenteException("El empleado " + "'" + empleadoService.findById(departamento.getIdEmpleado()).getNombre() + "'" + " ya tiene un departamento asignado.");
-			}
-			
-		}
-
-	}
 
 }

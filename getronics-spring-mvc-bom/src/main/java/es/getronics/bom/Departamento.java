@@ -45,6 +45,15 @@ public class Departamento implements Serializable {
 	private Set<Empleado> empleados;
 
 	
+	
+	public Set<Empleado> getEmpleados() {
+		return empleados;
+	}
+
+	public void setEmpleados(Set<Empleado> empleados) {
+		this.empleados = empleados;
+	}
+
 	public Empleado getEmpleadoJefe() {
 		return empleadoJefe;
 	}

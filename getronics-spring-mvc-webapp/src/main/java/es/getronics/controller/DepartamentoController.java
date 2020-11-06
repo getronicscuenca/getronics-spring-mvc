@@ -27,6 +27,7 @@ import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.exceptions.DepartamentoExistenteException;
+import es.getronics.exceptions.EmpleadosExistentes;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
 import es.getronics.validators.DepartamentoValidator;
@@ -94,30 +95,16 @@ public class DepartamentoController {
 			departamento.setNombreEmpleado(empleadoService.findById(departamento.getIdEmpleado()).getNombre());
 			departamentoService.update(departamento);
 		} else {
-			departamentoService.validarDepartamento(departamento);
-
+			departamentoService.insert(departamento);
 		}
 		return "redirect:/departamento";
 	}
 
 	@RequestMapping("delete/{id}")
-	public ModelAndView eliminarDepartamento(@PathVariable Long id, Model model) {
-		/*if() {
-			
-		}else {
-		departamentoService.remove(id);
+	public ModelAndView eliminarDepartamento(@PathVariable Long id, Model model) throws EmpleadosExistentes {
+		departamentoService.comprobarEmpleados(id);
+		departamentoService.remove(id);	
 		return new ModelAndView(DEPARTAMENTO_REDIRECT);
-		}*/
-		
-
-		List<Empleado> empleado= empleadoDao.findAll();
-		for(Empleado todos: empleado) {
-			if(todos.getDepartamento().getId().equals(id)) {
-				//empleadoDao.remove(todos);
-			}
-		}
-		return new ModelAndView(DEPARTAMENTO_REDIRECT);
-
 	}
 
 	@RequestMapping(value = "alta/{id}", method = RequestMethod.POST)
@@ -136,6 +123,13 @@ public class DepartamentoController {
 
 		return "redirect:/departamento";
 	}
+	
+	@ExceptionHandler(EmpleadosExistentes.class)
+	public ModelAndView errorBorradoDepartamento(EmpleadosExistentes ex){
+		ModelAndView model = new ModelAndView(ERROR_VIEW);
+		model.addObject("problema",ex.getMessage());
+		return model;
+	}
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -144,17 +138,4 @@ public class DepartamentoController {
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
-
-	@ExceptionHandler(DepartamentoExistenteException.class)
-	public ModelAndView handleException(DepartamentoExistenteException ex) {
-		ModelAndView model = new ModelAndView(ERROR_VIEW);
-		model.addObject("problema", ex.getMessage());
-		return model;
-	}
-
-	@ModelAttribute("departamento")
-	public DepartamentoDto createDepartamentoDtoModel() {
-		return new DepartamentoDto();
-	}
-
 }
