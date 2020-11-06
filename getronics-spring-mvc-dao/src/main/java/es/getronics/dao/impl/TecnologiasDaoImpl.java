@@ -5,15 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import es.getronics.base.dao.impl.GenericDaoImpl;
-import es.getronics.bom.Departamento;
-import es.getronics.dao.DepartamentoDao;
+import es.getronics.bom.Tecnologias;
+import es.getronics.dao.TecnologiasDao;
 
-
-@Repository("departamentoDao")
-public class DepartamentoDaoImpl extends GenericDaoImpl<Departamento, Long> implements DepartamentoDao{
+@Repository("tecnologiasDao")
+public class TecnologiasDaoImpl extends GenericDaoImpl<Tecnologias,Long> implements TecnologiasDao {
 
 	@Autowired
-	protected DepartamentoDaoImpl(SessionFactory sessionFactory) {
+	protected TecnologiasDaoImpl(SessionFactory sessionFactory) {
 		super(sessionFactory);
 		// TODO Auto-generated constructor stub
 	}

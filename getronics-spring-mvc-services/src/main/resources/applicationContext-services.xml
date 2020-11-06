@@ -24,8 +24,7 @@
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.h2.Driver" />
-		<property name="url"
-			value="jdbc:h2:~/test -script test.sql" />
+		<property name="url" value="jdbc:h2:~/data/test" />
 		<property name="username" value="sa" />
 		<property name="password" value="" />
 	</bean> 
@@ -66,20 +65,14 @@
         <tx:attributes>
             <tx:method name="find*" propagation="REQUIRED" isolation="READ_COMMITTED" read-only="true"/>
             <tx:method name="convert*" propagation="REQUIRED" isolation="READ_COMMITTED" read-only="true"/>
+            <tx:method name="map*" propagation="REQUIRED" isolation="READ_COMMITTED" read-only="true"/>
        		<tx:method name="*" propagation="REQUIRED" />        		       		
         </tx:attributes>
     </tx:advice>
     
-    <bean id="mapperFactory" class="es.getronics.mapper.MapperFactory">
-		<property name="converters">
-			<list>
-				<bean id="departamentoConverter" class="es.getronics.converter.DepartamentoConverter"></bean>
-				<!-- <bean id="empleadoConverter" class="es.getronics.converter.EmpleadoConverter"></bean>-->
-				
-			</list>
-		</property>
-	</bean>
 	<!-- Jackson model mapper -->
-	<bean class="org.modelmapper.ModelMapper" id="modelMapper" factory-bean="mapperFactory" factory-method="create">		
+	<bean class="org.modelmapper.ModelMapper" id="modelMapper" >		
 	</bean>
+	<!-- <bean id="departamentoValidator" class="es.getronics.validators.DepartamentoValidator"> </bean>-->
+	
 </beans>

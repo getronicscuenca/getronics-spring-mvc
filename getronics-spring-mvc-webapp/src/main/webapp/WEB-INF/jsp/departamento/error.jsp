@@ -1,1 +1,4 @@
-<h1>Error controlado por el manejador de excepciones</h1>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<p>${problema }</p>

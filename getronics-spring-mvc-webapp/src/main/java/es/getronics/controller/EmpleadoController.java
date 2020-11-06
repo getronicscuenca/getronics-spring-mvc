@@ -4,7 +4,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.dto.EmpleadoDto;
+import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
 
 /**
@@ -24,12 +27,13 @@ import es.getronics.services.EmpleadoService;
 @Controller
 public class EmpleadoController {
 	
-	private final String LIST_VIEW = "empleado/list";
-	private final String EMPLEADO_VIEW = "empleado/empleado";
-	private final String ERROR_VIEW = "empleado/error";
+	private final String LIST_VIEW = "empleado.list";
+	private final String EMPLEADO_VIEW = "empleado.empleado";
 
 	@Autowired
-	EmpleadoService empleadoService;
+	private EmpleadoService empleadoService;
+	@Autowired
+	private DepartamentoService departamentoService;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView listarEmpleados(Model model) {
@@ -41,12 +45,16 @@ public class EmpleadoController {
 	@RequestMapping(method=RequestMethod.POST)
 	public ModelAndView showNewPage(Model model) {
 		model.addAttribute("empleado", new EmpleadoDto());
+		model.addAttribute("departamentos", departamentoService.findAll());
 		return new ModelAndView(EMPLEADO_VIEW, model.asMap());
 	}
 	
 	@RequestMapping(value="update/{id}", method=RequestMethod.GET)
 	public ModelAndView showUpdateEmpleado(@PathVariable Long id, Model model) {
-		model.addAttribute("empleado", empleadoService.findById(id));
+		EmpleadoDto empleado = empleadoService.findById(id);
+		model.addAttribute("empleado", empleado);
+		model.addAttribute("departamentos", departamentoService.findAll());
+		
 		return new ModelAndView(EMPLEADO_VIEW, model.asMap());
 	}
 	
@@ -66,9 +74,9 @@ public class EmpleadoController {
 		return "redirect:/empleado";
 	}
 	
-	@ExceptionHandler
-	public ModelAndView handleException(Exception ex) {
-		return new ModelAndView(ERROR_VIEW);
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		
 	}
 	
 }

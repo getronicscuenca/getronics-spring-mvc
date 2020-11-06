@@ -1,22 +1,32 @@
 package es.getronics.converter;
 
-import org.modelmapper.Converter;
-import org.modelmapper.spi.MappingContext;
+
+import org.springframework.stereotype.Component;
 
 import es.getronics.bom.Departamento;
 import es.getronics.dto.DepartamentoDto;
 
-public class DepartamentoConverter implements Converter<Departamento, DepartamentoDto> {
+@Component
+public class DepartamentoConverter implements Converter<Departamento, DepartamentoDto>{
 
+	
+	
 	@Override
-	public DepartamentoDto convert(MappingContext<Departamento, DepartamentoDto> context) {
-		Departamento source = context.getSource();
+	public DepartamentoDto convert(Departamento source) {
 		DepartamentoDto result = new DepartamentoDto();
 		result.setId(source.getId());
 		result.setNombre(source.getNombre());
-		result.setDescripcion(source.getDescripcion());
-		result.setFecha(source.getFecha());
-		
+		result.setAlta(source.getAlta());
+		result.setIdEmpleado(source.getEmpleadoJefe().getId());
+		result.setNombreEmpleado(source.getNombreEmpleado());
 		return result;
 	}
+
+	@Override
+	public Departamento map(DepartamentoDto dto) {
+		return null;
+	}
+
+	
+
 }

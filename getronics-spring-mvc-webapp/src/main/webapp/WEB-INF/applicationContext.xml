@@ -18,32 +18,43 @@
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
 	<mvc:annotation-driven />
-   	<mvc:interceptors>
-   		<bean id="localeChangeInterceptor" class="es.getronics.controller.interceptors.LocaleChangeInterceptorGetronics" />
-   	</mvc:interceptors>
+
+	<mvc:view-controller path="/index"
+		view-name="index" />
+	<mvc:resources location="/WEB-INF/assets/"
+		mapping="/assets/**" />
+	<mvc:resources location="/WEB-INF/css/" mapping="/css/**" />
+	<mvc:resources location="/WEB-INF/js/" mapping="/js/**" />
+
+	<mvc:interceptors>
+		<bean id="localeChangeInterceptor"
+			class="es.getronics.controller.interceptors.LocaleChangeInterceptorGetronics" />
+	</mvc:interceptors>
 	<!-- MESSAGES -->
-	
+
 	<bean
 		class="org.springframework.context.support.ResourceBundleMessageSource"
 		id="messageSource">
 		<property name="basename" value="messages" />
 	</bean>
-	
-	
-	
-	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver" >
+
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<property name="defaultLocale" value="en_EN" />
 	</bean>
 	
-	<!-- Mapea a nombres logicos de vista to recursos fisicos -->
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/jsp/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
+	<!-- Configuramos TILES 2 -->
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"
+		p:definitions="/WEB-INF/tiles-defs/template.xml" />
+
+	<bean id="tilesViewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver"
+		p:viewClass="org.springframework.web.servlet.view.tiles2.TilesView" />
+
 
 	<bean id="validator"
-      class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 
-	
+
 </beans>
