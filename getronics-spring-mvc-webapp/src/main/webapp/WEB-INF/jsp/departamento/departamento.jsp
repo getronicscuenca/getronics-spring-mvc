@@ -1,17 +1,8 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ include file="../common/taglibs.jsp"%>
 
 <spring:url value="/departamento/new" var="url"></spring:url>
 <spring:message code="departamento.new.title" var="insertTitle" />
 <spring:message code="departamento.update.title" var="updateTitle" />
-
-
-<style>
-.error {
-	color: #ff0000;
-}
-</style>
 
 <c:choose>
 	<c:when test="${departamento.id == null}">
@@ -36,7 +27,7 @@
 									code="departamento.nombre"></spring:message></label>
 
 							<form:input path="nombre" cssClass="form-control" />
-							<form:errors path="nombre" cssClass="error" />
+							<form:errors path="nombre" cssClass="text-danger" />
 						</div>
 
 						<br>
@@ -44,7 +35,7 @@
 							<label for="desc"><spring:message
 									code="departamento.desc"></spring:message></label>
 							<form:input path="desc" cssClass="form-control" />
-							<form:errors path="desc" cssClass="error " />
+							<form:errors path="desc" cssClass="text-danger " />
 						</div>
 						<br>
 						<br>
@@ -52,10 +43,8 @@
 						<div class="form-group col-md-11 mt-3">
 							<label><spring:message code="departamento.empleado"></spring:message></label>
 							<form:select path="idEmpleado" cssClass="form-group">
-								<form:options items="${empleados}" itemLabel="nombre"
-									itemValue="id" />
+								<form:options items="${empleados}" itemLabel="nombre" itemValue="id"  />
 							</form:select>
-							<form:errors path="idEmpleado" cssClass="error" />
 						</div>
 						<div class="form-group col-md-11 text-center">
 							<form:button value="submit" class="btn btn-info"><spring:message code="common.button.send"></spring:message></form:button>

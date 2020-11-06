@@ -103,55 +103,54 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 		List<Departamento> entity = departamentoDao.findByExample(example);
 		return entity.isEmpty();
 	}
-	
+
 	@Override
 	public boolean primerDepartamento(DepartamentoDto departamentoDto) {
 		List<Departamento> entity = departamentoDao.findAll();
 		List<Empleado> empleados = empleadoDao.findAll();
-		if (entity.size() == 0 || empleados.size() == 0) {
+		if (entity.isEmpty() || empleados.isEmpty()) {
 			return true;
 		}
 		return false;
 	}
 
-	//Rehacer bien, está a medias
 	@Override
 	public boolean empleadoAsignado(DepartamentoDto dto) {
-		EmpleadoDto empleado = new EmpleadoDto();
-		List<Empleado> empleados = empleadoDao.findAll();
-		List<Departamento> entity = departamentoDao.findAll();
-		empleado = empleadoService.findById(dto.getIdEmpleado());
-		if (empleados.isEmpty()==false) {
-			for (Departamento departamento : entity) {
-				if (empleado.getId() == dto.getIdEmpleado()) {
-					return false;
+		List<Departamento> listaDepartamento = departamentoDao.findAll();
+		for (Departamento departamento : listaDepartamento) {
+			if(departamento.getIdEmpleado()!=null) {
+				if (departamento.getIdEmpleado().equals(dto.getIdEmpleado())) {
+					return true;
 				}
-			}
+			}			
 		}
-		return true;
+		return false;
 
 	}
 
-	
 	@Override
 	public void validarDepartamento(DepartamentoDto departamento) throws DepartamentoExistenteException {
-		
+
 		if (primerDepartamento(departamento) == true) {
 			departamento.setAlta(new Date());
+			departamento.setIdEmpleado(null);
 			departamento.setNombreEmpleado("");
 			insert(departamento);
 		} else if (primerDepartamento(departamento) == false && findByName(departamento) == true
-				&& empleadoAsignado(departamento) == true) {
+				&& empleadoAsignado(departamento) == false) {
 			departamento.setAlta(new Date());
 			departamento.setNombreEmpleado(empleadoService.findById(departamento.getIdEmpleado()).getNombre());
 			insert(departamento);
 		} else {
-			if(findByName(departamento) == false) {
-				throw new DepartamentoExistenteException("El departamento " + "'" + departamento.getNombre() + "'" + " ya existe.");
-			}else if(empleadoAsignado(departamento) == false) {
-				throw new DepartamentoExistenteException("El empleado " + "'" + empleadoService.findById(departamento.getIdEmpleado()).getNombre() + "'" + " ya tiene un departamento asignado.");
+			if (findByName(departamento) == false) {
+				throw new DepartamentoExistenteException(
+						"El departamento " + "'" + departamento.getNombre() + "'" + " ya existe.");
+			} else if (empleadoAsignado(departamento) == true) {
+				throw new DepartamentoExistenteException(
+						"El empleado " + "'" + empleadoService.findById(departamento.getIdEmpleado()).getNombre() + "'"
+								+ " ya tiene un departamento asignado.");
 			}
-			
+
 		}
 
 	}

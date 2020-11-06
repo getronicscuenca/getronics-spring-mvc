@@ -21,10 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import es.getronics.bom.Departamento;
-import es.getronics.bom.Empleado;
-import es.getronics.dao.DepartamentoDao;
-import es.getronics.dao.EmpleadoDao;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.exceptions.DepartamentoExistenteException;
 import es.getronics.services.DepartamentoService;
@@ -38,9 +34,8 @@ public class DepartamentoController {
 	private final String LIST_VIEW = "departamento.list";
 	private final String DEPARTAMENTO_VIEW = "departamento.departamento";
 	private final String DEPARTAMENTO_DETALLE = "departamento.detalle";
-	private final String ERROR_VIEW = "departamento/error";
+	private final String ERROR_VIEW = "departamento.error";
 	private final String DEPARTAMENTO_ALTA = "departamento.alta";
-
 
 	@Autowired
 	private DepartamentoService departamentoService;
@@ -98,20 +93,12 @@ public class DepartamentoController {
 
 	@RequestMapping("delete/{id}")
 	public String eliminarDepartamento(@PathVariable Long id, Model model) {
-		/*if() {
-			
-		}else {
-		departamentoService.remove(id);
-		return new ModelAndView(DEPARTAMENTO_REDIRECT);
-		}*/
-		
 
-		/*List<Empleado> empleado= empleadoDao.findAll();
-		for(Empleado todos: empleado) {
-			if(todos.getDepartamento().getId().equals(id)) {
-				//empleadoDao.remove(todos);
-			}
-		}*/
+		/*
+		 * List<Empleado> empleado= empleadoDao.findAll(); for(Empleado todos: empleado)
+		 * { if(todos.getDepartamento().getId().equals(id)) { empleadoDao.remove(todos);
+		 * } }
+		 */
 		departamentoService.remove(id);
 		return "redirect:/departamento";
 
@@ -124,7 +111,7 @@ public class DepartamentoController {
 	}
 
 	@RequestMapping(value = "chAlta/{id}", method = RequestMethod.POST)
-	public String guardarFecha(@PathVariable long id, @ModelAttribute DepartamentoDto departamento,
+	public String guardarFecha(@PathVariable Long id, @ModelAttribute DepartamentoDto departamento,
 			@RequestParam Date date) {
 
 		departamento = departamentoService.findById(id);

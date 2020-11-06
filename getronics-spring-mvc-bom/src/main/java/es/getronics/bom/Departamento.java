@@ -30,6 +30,17 @@ public class Departamento implements Serializable {
 	@Column(name = "ALTA")
 	private Date alta;
 	
+	@Column(name = "IDEMPLEADO")
+	private Long idEmpleado;
+	
+	public Long getIdEmpleado() {
+		return idEmpleado;
+	}
+
+	public void setIdEmpleado(Long idEmpleado) {
+		this.idEmpleado = idEmpleado;
+	}
+
 	@Column(name="NOMBRE_EMPLEADO")
 	private String nombreEmpleado;
 	

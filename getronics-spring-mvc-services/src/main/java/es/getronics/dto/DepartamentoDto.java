@@ -11,23 +11,12 @@ import es.getronics.services.DepartamentoService;
 
 public class DepartamentoDto {
 
-	
-	
 	private Long id;
 	private String nombre;
 	private String desc;
 	private Date alta;
 	private Long idEmpleado;
 	private String nombreEmpleado;
-	private Set<Empleado> empleadoLista;
-
-	public Set<Empleado> getEmpleadoLista() {
-		return empleadoLista;
-	}
-
-	public void setEmpleadoLista(Set<Empleado> empleadoLista) {
-		this.empleadoLista = empleadoLista;
-	}
 
 	public Long getIdEmpleado() {
 		return idEmpleado;
@@ -76,7 +65,5 @@ public class DepartamentoDto {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
 
-	
 }
