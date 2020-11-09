@@ -20,9 +20,9 @@ import es.getronics.services.TecnologiaService;
 @Controller
 public class TecnologiaController {
 
-	private final String TECNOLOGIA_VIEW = "tecnologia/tecnologia";
-	private final String LIST_VIEW = "tecnologia/list";
-	private final String ERROR_VIEW = "tecnologia/error";
+	private final String TECNOLOGIA_VIEW = "tecnologia.tecnologia";
+	private final String LIST_VIEW = "tecnologia.list";
+	private final String ERROR_VIEW = "tecnologia.error";
 	
 	@Autowired
 	private TecnologiaService tecnologiaService;
