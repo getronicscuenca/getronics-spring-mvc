@@ -13,17 +13,40 @@
         <put-attribute name="menu" value="/WEB-INF/jsp/common/menu.jsp" />
         <put-attribute name="body" value="/WEB-INF/jsp/common/blank.jsp" />
     </definition>
- 
+ 	<!--  index-->
     <definition name="index" extends=".mainTemplate">
         <put-attribute name="body" value="/WEB-INF/jsp/index.jsp" />
     </definition>
-    
+    <!-- empleado -->
     <definition name="empleado.list" extends=".mainTemplate">
         <put-attribute name="body" value="/WEB-INF/jsp/empleado/list.jsp" />
     </definition>
-    
     <definition name="empleado.empleado" extends=".mainTemplate">
         <put-attribute name="body" value="/WEB-INF/jsp/empleado/empleado.jsp" />
+    </definition>
+   
+   <!--departamento  -->
+    <definition name="departamento.list" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/departamento/list.jsp" />
+    </definition>
+    <definition name="departamento.departamento" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/departamento/departamento.jsp" />
+    </definition>
+     <definition name="departamento.detalle" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/departamento/detalle.jsp" />
+    </definition>
+      <definition name="departamento.alta" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/departamento/alta.jsp" />
+    </definition>
+    
+    
+    
+    <!-- tecnologia -->
+    <definition name="tecnologia.list" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/tecnologia/list.jsp" />
+    </definition>
+    <definition name="tecnologia.tecnologia" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/tecnologia/tecnologia.jsp" />
     </definition>
     
 </tiles-definitions>

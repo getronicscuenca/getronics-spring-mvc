@@ -3,6 +3,7 @@
 <spring:url value="/index" var="urlIndex"></spring:url>
 <spring:url value="/empleado" var="urlEmpleado"></spring:url>
 <spring:url value="/departamento" var="urlDepartamento"></spring:url>
+<spring:url value="/tecnologia" var="urlTecnologia"></spring:url>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#"></a>
@@ -33,6 +34,18 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="${ urlDepartamento }"><spring:message code="common.menu.list"></spring:message></a>
           <form:form action="${ urlDepartamento }" >
+				<button type="submit" class="dropdown-item"><spring:message code="common.menu.new"></spring:message></button>
+		  </form:form>
+        </div>
+      </li>
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <spring:message code="common.menu.tecnologias"></spring:message>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="${ urlTecnologia}"><spring:message code="common.menu.list"></spring:message></a>
+          <form:form action="${ urlTecnologia }" >
 				<button type="submit" class="dropdown-item"><spring:message code="common.menu.new"></spring:message></button>
 		  </form:form>
         </div>

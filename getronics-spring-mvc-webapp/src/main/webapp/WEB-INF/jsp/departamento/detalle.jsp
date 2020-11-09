@@ -6,22 +6,23 @@
 <spring:url value="/departamento" var="url"></spring:url>
 <spring:url value="/departamento/alta/${ departamento.id }" var="url2"></spring:url>
 <style>
-	.row > div{
+	.prueba{
 		background: #f2f2f2;
-		margin: 10p 0;
+		
 	}
+
 </style>
 
 
 <div class="container">
-	<div class="row">
+	<div class="row text-center">
 		<div class="col">
 			<h1>${ departamento.nombre }</h1>
 		</div>
 	</div>
 	<div class="row">
 	
-		<div class="col">
+		<div class="col prueba mr-1">
 			<p>
 			fecha de creacion: ${ departamento.alta }
 				<form:form action="${ url2 }" method="GET">
@@ -30,11 +31,11 @@
 			</p>
 		</div>
 		
-		<div class="col">
+		<div class="col prueba mr-1">
 			<p>Jefe: ${ departamento.jefe.getNombre()}</p>
 		</div>
 		
-		<div class="col">
+		<div class="col prueba mr-1">
 			<table>
 			<thead>
 				<th>empleados:</th>
@@ -54,7 +55,7 @@
 			</table>
 		</div><!-- col  -->
 		
-		<div class="col">
+		<div class="col prueba">
 			<table>
 			<thead>
 				<th>Tecnologias:</th>
@@ -69,7 +70,7 @@
 			</table>
 		</div>
 		
-		<div class="col-12">
+		<div class="col-12 text-center">
 			<p>descripcion: <br>${ departamento.desc }</p>
 			
 		</div>	

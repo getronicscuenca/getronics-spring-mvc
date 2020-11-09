@@ -1,7 +1,7 @@
 <%@ include file="../common/taglibs.jsp"%>
 
 <h3 class="mt-5"><spring:message code="departamento.list.title"></spring:message> </h3>
-<div class="table-responsive">
+<div class="table-responsive" class="col-10">
 	<table class="table table-striped table-info">
 		<thead class="thead-light">
 			<th scope="col">Codigo</th>
