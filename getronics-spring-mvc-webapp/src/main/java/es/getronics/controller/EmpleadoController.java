@@ -5,9 +5,13 @@ package es.getronics.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,9 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
+import es.getronics.exceptions.ExcepcionDepartamento;
+import es.getronics.exceptions.ExcepcionEmpleado;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
+import es.getronics.services.impl.EmpleadoServiceImpl;
 
 /**
  * Maneja las peticiones relacionadas con empleados
@@ -62,18 +70,48 @@ public class EmpleadoController {
 	}
 	
 	@RequestMapping(value="new", method=RequestMethod.POST)
-	public String insertarEmpleado(@ModelAttribute EmpleadoDto empleado, Model model) {
+	public String insertarEmpleado(@ModelAttribute("empleado") @Valid EmpleadoDto empleado,
+			BindingResult bindingResult, Model model) {
+		
+		if (bindingResult.hasErrors()) { 
+			List<ObjectError> listaErrores = bindingResult.getAllErrors();
+			String mensajeError="";
+			for(ObjectError error:listaErrores) {
+				mensajeError=mensajeError+"</br>"+error.getCode();
+			}
+			model.addAttribute("mensaje", mensajeError);
+			return "empleado.error";
+		}
+		
 		if(empleado.getId() != null) {
 			empleadoService.update(empleado);
 		} else {
-			empleadoService.insert(empleado);
+			//departamento.setAlta(fecha);
+			try {
+				empleadoService.insert(empleado);
+				departamentoService.nuevoEmpleDepartamento(empleado);
+			}
+			catch(ExcepcionEmpleado excepcion) {
+				String mensaje= excepcion.getMessage();
+				model.addAttribute("mensaje", mensaje);
+				return "empleado.error";
+			}
+		
 		}
 		return "redirect:/empleado";
 	}
 	
 	@RequestMapping("delete/{id}")
 	public String eliminarEmpleado(@PathVariable Long id, Model model) {
-		empleadoService.remove(id);
+		try {
+			departamentoService.eliminarEmpleDepartamento(id);
+			empleadoService.remove(id);
+		}
+		catch(ExcepcionEmpleado excepcion) {
+			String mensaje= excepcion.getMessage();
+			model.addAttribute("mensaje", mensaje);
+			return "empleado.error";
+		}
 		return "redirect:/empleado";
 	}
 	

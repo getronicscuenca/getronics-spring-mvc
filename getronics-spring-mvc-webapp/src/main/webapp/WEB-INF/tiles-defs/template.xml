@@ -26,4 +26,20 @@
         <put-attribute name="body" value="/WEB-INF/jsp/empleado/empleado.jsp" />
     </definition>
     
+    <definition name="departamento.list" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/departamento/list.jsp" />
+    </definition>
+    
+    <definition name="departamento.departamento" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/departamento/departamento.jsp" />
+    </definition>
+    
+    <definition name="departamento.error" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/departamento/error.jsp" />
+    </definition>
+    
+    <definition name="empleado.error" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/empleado/error.jsp" />
+    </definition>
+    
 </tiles-definitions>

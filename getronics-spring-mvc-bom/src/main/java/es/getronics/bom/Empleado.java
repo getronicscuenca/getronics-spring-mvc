@@ -3,6 +3,8 @@ package es.getronics.bom;
 import java.io.Serializable;
 
 import javax.persistence.*;
+
+import org.hibernate.validator.constraints.NotBlank;
 //esto es un ajodida prueba de git
 @Entity
 @Table(name = "EMPLEADO")
@@ -16,10 +18,13 @@ public class Empleado implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	@Column(name = "NOMBRE")
+	@NotBlank
 	private String nombre;
 	@Column(name = "APELLIDO_1")
+	@NotBlank
 	private String apellido1;
 	@Column(name = "APELLIDO_2")
+	@NotBlank
 	private String apellido2;
 	
 	//@JoinColumn(name="ID_JEFE")

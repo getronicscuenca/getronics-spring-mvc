@@ -14,25 +14,15 @@
     text-align:left;
     width:auto;
 }
-.info {
+.tituloError {
     color: #00529B;
     background-color: #BDE5F8;
     background-image: url('imagenes/info.jpg');
 }
-.correcto {
+.mensajeError {
     color: #4F8A10;
     background-color: #DFF2BF;
     background-image:url('imagenes/correcto.JPG');
-}
-.tituloError {
-    color: #9F6000;
-    background-color: #FEEFB3;
-    background-image: url('imagenes/ojo.JPG');
-}
-.mensajeError {
-    color: #D8000C;
-    background-color: #FFBABA;
-    background-image: url('imagenes/error.jpg');
 }
 
 </style>

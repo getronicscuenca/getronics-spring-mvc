@@ -11,6 +11,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
+import es.getronics.exceptions.ExcepcionDepartamento;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
 import es.getronics.validators.DepartamentoValidator;
@@ -30,8 +32,8 @@ import es.getronics.validators.DepartamentoValidator;
 @Controller
 public class DepartamentoController {
 
-	private final String LIST_VIEW = "departamento/list";
-	private final String DEPARTAMENTO_VIEW = "departamento/departamento";
+	private final String LIST_VIEW = "departamento.list";
+	private final String DEPARTAMENTO_VIEW = "departamento.departamento";
 	private final String DEPARTAMENTO_DETALLE = "departamento/detalle";
 	private final String ERROR_VIEW = "departamento/error";
 	private final String DEPARTAMENTO_ALTA = "departamento/alta";
@@ -46,10 +48,10 @@ public class DepartamentoController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listarDepartamentos(Model model) {
 		List<DepartamentoDto> departamentos = departamentoService.findAll();
-		List<EmpleadoDto> empleados = empleadoService.findAll();
-
+		//List<EmpleadoDto> empleados= departamentoService.findAllT3(departamento);
+		//List<EmpleadoDto> empleados = empleadoService.findAll();
 		model.addAttribute("departamentos", departamentos);
-		model.addAttribute("empleados", empleados);
+		//model.addAttribute("empleados", empleados);
 
 		return new ModelAndView(LIST_VIEW, model.asMap());
 
@@ -58,6 +60,7 @@ public class DepartamentoController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView showNewPage(Model model) {
 		model.addAttribute("jefe", empleadoService.findAll());
+		model.addAttribute("depars", departamentoService.findAll());
 		model.addAttribute("departamento", new DepartamentoDto());
 
 		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
@@ -82,33 +85,49 @@ public class DepartamentoController {
 	}
 
 	@RequestMapping(value = "new", method = RequestMethod.POST)
-	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento,
+	public String insertarDepartamento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento,
 			BindingResult bindingResult, Model model) {
-		Date fecha = new Date();
-		String depar = departamentoService.findByName(departamento);
-		if (bindingResult.hasErrors()) {
-			return "/departamento/departamento";
+		//Date fecha = new Date();
+		//String depar = departamentoService.findByName(departamento);
+		
+		if (bindingResult.hasErrors()) { 
+			List<ObjectError> listaErrores = bindingResult.getAllErrors();
+			String mensajeError="";
+			for(ObjectError error:listaErrores) {
+				mensajeError=mensajeError+"<br/>"+error.getCode();
+			}
+			model.addAttribute("mensaje", mensajeError);
+			return "departamento.error";
 		}
 
-		if (depar.equals("") || depar.equals(null)) {
-
-			departamento.setAlta(fecha);
-			departamentoService.insert(departamento);
+		if (departamento.getId() != null) {
+			departamentoService.update(departamento);
 		} else {
-			if (departamento.getId() != null) {
-				departamento.setAlta(fecha);
-				departamentoService.update(departamento);
-		}
+			//departamento.setAlta(fecha);
+			try {
+			departamentoService.insert(departamento);
+			}
+			catch(ExcepcionDepartamento excepcion) {
+				String mensaje= excepcion.getMessage();
+				model.addAttribute("mensaje", mensaje);
+				return "departamento.error";
+			}
+		
 		}
 		return "redirect:/departamento";
 	}
 
 	@RequestMapping("delete/{id}")
-	public String eliminarDepartamento(@PathVariable long id, Model model) {
-
+	public String eliminarDepartamento(@PathVariable Long id, Model model) {
+		try {
 		departamentoService.remove(id);
+		}
+		catch(ExcepcionDepartamento excepcion) {
+			String mensaje= excepcion.getMessage();
+			model.addAttribute("mensaje", mensaje);
+			return "departamento.error";
+		}
 		return "redirect:/departamento";
-
 	}
 
 	@RequestMapping(value = "alta/{id}", method = RequestMethod.POST)
@@ -122,7 +141,7 @@ public class DepartamentoController {
 			@RequestParam Date date) {
 
 		departamento = departamentoService.findById(id);
-		departamento.setAlta(date);
+		//departamento.setAlta(date);
 		departamentoService.update(departamento);
 
 		return "redirect:/departamento";

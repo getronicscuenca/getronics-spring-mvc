@@ -18,9 +18,9 @@ public class DepartamentoConverter implements Converter<Departamento, Departamen
 		DepartamentoDto result = new DepartamentoDto();
 		result.setId(source.getId());
 		result.setNombre(source.getNombre());
-		result.setAlta(source.getAlta());
+		//result.setAlta(source.getAlta());
 		result.setDesc(source.getDesc());
-		result.setJefe(source.getJefe().getId());
+		result.setJefe(source.getJefe().getNombre());
 		
 		return result;
 	}
@@ -30,9 +30,9 @@ public class DepartamentoConverter implements Converter<Departamento, Departamen
 		Departamento res= new Departamento();
 		res.setId(dto.getId());
 		res.setNombre(dto.getNombre());
-		res.setAlta(dto.getAlta());
+		//res.setAlta(dto.getAlta());
 		res.setDesc(dto.getDesc());
-		res.setJefe(empleadoDao.findById(dto.getJefe()));
+		res.setJefe(empleadoDao.findById(dto.getIdJefe()));
 	
 		return res;
 	}

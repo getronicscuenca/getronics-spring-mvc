@@ -1,5 +1,8 @@
 package es.getronics.dto;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * Objeto de transferenca empleado
  * 
@@ -9,8 +12,14 @@ package es.getronics.dto;
 public class EmpleadoDto {
 
 	private Long id;
+	@NotEmpty (message="Debe poner un nombre")
+	@Length(min = 3, max = 15, message="Longitud de nombre incorrecta" )
 	private String nombre;
+	@NotEmpty (message="Debe poner el primer apellido")
+	@Length(min = 3, max = 15, message="Longitud de apellido incorrecta" )
 	private String apellido1;
+	@NotEmpty (message="Debe poner el segundo apellido")
+	@Length(min = 3, max = 15, message="Longitud de apellido incorrecta" )
 	private String apellido2;
 	private Long idDepartamento;
 	private String departamento;

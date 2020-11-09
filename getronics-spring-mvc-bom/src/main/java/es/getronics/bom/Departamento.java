@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name = "DEPARTAMENTO")
 public class Departamento implements Serializable {
@@ -16,14 +18,16 @@ public class Departamento implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@Column(name = "NOMBRE")
+	@NotBlank
 	private String nombre;
 	@Column(name = "DESCRIPCION")
+	@NotBlank
 	private String desc;
-	@Column(name = "ALTA")
-	private Date alta;
 	
+	//@Column(name = "ALTA")
+	//private Date alta;
 	
-	@Column(name="ID_JEFE")
+	//@Column(name="ID_JEFE") <<<<<FALTA>>>>
 	//@OneToOne(mappedBy="id")
 	private Empleado jefe;
 	
@@ -62,13 +66,13 @@ public class Departamento implements Serializable {
 		this.desc = desc;
 	}
 
-	public Date getAlta() {
+	/*public Date getAlta() {
 		return alta;
 	}
 
 	public void setAlta(Date alta) {
 		this.alta = alta;
-	}
+	}*/
 
 	public Set<Empleado> getEmpleados() {
 		return empleados;
