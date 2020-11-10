@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.getronics.base.exceptions.TecnologiaExisteException;
 import es.getronics.bom.Tecnologia;
 import es.getronics.converter.Converter;
 import es.getronics.dao.TecnologiaDao;
@@ -71,6 +72,18 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 		Tecnologia entity =  modelMapper.map(dto, Tecnologia.class);
 		tecnologiaDao.insert(entity);
 		return dto;
+		
+	}
+	
+	public TecnologiaDto insertarTecnologia(TecnologiaDto dto) throws TecnologiaExisteException
+	{
+		List<TecnologiaDto> tecnologias=findAll();
+		if(tecnologias.contains(dto))
+		{
+			throw  new TecnologiaExisteException("ya existe una tecnologia con ese nombre");
+		}
+		
+		return insert(dto);
 		
 	}
 

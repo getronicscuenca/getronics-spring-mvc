@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import es.getronics.base.exceptions.TecnologiaExisteException;
+import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.TecnologiaDto;
 import es.getronics.services.TecnologiaService;
 
@@ -54,15 +55,23 @@ public class TecnologiaController {
 	}
 	
 	@RequestMapping(value="new", method=RequestMethod.POST)
-	public String insertarEmpleado(@ModelAttribute TecnologiaDto tecnologia,Model model)
+	public ModelAndView insertarEmpleado(@ModelAttribute TecnologiaDto tecnologia,Model model)
 	{
 		if(tecnologia.getId() != null)
 		{
 			tecnologiaService.update(tecnologia);
 		}else {
-			tecnologiaService.insert(tecnologia);
+			try {
+				tecnologiaService.insertarTecnologia(tecnologia);
+			} catch (TecnologiaExisteException e) {
+				model.addAttribute("tecnologia", tecnologia);
+				model.addAttribute("errores", e.getMessage());
+				return new ModelAndView(TECNOLOGIA_VIEW, model.asMap());
+			}
 		}
-		return "redirect:/tecnologia";
+		List<TecnologiaDto> tecnologias = tecnologiaService.findAll();
+		model.addAttribute("tecnologias", tecnologias);
+		return new ModelAndView(LIST_VIEW, model.asMap());
 	}
 	
 	@RequestMapping("delete/{id}")

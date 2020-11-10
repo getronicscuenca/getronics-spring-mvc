@@ -98,6 +98,7 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 				throw new FechaPasadaException("La fecha no puede Ser de ayer");
 			}
 		}
+		
 		this.update(dto);
 	}
 

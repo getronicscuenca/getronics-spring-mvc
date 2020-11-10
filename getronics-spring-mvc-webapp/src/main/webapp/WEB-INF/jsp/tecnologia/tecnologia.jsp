@@ -21,6 +21,9 @@
 					<form:hidden path="id"/>
 					<div class="row justify-content-center">	
 						<div class="form-group col-md-11">
+						<c:if test="${errores != null}">
+								<p>${errores}</p>
+								</c:if>
 							<label for="nombre"><spring:message code="tecnologia.nombre"></spring:message></label>
 							<form:input path="nombre" cssClass="form-control"/>
 						</div>
