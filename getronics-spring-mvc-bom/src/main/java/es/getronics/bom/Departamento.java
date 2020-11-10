@@ -3,9 +3,8 @@ package es.getronics.bom;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+
 import javax.persistence.*;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "DEPARTAMENTO")
@@ -15,50 +14,44 @@ public class Departamento implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	//Solo he añadido estas 2 restricciones que el nombre tenga que estar entre (1,25) y que no sea vacio
-	
-	//@Length(min=1,max=25) @NotBlank
+	private long id;
 	@Column(name = "NOMBRE")
 	private String nombre;
-	//Y aquí que la descripcion tenga un máximo de 100 caracteres y que no sea vacia
-	
-	//@Length(max=100) @NotBlank
 	@Column(name = "DESCRIPCION")
 	private String desc;
-	
 	@Column(name = "ALTA")
 	private Date alta;
 	
-	@Column(name="NOMBRE_EMPLEADO")
-	private String nombreEmpleado;
 	
+	@Column(name="ID_JEFE")
+	//@OneToOne(mappedBy="id")
+	private Empleado jefe;
 	
-	@ManyToMany(mappedBy="departamentos", cascade = CascadeType.ALL)
-	private Set<Tecnologias> tecnologia;
-	
-	private Empleado empleadoJefe;
-	
-
-
 	@OneToMany(mappedBy = "departamento")
 	private Set<Empleado> empleados;
 
-	
-	public Empleado getEmpleadoJefe() {
-		return empleadoJefe;
+	public Empleado getJefe() {
+		return jefe;
 	}
 
-	public void setEmpleadoJefe(Empleado empleadoJefe) {
-		this.empleadoJefe = empleadoJefe;
+	public void setJefe(Empleado jefe) {
+		this.jefe = jefe;
 	}
 
-	public Date getAlta() {
-		return alta;
+	public long getId() {
+		return id;
 	}
 
-	public void setAlta(Date alta) {
-		this.alta = alta;
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public String getDesc() {
@@ -69,36 +62,20 @@ public class Departamento implements Serializable {
 		this.desc = desc;
 	}
 
-	public Long getId() {
-		return id;
+	public Date getAlta() {
+		return alta;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setAlta(Date alta) {
+		this.alta = alta;
 	}
 
-	public String getNombreEmpleado() {
-		return nombreEmpleado;
+	public Set<Empleado> getEmpleados() {
+		return empleados;
 	}
 
-	public void setNombreEmpleado(String nombreEmpleado) {
-		this.nombreEmpleado = nombreEmpleado;
-	}
-
-	public Set<Tecnologias> getTecnologia() {
-		return tecnologia;
-	}
-
-	public void setTecnologia(Set<Tecnologias> tecnologia) {
-		this.tecnologia = tecnologia;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setEmpleados(Set<Empleado> empleados) {
+		this.empleados = empleados;
 	}
 
 	@Override

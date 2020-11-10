@@ -11,6 +11,14 @@
 .error {
 	color: #ff0000;
 }
+
+.errorblock {
+	color: #000;
+	background-color: #ffEEEE;
+	border: 3px solid #ff0000;
+	padding: 8px;
+	margin: 16px;
+}
 </style>
 
 <c:choose>
@@ -22,47 +30,27 @@
 	</c:otherwise>
 </c:choose>
 
-<div class="row justify-content-center mt-4">
-	<div class="col-md-8">
-		<div class="card card-sm">
-			<form:form modelAttribute="departamento" action="${ url }"
-				cssClass="form-horizontal">
-				<fieldset>
-					<legend class="text-center header">${ title }</legend>
-					<form:hidden path="id" />
-					<div class="row justify-content-center">
-						<div class="form-group col-md-11">
-							<label for="nombre"><spring:message
-									code="departamento.nombre"></spring:message></label>
+<form:errors path="*" cssClass="errorblock" element="div" />
 
-							<form:input path="nombre" cssClass="form-control" />
-							<form:errors path="nombre" cssClass="error" />
-						</div>
+<form:form modelAttribute="departamento" action="${ url }">
+	<h1>${ title }</h1>
 
-						<br>
-						<div class="form-group col-md-11">
-							<label for="desc"><spring:message
-									code="departamento.desc"></spring:message></label>
-							<form:input path="desc" cssClass="form-control" />
-							<form:errors path="desc" cssClass="error " />
-						</div>
-						<br>
-						<br>
+	<form:errors path="*" cssClass="errorblock" element="div" />
 
-						<div class="form-group col-md-11 mt-3">
-							<label><spring:message code="departamento.empleado"></spring:message></label>
-							<form:select path="idEmpleado" cssClass="form-group">
-								<form:options items="${empleados}" itemLabel="nombre"
-									itemValue="id" />
-							</form:select>
-							<form:errors path="idEmpleado" cssClass="error" />
-						</div>
-						<div class="form-group col-md-11 text-center">
-							<form:button value="submit" class="btn btn-info"><spring:message code="common.button.send"></spring:message></form:button>
-						</div>
-					</div>
-				</fieldset>
-			</form:form>
-		</div>
-	</div>
-</div>
+	<form:hidden path="id" />
+	<spring:message code="departamento.nombre"></spring:message>
+	<form:errors path="nombre" cssClass="error" />
+	<br>
+	<form:input path="nombre" />
+	<br>
+	<spring:message code="departamento.desc"></spring:message>
+	<form:errors path="desc" cssClass="error" />
+	<br>
+	<form:input path="desc" />
+	<br>
+	<form:select path="jefe">
+		<form:option value="" label="elige un jefe" />
+		<form:options items="${jefe}" itemLabel="nombre" itemValue="id" />
+	</form:select>
+	<form:button value="submit">Guardar</form:button>
+</form:form>

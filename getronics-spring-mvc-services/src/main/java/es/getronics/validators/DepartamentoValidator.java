@@ -17,9 +17,23 @@ public class DepartamentoValidator implements Validator {
 
 	@Override
 	public void validate(Object target, Errors er) {
-		ValidationUtils.rejectIfEmptyOrWhitespace(er, "nombre", "nombreVacio");
-		ValidationUtils.rejectIfEmpty(er, "desc", "descripcionVacia");
+		ValidationUtils.rejectIfEmptyOrWhitespace(er, "nombre", "nombre_vacio");
+		DepartamentoDto departamento =(DepartamentoDto) target;
 		
+		boolean espacioBlanco=departamento.getNombre().contains(" ");
+		boolean demasiadoGrande= (departamento.getNombre().length()>20);
+		boolean demasiadoPeke= (departamento.getNombre().length()<2);
+		boolean sinNumeros= departamento.getNombre().toLowerCase().matches("(([a-z]*)(\s)*)*");
+		
+		if(espacioBlanco)
+			er.rejectValue("nombre","espaciosBlancos");
+		
+		if(demasiadoGrande)
+			er.rejectValue("nombre","demasiadoGrande");
+		if(demasiadoPeke)
+			er.rejectValue("nombre","demasiadoPeke");
+		if(!sinNumeros)
+			er.rejectValue("nombre","conNumeros");
 	}
 
 }

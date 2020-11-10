@@ -3,9 +3,6 @@ package es.getronics.bom;
 import java.io.Serializable;
 
 import javax.persistence.*;
-
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
 //esto es un ajodida prueba de git
 @Entity
 @Table(name = "EMPLEADO")
@@ -18,79 +15,58 @@ public class Empleado implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	@Length(min=1,max=18)@NotBlank
 	@Column(name = "NOMBRE")
 	private String nombre;
-	@Length(min=1)@NotBlank
 	@Column(name = "APELLIDO_1")
 	private String apellido1;
-	@Length(min=1)@NotBlank
 	@Column(name = "APELLIDO_2")
 	private String apellido2;
 	
-	
+	//@JoinColumn(name="ID_JEFE")
+
+	@OneToOne
+	private Empleado jefe;
 	
 	@ManyToOne
 	private Departamento departamento;
-	/**
-	 * @return the id
-	 */
+
+	
+	public Empleado getJefe() {
+		return jefe;
+	}
+	public void setJefe(Empleado jefe) {
+		this.jefe = jefe;
+	}
 	public Long getId() {
 		return id;
 	}
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
-	/**
-	 * @return the nombre
-	 */
 	public String getNombre() {
 		return nombre;
 	}
-	/**
-	 * @param nombre the nombre to set
-	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	/**
-	 * @return the apellido1
-	 */
 	public String getApellido1() {
 		return apellido1;
 	}
-	/**
-	 * @param apellido1 the apellido1 to set
-	 */
 	public void setApellido1(String apellido1) {
 		this.apellido1 = apellido1;
 	}
-	/**
-	 * @return the apellido2
-	 */
 	public String getApellido2() {
 		return apellido2;
 	}
-	/**
-	 * @param apellido2 the apellido2 to set
-	 */
 	public void setApellido2(String apellido2) {
 		this.apellido2 = apellido2;
 	}
-	
-	
 	public Departamento getDepartamento() {
 		return departamento;
 	}
 	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;

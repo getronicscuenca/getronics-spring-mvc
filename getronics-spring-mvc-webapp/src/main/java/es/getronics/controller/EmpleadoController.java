@@ -1,11 +1,14 @@
+/**
+ * 
+ */
 package es.getronics.controller;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -78,5 +81,4 @@ public class EmpleadoController {
 	public void initBinder(WebDataBinder binder) {
 		
 	}
-	
 }
