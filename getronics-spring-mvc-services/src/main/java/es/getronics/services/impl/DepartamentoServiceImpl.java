@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.getronics.base.exceptions.DepartamentoExisteException;
 import es.getronics.base.exceptions.FechaPasadaException;
 import es.getronics.bom.Departamento;
 import es.getronics.bom.Empleado;
@@ -109,9 +110,21 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 	@Override
 	public DepartamentoDto insert(DepartamentoDto dto) {
 		Departamento entity = departamentoConverter.map(dto);
-		dto= modelMapper.map(departamentoDao.insert(entity), DepartamentoDto.class);
+		dto= modelMapper.map(departamentoDao.insert(entity), DepartamentoDto.class);	
 		return dto;
+		
 	}
+	
+	@Override
+	public DepartamentoDto insertDepartamento(DepartamentoDto dto) throws DepartamentoExisteException {
+		List<DepartamentoDto> departamentos=this.findAll();
+		if(departamentos.contains(dto))
+		{
+			throw new DepartamentoExisteException("ya existe un departamento con ese nombre");
+		}
+			return insert(dto);
+	}
+	
 	public DepartamentoDto link(Long did,Long eid)
 	{
 		 
@@ -148,6 +161,8 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 		departamentoDao.update(entity);
 		
 	}
+
+	
 	
 	
 	

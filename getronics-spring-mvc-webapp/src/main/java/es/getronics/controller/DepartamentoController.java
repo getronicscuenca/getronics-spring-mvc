@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import es.getronics.base.exceptions.DepartamentoExisteException;
 import es.getronics.base.exceptions.FechaPasadaException;
 import es.getronics.bom.Tecnologia;
 import es.getronics.converter.Converter;
@@ -98,29 +99,36 @@ public class DepartamentoController {
 			BindingResult bindingResult, Model model) {
 
 		Date fecha = new Date();
+//		redireccionamos en aso de que haya errores
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("departamento", departamento);
 			model.addAttribute("tecnologias", tecnologiaService.findAll());
-			System.out.println("111111111111111111111111111111111");
 			return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
 		}
-
+//		si tiene un id actualizamos
 		if (departamento.getId() != null) {
 			try {
 				departamentoService.updateDepartamento(departamento);
 			} catch (FechaPasadaException e) {
 
 				model.addAttribute("departamento", departamento);
-				System.out.println("2222222222222222222222222222222222222222");
 				return new ModelAndView(DEPARTAMENTO_ALTA, model.asMap());
 			}
 		} else {
+//			insertamos
 			departamento.setAlta(fecha);
-			departamentoService.insert(departamento);
+			try {
+				departamentoService.insertDepartamento(departamento);
+			} catch (DepartamentoExisteException e) {
+				model.addAttribute("departamento", departamento);
+				model.addAttribute("tecnologias", tecnologiaService.findAll());
+				model.addAttribute("errores", e.getMessage());
+				return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
+				
+			}
 		}
 		List<DepartamentoDto> departamentos = departamentoService.findAll();
 		model.addAttribute("departamentos", departamentos);
-		System.out.println("333333333333333333333333333333333");
 		return new ModelAndView(LIST_VIEW, model.asMap());
 	}
 

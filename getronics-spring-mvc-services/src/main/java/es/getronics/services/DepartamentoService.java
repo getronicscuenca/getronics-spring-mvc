@@ -1,5 +1,6 @@
 package es.getronics.services;
 
+import es.getronics.base.exceptions.DepartamentoExisteException;
 import es.getronics.base.exceptions.FechaPasadaException;
 import es.getronics.base.services.GenericService;
 
@@ -10,4 +11,5 @@ public interface DepartamentoService extends GenericService<DepartamentoDto, Dep
 
 	public DepartamentoDto link(Long did,Long eid);
 	public void updateDepartamento(DepartamentoDto dto) throws FechaPasadaException;
+	public DepartamentoDto insertDepartamento(DepartamentoDto dto) throws DepartamentoExisteException;
 }
