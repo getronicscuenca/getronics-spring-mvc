@@ -41,8 +41,12 @@ public class TecnologiaController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView insertarTecnologia(@ModelAttribute("tecnologia") TecnologiaDTO tecnologia) {
-		
-		tecnologiaService.insert(tecnologia);
+		if(tecnologia.getNombre() !=null) {
+			tecnologiaService.insert(tecnologia);
+		}else {
+			
+		}
+	
 		return new ModelAndView("tecnologia.nuevo");
 	
 		

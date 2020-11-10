@@ -22,9 +22,8 @@ public class TecnologiaDaoImpl implements TecnologiaDao {
 	}
 
 	public Tecnologia insert(Tecnologia entity) {
-		Tecnologia tec = new Tecnologia();
-		sessionFactory.getCurrentSession().save(tec, tec.getClass());
-		return tec;
+		sessionFactory.getCurrentSession().save(entity);
+		return entity;
 
 	}
 
