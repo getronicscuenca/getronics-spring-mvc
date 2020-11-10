@@ -7,4 +7,5 @@ import es.getronics.bom.Tecnologia;
 public interface TecnologiaDao {
 
 	List<Tecnologia> findAll();
+	Tecnologia insert(Tecnologia entity);
 }

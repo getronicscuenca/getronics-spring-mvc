@@ -5,6 +5,7 @@ package es.getronics.services;
 
 import java.util.List;
 
+import es.getronics.bom.Tecnologia;
 import es.getronics.dto.TecnologiaDTO;
 
 /**
@@ -14,5 +15,5 @@ import es.getronics.dto.TecnologiaDTO;
 public interface TecnologiaService {
 	
 	List<TecnologiaDTO> findAllTechnologies();
-
+	TecnologiaDTO insert(TecnologiaDTO dto);
 }

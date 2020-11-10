@@ -30,11 +30,11 @@ import es.getronics.validators.DepartamentoValidator;
 @Controller
 public class DepartamentoController {
 
-	private final String LIST_VIEW = "departamento/list";
-	private final String DEPARTAMENTO_VIEW = "departamento/departamento";
-	private final String DEPARTAMENTO_DETALLE = "departamento/detalle";
-	private final String ERROR_VIEW = "departamento/error";
-	private final String DEPARTAMENTO_ALTA = "departamento/alta";
+	private final String LIST_VIEW = "departamento.list";
+	private final String DEPARTAMENTO_VIEW = "departamento.departamento";
+	private final String DEPARTAMENTO_DETALLE = "departamento.detalle";
+	private final String ERROR_VIEW = "departamento.error";
+	private final String DEPARTAMENTO_ALTA = "departamento.alta";
 
 	@Autowired
 	private DepartamentoService departamentoService;
@@ -87,7 +87,7 @@ public class DepartamentoController {
 		Date fecha = new Date();
 		String depar = departamentoService.findByName(departamento);
 		if (bindingResult.hasErrors()) {
-			return "/departamento/departamento";
+			return "departamento.departamento";
 		}
 
 		if (depar.equals("") || depar.equals(null)) {

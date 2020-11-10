@@ -19,8 +19,11 @@ public class TecnologiaConverter implements Converter<Tecnologia, TecnologiaDTO>
 
 	@Override
 	public Tecnologia map(TecnologiaDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+		Tecnologia res = new Tecnologia();
+		res.setId(dto.getId());
+		res.setNombre(dto.getNombre());
+		res.setDescripcion(dto.getDescripcion());
+		return res;
 	}
 
 }

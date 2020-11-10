@@ -14,11 +14,18 @@ public class TecnologiaDaoImpl implements TecnologiaDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	@Override
 	public List<Tecnologia> findAll() {
 		// TODO Auto-generated method stub
 		return sessionFactory.getCurrentSession().find("from Tecnologia");
+	}
+
+	public Tecnologia insert(Tecnologia entity) {
+		Tecnologia tec = new Tecnologia();
+		sessionFactory.getCurrentSession().save(tec, tec.getClass());
+		return tec;
+
 	}
 
 }
