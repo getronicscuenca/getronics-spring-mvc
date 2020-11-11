@@ -57,7 +57,7 @@
 							<c:choose>
 								<c:when test="${tecnologias.size() > 0}">
 									<label><spring:message code="departamento.tecnologias"></spring:message></label>
-									<form:checkboxes items="${tecnologias }" path="tecnologiaList" itemLabel="nombre" itemValue="${ tecnologias.listIterator()}"/>
+									<form:checkboxes items="${tecnologias }" path="tecnologiaId" itemLabel="nombre" itemValue="id" class="ml-3"/>
 								</c:when>
 								<c:otherwise>
 									<p  cssClass="text-danger"><spring:message code="departamento.tecnologiasVacias"></spring:message></p>

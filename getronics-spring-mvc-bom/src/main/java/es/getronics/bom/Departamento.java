@@ -47,9 +47,12 @@ public class Departamento implements Serializable {
 
 	
 	private Empleado empleadoJefe;
-	
-	
-	
+
+
+	public List<Tecnologias> getTecnologia() {
+		return tecnologia;
+	}
+
 	public void setTecnologia(List<Tecnologias> tecnologia) {
 		this.tecnologia = tecnologia;
 	}

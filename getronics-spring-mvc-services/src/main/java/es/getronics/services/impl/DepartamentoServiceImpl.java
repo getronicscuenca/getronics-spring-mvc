@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 
 import es.getronics.bom.Departamento;
 import es.getronics.bom.Empleado;
+import es.getronics.bom.Tecnologias;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
+import es.getronics.dao.TecnologiasDao;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
 import es.getronics.exceptions.DepartamentoExistenteException;
@@ -21,6 +23,9 @@ import es.getronics.services.EmpleadoService;
 
 @Service("departamentoService")
 public class DepartamentoServiceImpl implements DepartamentoService {
+
+	@Autowired
+	private TecnologiasDao tecnologiasDao;
 
 	@Autowired
 	private DepartamentoDao departamentoDao;
@@ -138,8 +143,16 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 			insert(departamento);
 		} else if (primerDepartamento(departamento) == false && findByName(departamento) == true
 				&& empleadoAsignado(departamento) == false) {
+			List<Tecnologias> tecnologias = new ArrayList<Tecnologias>();
 			departamento.setAlta(new Date());
 			departamento.setNombreEmpleado(empleadoService.findById(departamento.getIdEmpleado()).getNombre());
+			if (departamento.getTecnologiaId().length > 0) {
+				for (int i = 0; i < departamento.getTecnologiaId().length; i++) {
+					Tecnologias tecnologia = tecnologiasDao.findById(departamento.getTecnologiaId()[i]);
+					tecnologias.add(tecnologia);
+				}						
+			}
+			departamento.setTecnologias(tecnologias);
 			insert(departamento);
 		} else {
 			if (findByName(departamento) == false) {

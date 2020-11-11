@@ -15,9 +15,7 @@ import es.getronics.dto.DepartamentoDto;
 @Component
 public class DepartamentoConverter implements Converter<Departamento, DepartamentoDto> {
 
-	@Autowired
-	private TecnologiasDao tecnologiasDao;
-
+	
 	@Override
 	public DepartamentoDto convert(Departamento source) {
 		DepartamentoDto result = new DepartamentoDto();
@@ -39,7 +37,7 @@ public class DepartamentoConverter implements Converter<Departamento, Departamen
 		entity.setDesc(dto.getDesc());
 		entity.setIdEmpleado(dto.getIdEmpleado());
 		entity.setNombreEmpleado(dto.getNombreEmpleado());
-		entity.setTecnologia(dto.getTecnologiaList());
+		entity.setTecnologia(dto.getTecnologias());
 		return entity;
 	}
 

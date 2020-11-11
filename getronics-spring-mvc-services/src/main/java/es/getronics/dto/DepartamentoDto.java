@@ -18,16 +18,24 @@ public class DepartamentoDto {
 	private Date alta;
 	private Long idEmpleado;
 	private String nombreEmpleado;
-	private List<Tecnologias> tecnologiaList;
+	private Long[] tecnologiaId;
+	private List<Tecnologias> tecnologias;
 
 
-
-	public List<Tecnologias> getTecnologiaList() {
-		return tecnologiaList;
+	public Long[] getTecnologiaId() {
+		return tecnologiaId;
 	}
 
-	public void setTecnologiaLista(List<Tecnologias> tecnologiaList) {
-		this.tecnologiaList = tecnologiaList;
+	public List<Tecnologias> getTecnologias() {
+		return tecnologias;
+	}
+
+	public void setTecnologias(List<Tecnologias> tecnologias) {
+		this.tecnologias = tecnologias;
+	}
+
+	public void setTecnologiaId(Long[] tecnologiaId) {
+		this.tecnologiaId = tecnologiaId;
 	}
 
 	public Long getIdEmpleado() {
