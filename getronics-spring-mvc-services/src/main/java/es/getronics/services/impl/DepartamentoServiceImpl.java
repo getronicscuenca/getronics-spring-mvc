@@ -96,8 +96,8 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 	
 	@Override
 	public DepartamentoDto insert(DepartamentoDto dto) throws ExcepcionDepartamento {
-		Departamento entity = modelMapper.map(dto, Departamento.class);
-		//Departamento entity = departamentoConverter.map(dto);
+		//Departamento entity = modelMapper.map(dto, Departamento.class);
+		Departamento entity = departamentoConverter.map(dto);
 				
 		Boolean departamentoExiste=false;
 				
@@ -119,8 +119,8 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 				}
 				else {*/
 			
-					dto= modelMapper.map(departamentoDao.insert(entity), DepartamentoDto.class);
-					//dto = departamentoConverter.convert(departamentoDao.insert(entity));
+					//dto= modelMapper.map(departamentoDao.insert(entity), DepartamentoDto.class);
+					dto = departamentoConverter.convert(departamentoDao.insert(entity));
 					
 				}
 		return dto;

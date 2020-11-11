@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import es.getronics.bom.Empleado;
 import es.getronics.dao.DepartamentoDao;
+import es.getronics.dao.EmpleadoDao;
 import es.getronics.dto.EmpleadoDto;
 
 /**
@@ -22,6 +23,9 @@ public class EmpleadoConverter implements Converter<Empleado, EmpleadoDto> {
 	@Autowired
 	private DepartamentoDao departamentoDao;
 	
+	@Autowired
+	private EmpleadoDao empleadoDao;
+	
 	@Override
 	public EmpleadoDto convert(Empleado source) {
 		EmpleadoDto result = new EmpleadoDto();
@@ -33,7 +37,8 @@ public class EmpleadoConverter implements Converter<Empleado, EmpleadoDto> {
 			result.setIdDepartamento(source.getDepartamento().getId());
 			result.setDepartamento(source.getDepartamento().getNombre());
 		}
-		
+		//NUEVO
+		//result.setJefe(source.getJefe().getId());
 		return result;
 	}
 
@@ -47,6 +52,11 @@ public class EmpleadoConverter implements Converter<Empleado, EmpleadoDto> {
 		if(dto.getIdDepartamento() != null) {
 			result.setDepartamento(departamentoDao.findById(dto.getIdDepartamento()));
 		}
+		//NUEVO
+		//if(dto.getJefe() != null) {
+		//	result.setJefe(empleadoDao.findById(dto.getJefe()));
+		//}
+		
 		return result;
 	}
 }

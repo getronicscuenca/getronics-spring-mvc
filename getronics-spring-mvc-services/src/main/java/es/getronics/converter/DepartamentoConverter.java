@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import es.getronics.bom.Departamento;
+import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
+import es.getronics.dao.impl.DepartamentoDaoImpl;
 import es.getronics.dto.DepartamentoDto;
 
 @Component
@@ -20,21 +22,27 @@ public class DepartamentoConverter implements Converter<Departamento, Departamen
 		result.setNombre(source.getNombre());
 		//result.setAlta(source.getAlta());
 		result.setDesc(source.getDesc());
-		result.setJefe(source.getJefe().getNombre());
+		if(source.getJefe() != null) {
+			result.setIdJefe(source.getJefe().getId());
+			result.setJefe(source.getJefe().getNombre());
+		}
 		
 		return result;
 	}
 
 	@Override
 	public Departamento map(DepartamentoDto dto) {
-		Departamento res= new Departamento();
-		res.setId(dto.getId());
-		res.setNombre(dto.getNombre());
+		Departamento result= new Departamento();
+		//result.setId(dto.getId());
+		result.setId(1L);
+		result.setNombre(dto.getNombre());
 		//res.setAlta(dto.getAlta());
-		res.setDesc(dto.getDesc());
-		res.setJefe(empleadoDao.findById(dto.getIdJefe()));
+		result.setDesc(dto.getDesc());
+		if(dto.getIdJefe() != null) {
+			result.setJefe(empleadoDao.findById(dto.getIdJefe()));
+		}
 	
-		return res;
+		return result;
 	}
 
 	

@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import es.getronics.bom.Empleado;
+import es.getronics.bom.Tecnologia;
 
 
 public class DepartamentoDto {
@@ -25,7 +26,14 @@ public class DepartamentoDto {
 		
 	private Set<Empleado> empleados;
 	
-	
+	private Set<Tecnologia> tecnologias;
+		
+	public Set<Tecnologia> getTecnologias() {
+		return tecnologias;
+	}
+	public void setTecnologias(Set<Tecnologia> tecnologias) {
+		this.tecnologias = tecnologias;
+	}
 	public Set<Empleado> getEmpleados() {
 		return empleados;
 	}

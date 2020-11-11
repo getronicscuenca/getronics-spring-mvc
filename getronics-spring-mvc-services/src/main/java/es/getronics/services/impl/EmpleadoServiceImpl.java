@@ -29,7 +29,7 @@ import es.getronics.services.impl.DepartamentoServiceImpl;
 /**
  * Implementa la logica del servicio de empleados
  *
- * @author jgarcia
+ * @author smartinez
  *
  */
 @Service("empleadoService")

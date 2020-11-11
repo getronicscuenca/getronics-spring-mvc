@@ -42,4 +42,16 @@
         <put-attribute name="body" value="/WEB-INF/jsp/empleado/error.jsp" />
     </definition>
     
+    <definition name="tecnologia.list" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/tecnologia/list.jsp" />
+    </definition>
+    
+    <definition name="tecnologia.tecnologia" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/tecnologia/tecnologia.jsp" />
+    </definition>
+    
+    <definition name="tecnologia.error" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/tecnologia/error.jsp" />
+    </definition>
+    
 </tiles-definitions>

@@ -30,6 +30,7 @@
 		<bean id="localeChangeInterceptor"
 			class="es.getronics.controller.interceptors.LocaleChangeInterceptorGetronics" />
 	</mvc:interceptors>
+	
 	<!-- MESSAGES -->
 
 	<bean

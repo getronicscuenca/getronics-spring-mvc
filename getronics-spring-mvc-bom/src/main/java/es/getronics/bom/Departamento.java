@@ -2,6 +2,7 @@ package es.getronics.bom;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -33,6 +34,9 @@ public class Departamento implements Serializable {
 	
 	@OneToMany(mappedBy = "departamento")
 	private Set<Empleado> empleados;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+    private Set<Tecnologia> tecnologias;
 
 	public Empleado getJefe() {
 		return jefe;
@@ -80,6 +84,15 @@ public class Departamento implements Serializable {
 
 	public void setEmpleados(Set<Empleado> empleados) {
 		this.empleados = empleados;
+	}
+	
+	
+	public Set<Tecnologia> getTecnologias() {
+		return tecnologias;
+	}
+
+	public void setTecnologias(Set<Tecnologia> tecnologias) {
+		this.tecnologias = tecnologias;
 	}
 
 	@Override
