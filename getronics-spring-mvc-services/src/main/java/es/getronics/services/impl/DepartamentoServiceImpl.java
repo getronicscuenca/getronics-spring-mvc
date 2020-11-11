@@ -152,7 +152,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 					tecnologias.add(tecnologia);
 				}						
 			}
-			departamento.setTecnologias(tecnologias);
+			departamento.setTecnologiasList(tecnologias);
 			insert(departamento);
 		} else {
 			if (findByName(departamento) == false) {

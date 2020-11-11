@@ -37,7 +37,7 @@ public class DepartamentoConverter implements Converter<Departamento, Departamen
 		entity.setDesc(dto.getDesc());
 		entity.setIdEmpleado(dto.getIdEmpleado());
 		entity.setNombreEmpleado(dto.getNombreEmpleado());
-		entity.setTecnologia(dto.getTecnologias());
+		entity.setTecnologia(dto.getTecnologiasList());
 		return entity;
 	}
 
