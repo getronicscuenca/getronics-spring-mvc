@@ -5,6 +5,16 @@ public class TecnologiasDto {
 	private Long id;
 	private String nombre;
 	private String descripcion;
+	private Long idDepartamento;
+	
+
+	public Long getIdDepartamento() {
+		return idDepartamento;
+	}
+
+	public void setIdDepartamento(Long idDepartamento) {
+		this.idDepartamento = idDepartamento;
+	}
 
 	public Long getId() {
 		return id;

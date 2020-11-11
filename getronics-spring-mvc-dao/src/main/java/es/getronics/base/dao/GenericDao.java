@@ -100,5 +100,9 @@ public interface GenericDao<T, ID extends Serializable> {
 	/**
 	 * Do rollback.
 	 */
+	
 	public void doRollback();
+	
+	
+	
 }

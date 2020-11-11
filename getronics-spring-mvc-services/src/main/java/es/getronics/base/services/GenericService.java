@@ -3,6 +3,7 @@ package es.getronics.base.services;
 import java.io.Serializable;
 import java.util.List;
 
+
 /**
  * Define los metodos genericos de un servicio de negocio
  * @author jgarcia
@@ -78,5 +79,8 @@ public interface GenericService<T1, T2, ID extends Serializable> {
      * @return El listado de todos los elementos
      */
 	List<T1> findByExample(T1 example);
+
+
+	
 	
 }
