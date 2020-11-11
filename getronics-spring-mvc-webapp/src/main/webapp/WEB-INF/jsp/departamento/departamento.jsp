@@ -43,8 +43,7 @@
 					<div class="row justify-content-center">
 						<div class="form-group col-md-11">
 							<c:if test="${errores != null}">
-								<p>${errores}<p>
-	
+								<p>${errores}<p>	
 							</c:if>
 								<label for="nombre"><spring:message
 											code="departamento.nombre"></spring:message></label>
