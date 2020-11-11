@@ -17,9 +17,12 @@ public class TecnologiaDto {
 	private String nombre;
 	@NotEmpty(message="La descripcion no puede estar vacia")
 	private String desc;
+	
+	private Long idDepartamento;
+	private String departamento;
 			
 	private Set<Departamento> departamentos;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -51,5 +54,22 @@ public class TecnologiaDto {
 	public void setDepartamentos(Set<Departamento> departamentos) {
 		this.departamentos = departamentos;
 	}
+
+	public Long getIdDepartamento() {
+		return idDepartamento;
+	}
+
+	public void setIdDepartamento(Long idDepartamento) {
+		this.idDepartamento = idDepartamento;
+	}
+
+	public String getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
+	}
+	
 	
 }

@@ -9,6 +9,7 @@
 			<th scope="col"><spring:message code="departamento.desc"></spring:message></th>
 			<th scope="col"><spring:message code="departamento.jefe"></spring:message></th>
 			<th scope="col"><spring:message code="departamento.empleados"></spring:message></th>
+			<th scope="col"><spring:message code="departamento.tecnologias"></spring:message></th>
 			<th scope="col"><spring:message code="departamento.options"></spring:message></th>
 		</thead>
 		
@@ -27,8 +28,15 @@
            				${ empleado.apellido1 }
            				${ empleado.apellido2 }
            				</td>
+           			</c:forEach>
+           			<c:forEach items="${ departamento.tecnologias }" var="tecnologia">
+       				
+           				<td>${ tecnologia.nombre }
+           					${ tecnologia.desc }
+           				</td>
            				</tr>
            				<tr>
+           					<td></td>
            					<td></td>
            					<td></td>
            					<td></td>

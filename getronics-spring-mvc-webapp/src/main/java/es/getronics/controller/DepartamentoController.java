@@ -23,9 +23,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
+import es.getronics.dto.TecnologiaDto;
 import es.getronics.exceptions.ExcepcionDepartamento;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
+import es.getronics.services.TecnologiaService;
 import es.getronics.validators.DepartamentoValidator;
 
 @RequestMapping("departamento")
@@ -41,6 +43,8 @@ public class DepartamentoController {
 	@Autowired
 	private DepartamentoService departamentoService;
 	@Autowired
+	private TecnologiaService tecnologiaService;
+	@Autowired
 	private DepartamentoValidator departamentoValidator;
 	@Autowired
 	private EmpleadoService empleadoService;
@@ -49,9 +53,9 @@ public class DepartamentoController {
 	public ModelAndView listarDepartamentos(Model model) {
 		List<DepartamentoDto> departamentos = departamentoService.findAll();
 		//List<EmpleadoDto> empleados= departamentoService.findAllT3(departamento);
-		//List<EmpleadoDto> empleados = empleadoService.findAll();
+		List<TecnologiaDto> tecnologias = tecnologiaService.findAll();
 		model.addAttribute("departamentos", departamentos);
-		//model.addAttribute("empleados", empleados);
+		model.addAttribute("tecnologias", tecnologias);
 
 		return new ModelAndView(LIST_VIEW, model.asMap());
 

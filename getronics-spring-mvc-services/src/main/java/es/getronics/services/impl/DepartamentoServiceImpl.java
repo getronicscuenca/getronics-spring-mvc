@@ -126,6 +126,18 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 		return dto;
 	}
 	
+	//METODO OVERRIDE
+	public DepartamentoDto nuevoEmpleDepartamento(EmpleadoDto dto) {
+		DepartamentoDto departamento=null;
+		return departamento;
+	}
+	//METODO OVERRIDE
+	public DepartamentoDto eliminarEmpleDepartamento(Long id) {
+		DepartamentoDto departamento=null;
+		return departamento;
+	}
+	
+	/*
 	//INSERTAR UN NUEVO EMPLEADO EN UN DEPARTAMENTO
 	public DepartamentoDto nuevoEmpleDepartamento(EmpleadoDto dto) {
 		Departamento departamento= departamentoDao.findById(dto.getIdDepartamento());
@@ -140,7 +152,7 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 		departamento.getEmpleados().remove(empleado);
 		DepartamentoDto departamentoDto = modelMapper.map(departamento, DepartamentoDto.class);
 		return departamentoDto;
-	}
+	}*/
 
 	@Override
 	public void remove(DepartamentoDto entity) {

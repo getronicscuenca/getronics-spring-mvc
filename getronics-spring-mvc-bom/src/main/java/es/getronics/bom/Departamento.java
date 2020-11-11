@@ -35,7 +35,7 @@ public class Departamento implements Serializable {
 	@OneToMany(mappedBy = "departamento")
 	private Set<Empleado> empleados;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy= "departamento")
     private Set<Tecnologia> tecnologias;
 
 	public Empleado getJefe() {

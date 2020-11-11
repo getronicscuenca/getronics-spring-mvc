@@ -32,7 +32,7 @@ public class Tecnologia implements Serializable {
 	@NotBlank
 	private String desc;
 	
-	@ManyToMany(mappedBy = "tecnologia")
+	@ManyToMany
 	private Set<Departamento> departamentos;
 
 	public long getId() {
