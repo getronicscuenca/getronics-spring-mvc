@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import es.getronics.bom.Tecnologia;
 
 
 

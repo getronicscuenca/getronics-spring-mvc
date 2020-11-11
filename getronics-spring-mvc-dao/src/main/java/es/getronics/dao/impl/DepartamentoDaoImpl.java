@@ -3,7 +3,6 @@ package es.getronics.dao.impl;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.action.CollectionRemoveAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

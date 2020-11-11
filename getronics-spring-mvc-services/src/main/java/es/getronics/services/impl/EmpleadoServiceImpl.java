@@ -7,13 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.cfg.NotYetImplementedException;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.getronics.bom.Empleado;
 import es.getronics.converter.Converter;
-import es.getronics.converter.EmpleadoConverter;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
 import es.getronics.dto.EmpleadoDto;
@@ -31,8 +29,6 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 	@Autowired
 	private EmpleadoDao empleadoDao;
 	
-	@Autowired
-	private DepartamentoDao departamentoDao;
 	
 	@Autowired
 	private Converter<Empleado, EmpleadoDto> empleadoConverter;

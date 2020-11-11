@@ -1,11 +1,6 @@
 package es.getronics.controller;
 
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyEditor;
-import java.beans.PropertyEditorSupport;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,11 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.base.exceptions.DepartamentoExisteException;
 import es.getronics.base.exceptions.FechaPasadaException;
-import es.getronics.bom.Tecnologia;
-import es.getronics.converter.Converter;
-import es.getronics.converter.TecnoConverter;
 import es.getronics.dto.DepartamentoDto;
-import es.getronics.dto.EmpleadoDto;
 import es.getronics.dto.TecnologiaDto;
 import es.getronics.editors.TecnologiaEditor;
 import es.getronics.services.DepartamentoService;
@@ -48,7 +38,6 @@ public class DepartamentoController {
 	private final String LIST_VIEW = "departamento.list";
 	private final String DEPARTAMENTO_VIEW = "departamento.departamento";
 	private final String DEPARTAMENTO_DETALLE = "departamento.detalle";
-	private final String ERROR_VIEW = "departamento.error";
 	private final String DEPARTAMENTO_ALTA = "departamento.alta";
 
 	@Autowired

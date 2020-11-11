@@ -9,6 +9,10 @@ import javax.persistence.*;
 @Table(name="TECNOLOGIA")
 public class Tecnologia implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6626304814785914864L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.base.exceptions.TecnologiaExisteException;
-import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.TecnologiaDto;
 import es.getronics.services.TecnologiaService;
 
