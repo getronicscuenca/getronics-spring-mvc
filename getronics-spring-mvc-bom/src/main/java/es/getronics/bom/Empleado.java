@@ -21,7 +21,9 @@ public class Empleado implements Serializable {
 	private String apellido1;
 	@Column(name = "APELLIDO_2")
 	private String apellido2;
-	
+	@ManyToOne
+	@JoinColumn(name="CATEGORIA_ID")
+	private Categoria categoria;
 	@ManyToOne
 	@JoinColumn(name="DEPARTAMENTO_ID")
 	private Departamento departamento;
