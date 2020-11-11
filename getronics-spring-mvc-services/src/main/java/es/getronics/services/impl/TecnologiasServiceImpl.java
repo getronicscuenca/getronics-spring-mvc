@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import es.getronics.bom.Tecnologias;
 import es.getronics.converter.Converter;
@@ -11,6 +12,7 @@ import es.getronics.dao.TecnologiasDao;
 import es.getronics.dto.TecnologiasDto;
 import es.getronics.services.TecnologiasService;
 
+@Service("tecnologiasService")
 public class TecnologiasServiceImpl implements TecnologiasService {
 
 	@Autowired

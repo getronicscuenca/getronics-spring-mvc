@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import es.getronics.bom.Empleado;
+import es.getronics.bom.Tecnologias;
 import es.getronics.exceptions.DepartamentoExistenteException;
 import es.getronics.services.DepartamentoService;
 
@@ -17,6 +18,17 @@ public class DepartamentoDto {
 	private Date alta;
 	private Long idEmpleado;
 	private String nombreEmpleado;
+	private List<Tecnologias> tecnologiaList;
+
+
+
+	public List<Tecnologias> getTecnologiaList() {
+		return tecnologiaList;
+	}
+
+	public void setTecnologiaLista(List<Tecnologias> tecnologiaList) {
+		this.tecnologiaList = tecnologiaList;
+	}
 
 	public Long getIdEmpleado() {
 		return idEmpleado;

@@ -37,17 +37,37 @@
 							<form:input path="desc" cssClass="form-control" />
 							<form:errors path="desc" cssClass="text-danger " />
 						</div>
-						<br>
-						<br>
+						<br> <br>
 
 						<div class="form-group col-md-11 mt-3">
-							<label><spring:message code="departamento.empleado"></spring:message></label>
-							<form:select path="idEmpleado" cssClass="form-group">
-								<form:options items="${empleados}" itemLabel="nombre" itemValue="id"  />
-							</form:select>
+							<c:choose>
+								<c:when test="${empleados.size() > 0}">
+									<label><spring:message code="departamento.empleado"></spring:message></label>
+									<form:select path="idEmpleado" cssClass="form-group">
+										<form:options items="${empleados}" itemLabel="nombre"
+											itemValue="id" />
+									</form:select>
+								</c:when>
+								<c:otherwise>
+									<p  cssClass="text-danger"><spring:message code="departamento.empleadoVacio"></spring:message></p>
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<div class="form-group col-md-11 mt-3">
+							<c:choose>
+								<c:when test="${tecnologias.size() > 0}">
+									<label><spring:message code="departamento.tecnologias"></spring:message></label>
+									<form:checkboxes items="${tecnologias }" path="tecnologiaList" itemLabel="nombre" itemValue="${ tecnologias.listIterator()}"/>
+								</c:when>
+								<c:otherwise>
+									<p  cssClass="text-danger"><spring:message code="departamento.tecnologiasVacias"></spring:message></p>
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div class="form-group col-md-11 text-center">
-							<form:button value="submit" class="btn btn-info"><spring:message code="common.button.send"></spring:message></form:button>
+							<form:button value="submit" class="btn btn-outline-success">
+								<spring:message code="common.button.send"></spring:message>
+							</form:button>
 						</div>
 					</div>
 				</fieldset>

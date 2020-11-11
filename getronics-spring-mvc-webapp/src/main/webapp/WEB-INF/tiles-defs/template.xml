@@ -41,8 +41,20 @@
         <put-attribute name="body" value="/WEB-INF/jsp/departamento/alta.jsp" />
     </definition>  
     
-      <definition name="departamento.error" extends=".mainTemplate">
+    <definition name="departamento.error" extends=".mainTemplate">
         <put-attribute name="body" value="/WEB-INF/jsp/departamento/error.jsp" />
     </definition>  
+    
+    <definition name="tecnologias.list" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/tecnologias/list.jsp" />
+    </definition> 
+    
+    <definition name="tecnologias.tecnologias" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/tecnologias/tecnologias.jsp" />
+    </definition> 
+    
+    <definition name="tecnologias.detalle" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/tecnologias/detalle.jsp" />
+    </definition> 
     
 </tiles-definitions>

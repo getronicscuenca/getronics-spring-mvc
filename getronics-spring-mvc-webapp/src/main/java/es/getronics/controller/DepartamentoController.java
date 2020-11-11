@@ -25,6 +25,7 @@ import es.getronics.dto.DepartamentoDto;
 import es.getronics.exceptions.DepartamentoExistenteException;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
+import es.getronics.services.TecnologiasService;
 import es.getronics.validators.DepartamentoValidator;
 
 @RequestMapping("departamento")
@@ -37,6 +38,8 @@ public class DepartamentoController {
 	private final String ERROR_VIEW = "departamento.error";
 	private final String DEPARTAMENTO_ALTA = "departamento.alta";
 
+	@Autowired
+	private TecnologiasService tecnologiasService;
 	@Autowired
 	private DepartamentoService departamentoService;
 	@Autowired
@@ -56,6 +59,7 @@ public class DepartamentoController {
 	public ModelAndView showNewPage(Model model) {
 		model.addAttribute("departamento", new DepartamentoDto());
 		model.addAttribute("empleados", empleadoService.findAll());
+		model.addAttribute("tecnologias", tecnologiasService.findAll());
 		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
 	}
 
@@ -85,7 +89,10 @@ public class DepartamentoController {
 			departamento.setNombreEmpleado(empleadoService.findById(departamento.getIdEmpleado()).getNombre());
 			departamentoService.update(departamento);
 		} else {
-			departamentoService.validarDepartamento(departamento);
+			System.out.println("-------->>>");
+			System.out.println(departamento.getTecnologiaList().size());
+			System.out.println("-------->>>");
+			//departamentoService.validarDepartamento(departamento);
 
 		}
 		return "redirect:/departamento";
@@ -134,11 +141,6 @@ public class DepartamentoController {
 		ModelAndView model = new ModelAndView(ERROR_VIEW);
 		model.addObject("problema", ex.getMessage());
 		return model;
-	}
-
-	@ModelAttribute("departamento")
-	public DepartamentoDto createDepartamentoDtoModel() {
-		return new DepartamentoDto();
 	}
 
 }

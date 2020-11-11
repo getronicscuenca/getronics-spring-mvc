@@ -1,13 +1,22 @@
 package es.getronics.converter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import es.getronics.bom.Departamento;
 import es.getronics.bom.Tecnologias;
+import es.getronics.dao.DepartamentoDao;
 import es.getronics.dto.TecnologiasDto;
 
 @Component
 public class TecnologiasConverter implements Converter <Tecnologias, TecnologiasDto> {
 
+	
+	
 	@Override
 	public TecnologiasDto convert(Tecnologias source) {
 		TecnologiasDto result= new TecnologiasDto();
@@ -19,8 +28,11 @@ public class TecnologiasConverter implements Converter <Tecnologias, Tecnologias
 
 	@Override
 	public Tecnologias map(TecnologiasDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+		Tecnologias entity= new Tecnologias();
+		entity.setId(dto.getId());
+		entity.setNombre(dto.getNombre());
+		entity.setDescripcion(dto.getDescripcion());
+		return entity;
 	}
 
 }

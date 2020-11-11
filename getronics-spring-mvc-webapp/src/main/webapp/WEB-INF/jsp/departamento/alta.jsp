@@ -1,24 +1,26 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ include file="../common/taglibs.jsp"%>
 
 
 <spring:url value="/departamento/chAlta/${departamento.id}" var="url"></spring:url>
 
-<form:errors path="*"/>
+<div class="row justify-content-center mt-5">
 
-<form:form action="${ url }" modelAttribute="departamento">
-
-	<h1>editar fecha de alta de: ${departamento.nombre}</h1>
-
-	<input type="date" id="date" name="date">
-	<form:button value="submit">Guardar</form:button>
-</form:form>
+	<form:errors path="*" />
+	<div class="text-center">
+		<form:form action="${ url }" modelAttribute="departamento">
+			<div class="mb-5">
+			<h2>Departamento: ${departamento.nombre}</h2>
+				<h3 class="text-muted"><spring:message code="modificar.fecha"></spring:message></h3>
+				
+			</div>
+			<input type="date" id="date" name="date" class="mb-2"><br>
+			<form:button type="submit" class="btn btn-outline-success btn-md"><spring:message code="modificar.alta"></spring:message></form:button>
+		</form:form>
+	</div>
+</div>
 <script type="text/javascript">
 	var dateControl = document.querySelector('input[type="date"]');
-	var d= new Date();
-	var m=d.getMonth()+1;
-	dateControl.value=d.getFullYear()+"-"+m+"-"+d.getDate();
-	
-	
+	var d = new Date();
+	var m = d.getMonth() + 1;
+	dateControl.value = d.getFullYear() + "-" + m + "-" + d.getDate();
 </script>
