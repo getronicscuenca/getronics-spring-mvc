@@ -92,9 +92,12 @@ public class DepartamentoController {
 		}
 
 		if (departamento.getId() != null) {
-			departamento.setNombreEmpleado(empleadoService.findById(departamento.getIdEmpleado()).getNombre());
+			// da error al buscar un id nulo, con lo cual si el departamento no tiene empleados no busco  
+			if(departamento.getIdEmpleado()!=null)
+				departamento.setNombreEmpleado(empleadoService.findById(departamento.getIdEmpleado()).getNombre());
 			departamentoService.update(departamento);
 		} else {
+			departamentoService.comprobarNombreDepartamento(departamento.getNombre());
 			departamentoService.insert(departamento);
 		}
 		return "redirect:/departamento";
@@ -122,6 +125,13 @@ public class DepartamentoController {
 		departamentoService.update(departamento);
 
 		return "redirect:/departamento";
+	}
+	
+	@ExceptionHandler(DepartamentoExistenteException.class)
+	public ModelAndView errorNombreDepartExistente(DepartamentoExistenteException err) {
+		ModelAndView model = new ModelAndView(ERROR_VIEW);
+		model.addObject("problema",err.getMessage());
+		return model;
 	}
 	
 	@ExceptionHandler(EmpleadosExistentes.class)

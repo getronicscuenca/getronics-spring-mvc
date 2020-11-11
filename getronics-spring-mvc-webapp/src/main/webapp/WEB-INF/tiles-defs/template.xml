@@ -45,4 +45,11 @@
         <put-attribute name="body" value="/WEB-INF/jsp/departamento/alta.jsp" />
     </definition>
     
+    <definition name="tecnologia.lista" extends=".mainTemplate">
+    	<put-attribute name="body" value="/WEB-INF/jsp/tecnologia/inicio.jsp"></put-attribute>
+    </definition>
+    
+    <definition name="tecnologia.tecnologia" extends=".mainTemplate">
+    	<put-attribute name="body" value="/WEB-INF/jsp/tecnologia/tecnologia.jsp"></put-attribute>
+    </definition>
 </tiles-definitions>

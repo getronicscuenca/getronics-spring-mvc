@@ -113,6 +113,14 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 		}
 	}
 
+	@Override
+	public void comprobarNombreDepartamento(String nombre) throws DepartamentoExistenteException {
+		Departamento example = new Departamento();
+		example.setNombre(nombre);
+		if(!departamentoDao.findByExample(example).isEmpty())
+			throw new DepartamentoExistenteException("El nombre del departamento ya existe.");
+	}
+
 	
 
 }

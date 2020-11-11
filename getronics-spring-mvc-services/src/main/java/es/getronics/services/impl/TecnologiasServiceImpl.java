@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import es.getronics.bom.Tecnologias;
 import es.getronics.converter.Converter;
@@ -11,6 +12,7 @@ import es.getronics.dao.TecnologiasDao;
 import es.getronics.dto.TecnologiasDto;
 import es.getronics.services.TecnologiasService;
 
+@Service
 public class TecnologiasServiceImpl implements TecnologiasService {
 
 	@Autowired
@@ -56,7 +58,7 @@ public class TecnologiasServiceImpl implements TecnologiasService {
 	@Override
 	public TecnologiasDto insert(TecnologiasDto entity) {
 		Tecnologias tecnologia= tecnologiasConverter.map(entity);
-		entity= tecnologiasConverter.convert(tecnologiasDao.insert(tecnologia));
+		tecnologiasDao.insert(tecnologia);
 		return entity;
 		
 	}
@@ -70,7 +72,6 @@ public class TecnologiasServiceImpl implements TecnologiasService {
 	@Override
 	public void remove(Long id) {
 		tecnologiasDao.remove(id);
-		
 	}
 
 	@Override

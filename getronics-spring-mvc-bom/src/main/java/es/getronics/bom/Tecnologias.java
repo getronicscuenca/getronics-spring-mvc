@@ -1,7 +1,9 @@
 package es.getronics.bom;
 
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,7 +31,7 @@ public class Tecnologias {
 
 	@ManyToMany
 	@JoinTable(name = "tecnologias_departamentos", joinColumns = @JoinColumn(name = "tecnologiasId"), inverseJoinColumns = @JoinColumn(name = "departamentoId"))
-	private Set<Departamento> departamentos;
+	private List<Departamento> departamentos;
 
 	public Long getId() {
 		return id;
@@ -55,13 +57,16 @@ public class Tecnologias {
 		this.descripcion = descripcion;
 	}
 
-	public Set<Departamento> getDepartamentos() {
+	public List<Departamento> getDepartamentos() {
 		return departamentos;
 	}
 
-	public void setDepartamentos(Set<Departamento> departamentos) {
+	public void setDepartamentos(List<Departamento> departamentos) {
 		this.departamentos = departamentos;
 	}
 	
+	public void anadirDepartamento(Departamento departamento) {
+		departamentos.add(departamento);
+	}
 	
 }

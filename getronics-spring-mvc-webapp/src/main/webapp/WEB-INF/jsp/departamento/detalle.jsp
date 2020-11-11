@@ -19,7 +19,6 @@
 
 		<p>${ departamento.desc }</p>
 
-		<spring:url value="/departamento" var="url"></spring:url>
-		<a href="${ url }">Volver a departamentos</a>
+		<a href="./../../departamento" class="btn btn-primary">Volver a departamentos</a>
 	</div>
 </div>

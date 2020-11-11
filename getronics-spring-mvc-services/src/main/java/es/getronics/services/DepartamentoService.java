@@ -12,4 +12,6 @@ public interface DepartamentoService extends GenericService<DepartamentoDto, Dep
 	
 	void comprobarEmpleados(Long idDepart) throws EmpleadosExistentes;
 	
+	void comprobarNombreDepartamento(String nombre) throws DepartamentoExistenteException ;
+	
 }

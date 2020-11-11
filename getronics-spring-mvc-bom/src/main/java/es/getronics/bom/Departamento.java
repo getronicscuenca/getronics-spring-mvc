@@ -2,6 +2,7 @@ package es.getronics.bom;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.Length;
@@ -34,8 +35,9 @@ public class Departamento implements Serializable {
 	private String nombreEmpleado;
 	
 	
-	@ManyToMany(mappedBy="departamentos", cascade = CascadeType.ALL)
-	private Set<Tecnologias> tecnologia;
+	@ManyToMany
+	@JoinTable(name = "tecnologias_departamentos", joinColumns = @JoinColumn(name = "departamentoId"), inverseJoinColumns = @JoinColumn(name = "tecnologiasId"))
+	private List<Tecnologias> tecnologia;
 	
 	private Empleado empleadoJefe;
 	
@@ -46,6 +48,18 @@ public class Departamento implements Serializable {
 
 	
 	
+	public Departamento() {
+	}
+	
+	
+
+	public Departamento(Long id) {
+		super();
+		this.id = id;
+	}
+
+
+
 	public Set<Empleado> getEmpleados() {
 		return empleados;
 	}
@@ -94,11 +108,11 @@ public class Departamento implements Serializable {
 		this.nombreEmpleado = nombreEmpleado;
 	}
 
-	public Set<Tecnologias> getTecnologia() {
+	public List<Tecnologias> getTecnologia() {
 		return tecnologia;
 	}
 
-	public void setTecnologia(Set<Tecnologias> tecnologia) {
+	public void setTecnologia(List<Tecnologias> tecnologia) {
 		this.tecnologia = tecnologia;
 	}
 

@@ -42,10 +42,19 @@
 	<spring:message code="departamento.desc"></spring:message>
 	<form:errors path="desc" cssClass="error" /><br>
 	<form:input path="desc"/><br><br>
-	<form:select path="idEmpleado">
-	<form:options items="${empleados}" itemLabel="nombre" itemValue="id" />
-	</form:select>
+	
+	<c:choose>
+		<c:when test="${empleados.size() > 0}">
+			<form:select path="idEmpleado">
+				<form:options items="${empleados}" itemLabel="nombre" itemValue="id" />
+			</form:select>
+		</c:when>
+		<c:otherwise>
+			<p>No hay empleados disponibles</p>			
+		</c:otherwise>
+	</c:choose>
+	
 	<form:errors path="idEmpleado" cssClass="error" />
 	<br><br>
-	<form:button value="submit">Guardar</form:button>
+	<form:button class="btn btn-primary" value="submit">Guardar</form:button>
 </form:form>
