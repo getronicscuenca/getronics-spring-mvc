@@ -3,6 +3,8 @@ package es.getronics.base.services;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+
 import es.getronics.base.exceptions.FechaPasadaException;
 
 /**
@@ -82,5 +84,7 @@ public interface GenericService<T1, T2, ID extends Serializable> {
      * @return El listado de todos los elementos
      */
 	List<T1> findByExample(T1 example);
+	
+	List<T1> findByCriteria(DetachedCriteria criteria);
 	
 }

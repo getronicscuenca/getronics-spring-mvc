@@ -6,6 +6,8 @@ package es.getronics.base.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+
 /**
  * Define metodos genericos de los daos
  * 
@@ -90,11 +92,21 @@ public interface GenericDao<T, ID extends Serializable> {
      */
 	List<T> findByExample(T example);
 	
+	 /**
+     * Obtiene todas las entidades almacenadas en la base de datos para la criteria suminstrado.
+     *
+     * @param example El objeto criteria
+     * @return El listado de todos los elementos
+     */
+	
+	public List<T> findByCriteria(DetachedCriteria criteria);
+	
 	/**
 	 * Refresca el estado del objeto indicado.
 	 *
 	 * @param entity El objeto a ser refrescado
 	 */
+	
 	void refresh(T entity);
 	
 	/**

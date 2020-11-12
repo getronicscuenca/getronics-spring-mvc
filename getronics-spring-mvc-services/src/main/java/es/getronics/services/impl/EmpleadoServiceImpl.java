@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.cfg.NotYetImplementedException;
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import es.getronics.bom.Empleado;
 import es.getronics.converter.Converter;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
+import es.getronics.dto.CategoriaDto;
 import es.getronics.dto.EmpleadoDto;
 import es.getronics.services.EmpleadoService;
 
@@ -108,6 +110,12 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 	@Override
 	public List<EmpleadoDto> findByExample(EmpleadoDto example) {
 		throw new NotYetImplementedException("Método no implementado todavía");
+	}
+	
+	@Override
+	public List<EmpleadoDto> findByCriteria(DetachedCriteria criteria) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

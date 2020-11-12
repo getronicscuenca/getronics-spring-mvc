@@ -85,6 +85,11 @@ public abstract class GenericDaoImpl<T, ID extends Serializable> extends
 		
 		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
 	}
+	
+	public List<T> findByCriteria(DetachedCriteria criteria)
+	{
+		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
+	}
 
 	public T findById(ID id) {
 		return (T) getHibernateTemplate().get(clazz, id);

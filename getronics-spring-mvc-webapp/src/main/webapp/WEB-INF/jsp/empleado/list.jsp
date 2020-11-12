@@ -13,6 +13,11 @@
 		</thead>
 		<tbody>
 
+			<form:form>
+				
+			</form:form>
+
+
 			<c:forEach items="${ empleados }" var="alumno">
 				<tr>
 					<td>${alumno.id}</td>

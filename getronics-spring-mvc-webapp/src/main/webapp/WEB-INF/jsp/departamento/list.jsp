@@ -1,6 +1,21 @@
 <%@ include file="../common/taglibs.jsp"%>
 
+<spring:url value="/departamento/find" var="urlFind"></spring:url>
+
 <h3 class="mt-5"><spring:message code="departamento.list.title"></spring:message> </h3>
+
+
+<div class="row">
+	<div class="col5">
+		<form:form  action="${ urlFind }" modelAttribute="departamento" cssclass="form-horizontal">
+			<label for="nombre">Nombre:</label>
+			<form:input path="nombre" cssClass="form-control" />
+			<form:button value="submit" class="btn btn-info">Buscar</form:button>
+			
+		</form:form>
+	</div>
+</div>
+
 <div class="table-responsive" class="col-10">
 	<table class="table table-striped table-info">
 		<thead class="thead-light">
@@ -9,6 +24,7 @@
 			<th scope="col"> <spring:message code="departamento.options"></spring:message></th>
 		</thead>
 		<tbody>
+		
 			<c:forEach items="${ departamentos }" var="departamento">
 				<tr>
 					<td>${ departamento.id }</td>

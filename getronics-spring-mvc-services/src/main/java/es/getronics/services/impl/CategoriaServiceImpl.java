@@ -8,84 +8,83 @@ package es.getronics.services.impl;
 
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import es.getronics.base.exceptions.TecnologiaExisteException;
 import es.getronics.bom.Categoria;
 import es.getronics.dao.CategoriaDao;
+import es.getronics.dto.CategoriaDto;
 import es.getronics.dto.TecnologiaDto;
-import es.getronics.services.TecnologiaService;
+import es.getronics.services.CategoriaService;
+
 
 /**
  * @author alatorre
  *
  * 
  */
-public class CategoriaServiceImpl implements TecnologiaService {
+public class CategoriaServiceImpl implements CategoriaService {
 	
 	
 	@Autowired
 	private CategoriaDao categoriaDao;
-
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	
 	@Override
-	public TecnologiaDto findById(Long id) {
+	public CategoriaDto findById(Long id) {
+		Categoria entity = categoriaDao.findById(id);
+		return modelMapper.map(entity, CategoriaDto.class);
+	}
+	@Override
+	public List<CategoriaDto> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
-	public List<TecnologiaDto> findAll() {
+	public List<CategoriaDto> findAllOrderBy(String[] orderBy, boolean asc) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
-	public List<TecnologiaDto> findAllOrderBy(String[] orderBy, boolean asc) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void update(TecnologiaDto entity) {
+	public void update(CategoriaDto entity) {
 		// TODO Auto-generated method stub
 		
 	}
-
 	@Override
-	public void saveOrUpdate(TecnologiaDto entity) {
+	public void saveOrUpdate(CategoriaDto entity) {
 		// TODO Auto-generated method stub
 		
 	}
-
 	@Override
-	public TecnologiaDto insert(TecnologiaDto entity) {
+	public CategoriaDto insert(CategoriaDto entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
-	public void remove(TecnologiaDto entity) {
+	public void remove(CategoriaDto entity) {
 		// TODO Auto-generated method stub
 		
 	}
-
 	@Override
 	public void remove(Long id) {
 		// TODO Auto-generated method stub
 		
 	}
-
 	@Override
-	public List<TecnologiaDto> findByExample(TecnologiaDto example) {
+	public List<CategoriaDto> findByExample(CategoriaDto example) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<CategoriaDto> findByCriteria(DetachedCriteria criteria) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public TecnologiaDto insertarTecnologia(TecnologiaDto dto) throws TecnologiaExisteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	
 }

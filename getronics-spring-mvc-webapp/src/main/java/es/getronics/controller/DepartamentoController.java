@@ -7,6 +7,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.base.exceptions.DepartamentoExisteException;
 import es.getronics.base.exceptions.FechaPasadaException;
+import es.getronics.bom.Departamento;
+import es.getronics.dto.DepartamentoNombreDto;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.TecnologiaDto;
 import es.getronics.editors.TecnologiaEditor;
@@ -81,6 +86,20 @@ public class DepartamentoController {
 		model.addAttribute("departamento", dpt);
 		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
 
+	}
+	@RequestMapping(value="find")
+	public ModelAndView findByName(@ModelAttribute("departamento") DepartamentoDto departamento,Model model)
+	{
+//		DepartamentoDto example= createDepartamentoDtoModel();
+//		example.setNombre(departamento.getString());
+//		List<DepartamentoDto> departamentos =departamentoService.findByExample(example);
+		DetachedCriteria criteria = DetachedCriteria.forClass(Departamento.class);
+		criteria.add(Restrictions.sqlRestriction("Departamento.nombre like '%"+departamento.getNombre()+"%'"));
+		List<DepartamentoDto> departamentos =departamentoService.findByExample(departamento);
+		
+		model.addAttribute("departamentos", departamentos);
+		return new ModelAndView(LIST_VIEW, model.asMap());
+		
 	}
 
 	@RequestMapping(value = "new", method = RequestMethod.POST)

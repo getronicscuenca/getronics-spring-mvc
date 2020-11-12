@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import org.hibernate.cfg.NotYetImplementedException;
+import org.hibernate.criterion.DetachedCriteria;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import es.getronics.bom.Tecnologia;
 import es.getronics.converter.Converter;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
+import es.getronics.dto.CategoriaDto;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.TecnologiaDto;
 import es.getronics.services.DepartamentoService;
@@ -146,8 +148,15 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 	}
 
 	@Override
-	public List<DepartamentoDto> findByExample(DepartamentoDto example) {
-		throw new NotYetImplementedException("metodo no implementado todavia");
+	public List<DepartamentoDto> findByExample(DepartamentoDto dto) {
+		Departamento example= departamentoConverter.map(dto);
+		List<Departamento> departamentos=departamentoDao.findByExample(example);
+		List<DepartamentoDto> result = new ArrayList<DepartamentoDto>();
+		
+		for (Departamento departamento : departamentos) {
+			result.add(departamentoConverter.convert(departamento));
+		}
+		return result;
 	}
 
 	@Override
@@ -156,6 +165,14 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 		departamentoDao.update(entity);
 		
 	}
+	
+	@Override
+	public List<DepartamentoDto> findByCriteria(DetachedCriteria criteria) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 
 	
 	

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.cfg.NotYetImplementedException;
+import org.hibernate.criterion.DetachedCriteria;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -104,4 +105,13 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 		throw new NotYetImplementedException("Metodo no implementado todavia");
 	}
 
+
+	@Override
+	public List<TecnologiaDto> findByCriteria(DetachedCriteria criteria) {
+		throw new NotYetImplementedException("Metodo no implementado todavia");
+	}
+
+	
+	
+	
 }
