@@ -18,25 +18,17 @@ public class Departamento implements Serializable {
 	@Column(name = "NOMBRE")
 	private String nombre;
 	@Column(name = "DESCRIPCION")
-	private String desc;
+	private String descripcion;
 	@Column(name = "ALTA")
 	private Date alta;
 	
-	
-	@Column(name="ID_JEFE")
-	//@OneToOne(mappedBy="id")
-	private Empleado jefe;
-	
 	@OneToMany(mappedBy = "departamento")
 	private Set<Empleado> empleados;
-
-	public Empleado getJefe() {
-		return jefe;
-	}
-
-	public void setJefe(Empleado jefe) {
-		this.jefe = jefe;
-	}
+	
+    @ManyToMany
+    @JoinTable(name = "DEPARATAMENTO_TECNOLOGIA",
+    joinColumns = {@JoinColumn(referencedColumnName = "ID", columnDefinition = "TECNOLOGIA_ID")})
+    private Set<Tecnologia> tecnologias;
 
 	public long getId() {
 		return id;
@@ -54,12 +46,12 @@ public class Departamento implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public String getDesc() {
-		return desc;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public Date getAlta() {

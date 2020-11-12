@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import es.getronics.bom.Empleado;
 import es.getronics.converter.Converter;
-import es.getronics.converter.EmpleadoConverter;
+import es.getronics.converter.impl.EmpleadoConverterImpl;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
 import es.getronics.dto.EmpleadoDto;

@@ -4,7 +4,7 @@
 package es.getronics.dao;
 
 import es.getronics.base.dao.GenericDao;
-import es.getronics.bom.Empleado;
+import es.getronics.bom.Tecnologia;
 
 /**
  * Define los metodos propios de acceso a datos a la tabla empleado
@@ -13,6 +13,6 @@ import es.getronics.bom.Empleado;
  *
  */
 
-public interface EmpleadoDao extends GenericDao<Empleado, Long> {
+public interface TecnologiaDao extends GenericDao<Tecnologia, Long> {
 
 }

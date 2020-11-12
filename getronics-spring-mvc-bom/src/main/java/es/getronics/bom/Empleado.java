@@ -22,21 +22,9 @@ public class Empleado implements Serializable {
 	@Column(name = "APELLIDO_2")
 	private String apellido2;
 	
-	//@JoinColumn(name="ID_JEFE")
-
-	@OneToOne
-	private Empleado jefe;
-	
 	@ManyToOne
 	private Departamento departamento;
 
-	
-	public Empleado getJefe() {
-		return jefe;
-	}
-	public void setJefe(Empleado jefe) {
-		this.jefe = jefe;
-	}
 	public Long getId() {
 		return id;
 	}

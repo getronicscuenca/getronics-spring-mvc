@@ -25,7 +25,7 @@
 		</c:forEach>
 	</tbody>
 	<form:errors path="nombre" />
-	<form:errors path="desc" />
+	<form:errors path="descripcion" />
 	<spring:url value="/departamento" var="url"></spring:url>
 	<form:form action="${ url }">
 		<button type="submit">
