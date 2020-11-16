@@ -16,7 +16,6 @@ import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
 import es.getronics.dao.TecnologiasDao;
 import es.getronics.dto.DepartamentoDto;
-import es.getronics.dto.EmpleadoDto;
 import es.getronics.exceptions.DepartamentoExistenteException;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
@@ -24,6 +23,8 @@ import es.getronics.services.EmpleadoService;
 @Service("departamentoService")
 public class DepartamentoServiceImpl implements DepartamentoService {
 
+	@Autowired
+	private TecnologiasDao tecnologiasDao;
 
 	@Autowired
 	private DepartamentoDao departamentoDao;
@@ -79,6 +80,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	@Override
 	public DepartamentoDto insert(DepartamentoDto dto) {
 		Departamento entity = modelMapper.map(dto, Departamento.class);
+		entity.setTecnologia(obtenerTecnologias(dto.getTecnologiaId()));
 		dto = modelMapper.map(departamentoDao.insert(entity), DepartamentoDto.class);
 		return dto;
 	}
@@ -156,6 +158,34 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
 		}
 
+	}
+
+	@Override
+	public List<Tecnologias> obtenerTecnologias(Long[] ids) {
+		List<Tecnologias> lista= new ArrayList<>();
+		for(Long id: ids) {
+			lista.add(tecnologiasDao.findById(id));
+		}
+		return lista;
+	}
+
+	@Override
+	public List<Tecnologias> recogerTecnologiasRelacionadas(Long id) {
+		return departamentoDao.findById(id).getTecnologia();
+	}
+
+	@Override
+	public void borrarTecnologia(Long idTecnologia, Long idDepartamento) {
+		Departamento entity= departamentoDao.findById(idDepartamento);
+		List <Tecnologias> tecnologias= entity.getTecnologia();
+		   for(int i=0; i<tecnologias.size(); i++) {
+	            if(tecnologias.get(i).getId().equals(idTecnologia)) {
+	                tecnologias.remove(i);
+	            }
+	        }
+	        entity.setTecnologia(tecnologias);
+	        departamentoDao.update(entity);
+		
 	}
 
 }

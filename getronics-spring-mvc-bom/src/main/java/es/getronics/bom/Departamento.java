@@ -40,7 +40,7 @@ public class Departamento implements Serializable {
 	@OneToMany(mappedBy = "departamento")
 	private Set<Empleado> empleados;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tecnologias_departamentos", joinColumns = @JoinColumn(name = "departamentoId"), inverseJoinColumns = @JoinColumn(name = "tecnologiasId"))
 	private List<Tecnologias> tecnologia;
 	

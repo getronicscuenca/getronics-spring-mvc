@@ -74,6 +74,7 @@ public class DepartamentoController {
 	@RequestMapping(value = "ver/{id}", method = RequestMethod.GET)
 	public ModelAndView showDepartamento(@PathVariable Long id, Model model) {
 		model.addAttribute("departamento", departamentoService.findById(id));
+		model.addAttribute("tecnologias", departamentoService.recogerTecnologiasRelacionadas(id));
 		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
 
 	}
@@ -108,10 +109,17 @@ public class DepartamentoController {
 
 	}
 
+
 	@RequestMapping(value = "alta/{id}", method = RequestMethod.POST)
 	public ModelAndView editarFecha(@PathVariable Long id, Model model) {
 		model.addAttribute("departamento", departamentoService.findById(id));
 		return new ModelAndView(DEPARTAMENTO_ALTA, model.asMap());
+	}
+	
+	@RequestMapping(value = "borrarTecnologia/{idTecnologia}/{idDepartamento}", method = RequestMethod.POST)
+	public String borrarTecnologia(@PathVariable Long idTecnologia, @PathVariable Long idDepartamento, Model model) {
+		departamentoService.borrarTecnologia(idTecnologia, idDepartamento);
+		return "redirect:/departamento";
 	}
 
 	@RequestMapping(value = "chAlta/{id}", method = RequestMethod.POST)

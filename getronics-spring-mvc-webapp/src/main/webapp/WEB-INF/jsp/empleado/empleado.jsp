@@ -41,7 +41,7 @@
 							<label><spring:message code="empleado.departamento"></spring:message></label>
 							<div class="custom-control custom-radio">
 								<form:radiobuttons path="idDepartamento"
-									items="${departamentos}" itemLabel="nombre" itemValue="id" />
+									items="${departamentos}" itemLabel="nombre" itemValue="id" class="ml-3" />
 							</div>
 						</div>
 						<div class="form-group col-md-11">

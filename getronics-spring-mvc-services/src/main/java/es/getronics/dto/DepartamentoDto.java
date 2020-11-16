@@ -1,14 +1,6 @@
 package es.getronics.dto;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
-
-import es.getronics.bom.Empleado;
-import es.getronics.bom.Tecnologias;
-import es.getronics.exceptions.DepartamentoExistenteException;
-import es.getronics.services.DepartamentoService;
 
 public class DepartamentoDto {
 

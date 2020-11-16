@@ -20,7 +20,7 @@ public class Tecnologias {
 	@Column(name = "DESCRIPCION")
 	private String descripcion;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tecnologias_departamentos", joinColumns = @JoinColumn(name = "tecnologiasId"), inverseJoinColumns = @JoinColumn(name = "departamentoId"))
 	private List<Departamento> departamentos;
 	
