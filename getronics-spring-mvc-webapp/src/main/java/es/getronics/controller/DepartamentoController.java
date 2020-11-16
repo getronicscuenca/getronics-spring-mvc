@@ -23,13 +23,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.bom.Departamento;
 import es.getronics.bom.Empleado;
+import es.getronics.bom.Tecnologias;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
+import es.getronics.dao.TecnologiasDao;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.exceptions.DepartamentoExistenteException;
 import es.getronics.exceptions.EmpleadosExistentes;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
+import es.getronics.services.TecnologiasService;
 import es.getronics.validators.DepartamentoValidator;
 
 @RequestMapping("departamento")
@@ -53,6 +56,8 @@ public class DepartamentoController {
 	private DepartamentoValidator departamentoValidator;
 	@Autowired
 	private EmpleadoService empleadoService;
+	@Autowired
+	private TecnologiasService tecnologiasService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listarDepartamentos(Model model) {
@@ -66,6 +71,7 @@ public class DepartamentoController {
 	public ModelAndView showNewPage(Model model) {
 		model.addAttribute("departamento", new DepartamentoDto());
 		model.addAttribute("empleados", empleadoService.findAll());
+		model.addAttribute("tecnologias", tecnologiasService.findAll());
 		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
 	}
 
@@ -79,7 +85,9 @@ public class DepartamentoController {
 
 	@RequestMapping(value = "ver/{id}", method = RequestMethod.GET)
 	public ModelAndView showDepartamento(@PathVariable Long id, Model model) {
-		model.addAttribute("departamento", departamentoService.findById(id));
+		DepartamentoDto departamento = departamentoService.findById(id);
+		model.addAttribute("tecnologias", departamentoService.obtenerTecnologiasDepartamento(id));
+		model.addAttribute("departamento", departamento);
 		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
 
 	}
@@ -90,14 +98,14 @@ public class DepartamentoController {
 		if (bindingResult.hasErrors()) {
 			return DEPARTAMENTO_VIEW;
 		}
-
+		
 		if (departamento.getId() != null) {
 			// da error al buscar un id nulo, con lo cual si el departamento no tiene empleados no busco  
 			if(departamento.getIdEmpleado()!=null)
 				departamento.setNombreEmpleado(empleadoService.findById(departamento.getIdEmpleado()).getNombre());
 			departamentoService.update(departamento);
 		} else {
-			departamentoService.comprobarNombreDepartamento(departamento.getNombre());
+			
 			departamentoService.insert(departamento);
 		}
 		return "redirect:/departamento";
@@ -109,6 +117,13 @@ public class DepartamentoController {
 		departamentoService.remove(id);	
 		return new ModelAndView(DEPARTAMENTO_REDIRECT);
 	}
+	
+	@RequestMapping(value="ver/eliminar/tecnologia/{iddepartamento}/{idtecnologia}", method=RequestMethod.GET)
+	public ModelAndView eliminar(@PathVariable Long iddepartamento, @PathVariable Long idtecnologia, Model model) {
+		departamentoService.eliminarTecnologia(idtecnologia, iddepartamento);
+		return null;
+	}
+
 
 	@RequestMapping(value = "alta/{id}", method = RequestMethod.POST)
 	public ModelAndView editarFecha(@PathVariable Long id, Model model) {

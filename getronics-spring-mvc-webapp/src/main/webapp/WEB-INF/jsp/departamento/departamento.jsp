@@ -53,7 +53,16 @@
 			<p>No hay empleados disponibles</p>			
 		</c:otherwise>
 	</c:choose>
-	
+	<c:choose>
+		<c:when test="${tecnologias.size() > 0}">
+			<div>
+				<form:checkboxes items="${tecnologias }" path="tecnologiasLista" itemLabel="nombre" itemValue="id" class="m-1"/>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<p>No hay tecnologias disponibles</p>			
+		</c:otherwise>
+	</c:choose>
 	<form:errors path="idEmpleado" cssClass="error" />
 	<br><br>
 	<form:button class="btn btn-primary" value="submit">Guardar</form:button>

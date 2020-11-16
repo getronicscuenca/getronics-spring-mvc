@@ -6,13 +6,12 @@ import java.util.List;
 import java.util.Set;
 
 import es.getronics.bom.Empleado;
+import es.getronics.bom.Tecnologias;
 import es.getronics.exceptions.DepartamentoExistenteException;
 import es.getronics.services.DepartamentoService;
 
 public class DepartamentoDto {
 
-	
-	
 	private Long id;
 	private String nombre;
 	private String desc;
@@ -20,6 +19,15 @@ public class DepartamentoDto {
 	private Long idEmpleado;
 	private String nombreEmpleado;
 	private Set<Empleado> empleadoLista;
+	private Long[] tecnologiasLista;
+
+	public Long[] getTecnologiasLista() {
+		return tecnologiasLista;
+	}
+
+	public void setTecnologiasLista(Long[] tecnologiasLista) {
+		this.tecnologiasLista = tecnologiasLista;
+	}
 
 	public Set<Empleado> getEmpleadoLista() {
 		return empleadoLista;

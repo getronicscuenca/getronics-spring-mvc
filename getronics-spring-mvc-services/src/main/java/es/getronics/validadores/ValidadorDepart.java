@@ -18,11 +18,6 @@ public class ValidadorDepart implements Validator{
 		// TODO Auto-generated method stub
 		DepartamentoDto depar = (DepartamentoDto)target;
 		
-		if(depar.getDescripcion().equals("")) {
-			errors.rejectValue("descripcion", null, "Debes rellenar el campo (Error controlado por validator)");
-			return;
-		}
-		
 	}
 
 }

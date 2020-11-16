@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 
 import es.getronics.bom.Departamento;
 import es.getronics.bom.Empleado;
+import es.getronics.bom.Tecnologias;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
+import es.getronics.dao.TecnologiasDao;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
 import es.getronics.exceptions.DepartamentoExistenteException;
@@ -31,6 +33,9 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
 	@Autowired
 	private EmpleadoService empleadoService;
+	
+	@Autowired
+	private TecnologiasDao tecnologiasDao;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -43,7 +48,6 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	public DepartamentoDto findById(Long id) {
 		Departamento entity = departamentoDao.findById(id);
 		return modelMapper.map(entity, DepartamentoDto.class);
-
 	}
 
 	@Override
@@ -77,8 +81,19 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	@Override
 	public DepartamentoDto insert(DepartamentoDto dto) {
 		Departamento entity = modelMapper.map(dto, Departamento.class);
+		entity.setTecnologia(obtenerTecnologias(dto.getTecnologiasLista()));
 		dto = modelMapper.map(departamentoDao.insert(entity), DepartamentoDto.class);
 		return dto;
+	}
+	
+	// posible chapuza, investigar un metodo mejor de hacerlo ... 
+	public List<Tecnologias> obtenerTecnologias(Long[] ids){
+		List<Tecnologias> lista = new ArrayList<>();
+		for(Long id : ids) {
+			lista.add(tecnologiasDao.findById(id));
+		}
+		return lista;
+		
 	}
 
 	@Override
@@ -121,6 +136,20 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 			throw new DepartamentoExistenteException("El nombre del departamento ya existe.");
 	}
 
+	public List<Tecnologias> obtenerTecnologiasDepartamento(Long idDepartamento){
+		return departamentoDao.findById(idDepartamento).getTecnologia();
+	}
 	
-
+	@Override
+	public void eliminarTecnologia(Long idTecnologia, Long idDepartamento) {
+		Departamento entity = departamentoDao.findById(idDepartamento);
+		List<Tecnologias> tecnologias = entity.getTecnologia();
+		for(int i=0; i<tecnologias.size(); i++) {
+			if(tecnologias.get(i).getId().equals(idTecnologia)) {
+				tecnologias.remove(i);
+			}
+		}
+		entity.setTecnologia(tecnologias);
+		departamentoDao.update(entity);
+	}
 }
