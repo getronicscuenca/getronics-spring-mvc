@@ -94,9 +94,9 @@ public class DepartamentoController {
 //		example.setNombre(departamento.getString());
 //		List<DepartamentoDto> departamentos =departamentoService.findByExample(example);
 		DetachedCriteria criteria = DetachedCriteria.forClass(Departamento.class);
-		criteria.add(Restrictions.sqlRestriction("Departamento.nombre like '%"+departamento.getNombre()+"%'"));
-		List<DepartamentoDto> departamentos =departamentoService.findByExample(departamento);
-		
+		criteria.add(Restrictions.sqlRestriction("this_.NOMBRE like '%"+departamento.getNombre()+"%'"));
+//		List<DepartamentoDto> departamentos =departamentoService.findByExample(departamento);
+		List<DepartamentoDto> departamentos =departamentoService.findByCriteria(criteria);
 		model.addAttribute("departamentos", departamentos);
 		return new ModelAndView(LIST_VIEW, model.asMap());
 		

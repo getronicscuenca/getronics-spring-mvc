@@ -168,8 +168,15 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 	
 	@Override
 	public List<DepartamentoDto> findByCriteria(DetachedCriteria criteria) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Departamento> departamentos= departamentoDao.findByCriteria(criteria);
+		
+		List<DepartamentoDto> result =new ArrayList<DepartamentoDto>();
+		
+		for (Departamento departamento : departamentos) {
+			result.add(departamentoConverter.convert(departamento));
+		}
+		return result;
 	}
 	
 	

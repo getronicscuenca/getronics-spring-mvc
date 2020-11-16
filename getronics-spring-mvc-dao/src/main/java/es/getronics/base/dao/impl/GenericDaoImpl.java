@@ -86,6 +86,7 @@ public abstract class GenericDaoImpl<T, ID extends Serializable> extends
 		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<T> findByCriteria(DetachedCriteria criteria)
 	{
 		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
