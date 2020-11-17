@@ -16,6 +16,7 @@ public class DepartamentoDto {
 	private Date alta;
 	private List<Long> selectedTecnologias;
 	private List<String> tecnologias;
+	private List<String> empleados;
 	
 	
 	public Long getId() {
@@ -54,6 +55,11 @@ public class DepartamentoDto {
 	public void setTecnologias(List<String> tecnologias) {
 		this.tecnologias = tecnologias;
 	}
-	
+	public List<String> getEmpleados() {
+		return empleados;
+	}
+	public void setEmpleados(List<String> empleados) {
+		this.empleados = empleados;
+	}
 }
 

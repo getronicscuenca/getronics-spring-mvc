@@ -68,11 +68,10 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
 	@Override
 	public DepartamentoDto insert(DepartamentoDto dto) {
-		
-		Departamento entity = departamentoConverter.map(dto);
 		if(!departamentoDao.findByName(dto.getNombre()).isEmpty()) {
 			throw new GetronicsDaoException("departamento.already.exists");
 		}
+		Departamento entity = departamentoConverter.map(dto);
 		dto= departamentoConverter.convert(departamentoDao.insert(entity));
 		return dto;
 	}

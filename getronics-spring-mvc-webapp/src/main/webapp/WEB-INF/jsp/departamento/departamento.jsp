@@ -32,19 +32,17 @@
 	<div class="col-md-8">
 		<div class="card card-sm">
 
-			<form:errors path="*" cssClass="errorblock" element="div" />
-
-
 			<form:form modelAttribute="departamento" action="${ url }"
 				cssClass="form-horizontal">
 				<fieldset>
 					<legend class="text-center header">${ title }</legend>
-
+					<form:hidden path="id" />
 					<div class="row justify-content-center">
 
 						<form:errors path="*" cssClass="errorblock" element="div" />
+						
 						<div class="form-group col-md-11">
-							<form:hidden path="id" />
+							
 							<spring:message code="departamento.nombre"></spring:message>
 							<form:errors path="nombre" cssClass="error" />
 							<br>

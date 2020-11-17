@@ -3,6 +3,22 @@
 <spring:url value="/tecnologia/new" var="url"></spring:url>
 <spring:message code="tecnologia.new.title" var="insertTitle" />
 <spring:message code="tecnologia.update.title" var="updateTitle" />
+
+
+<style>
+.error {
+	color: #ff0000;
+}
+
+.errorblock {
+	color: #000;
+	background-color: #ffEEEE;
+	border: 3px solid #ff0000;
+	padding: 8px;
+	margin: 16px;
+}
+</style>
+
 <c:choose>
 	<c:when test="${ tecnologia.id == null}">
 		<c:set value="${ insertTitle }" var="title" />
@@ -15,13 +31,16 @@
 <div class="row justify-content-center mt-5">
 	<div class="col-md-8">
 		<div class="card card-sm">
+			
 			<form:form modelAttribute="tecnologia" action="${ url }"
 				cssClass="form-horizontal">
-
 				<fieldset>
 					<legend class="text-center header">${ title }</legend>
 					<form:hidden path="id" />
 					<div class="row justify-content-center">
+						
+						<form:errors path="*" cssClass="errorblock" element="div" />
+						
 						<div class="form-group col-md-11">
 							<label for="nombre"><spring:message
 									code="tecnologia.nombre"></spring:message></label>

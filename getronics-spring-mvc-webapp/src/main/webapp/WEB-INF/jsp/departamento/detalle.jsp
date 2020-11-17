@@ -36,12 +36,21 @@
 						
 						
 						<div class="input-group mb-3 col-md-11">
-						  <label for="selectedTecnologias"><spring:message
-									code="departamento.tecnologia"></spring:message></label>
+						  <spring:message code="departamento.tecnologia"></spring:message>
 						  <div class="w-100"></div>
 						  <ul class="">
 						  		<c:forEach items="${ departamento.tecnologias }" var="tecnologia">
 						  			<li>${ tecnologia }</li>
+						  		</c:forEach>
+						  </ul>
+						</div>
+						
+						<div class="input-group mb-3 col-md-11">
+						  <spring:message code="departamento.empleados"></spring:message>
+						  <div class="w-100"></div>
+						  <ul class="">
+						  		<c:forEach items="${ departamento.empleados }" var="empleado">
+						  			<li>${ empleado }</li>
 						  		</c:forEach>
 						  </ul>
 						</div>

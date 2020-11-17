@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import es.getronics.bom.Departamento;
+import es.getronics.bom.Empleado;
 import es.getronics.bom.Tecnologia;
 import es.getronics.converter.Converter;
 import es.getronics.dao.TecnologiaDao;
@@ -35,6 +36,13 @@ public class DepartamentoConverterImpl implements Converter<Departamento, Depart
 			tecnologias.add(tecnologia.getNombre());
 		}
 		result.setTecnologias(tecnologias);
+		
+		List<String> empleados = new ArrayList<String>();
+		for(Empleado empleado : source.getEmpleados()) {
+			empleados.add(empleado.getNombre() + " " + empleado.getApellido1() + " " + empleado.getApellido2());
+		}
+		result.setEmpleados(empleados);
+		
 		result.setSelectedTecnologias(selectedTecnologias);
 		return result;
 	}

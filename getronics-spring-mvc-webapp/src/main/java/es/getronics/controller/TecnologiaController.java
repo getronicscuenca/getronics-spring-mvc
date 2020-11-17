@@ -5,9 +5,12 @@ package es.getronics.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import es.getronics.base.dao.exception.GetronicsDaoException;
 import es.getronics.dto.TecnologiaDto;
-import es.getronics.services.DepartamentoService;
 import es.getronics.services.TecnologiaService;
 
 /**
- * Maneja las peticiones relacionadas con empleados
+ * Maneja las peticiones relacionadas con tecnologias
  * 
  * @author jgarcia
  *
@@ -32,52 +35,64 @@ public class TecnologiaController {
 	
 	private final String LIST_VIEW = "tecnologia.list";
 	private final String TECNOLOGIA_VIEW = "tecnologia.tecnologia";
+	
+	private final String REDIRECT_TO_TECNOLOGIA = "redirect:/tecnologia";
+
+	private final String MODEL_OBJECT = "tecnologia";
+	private final String LIST_MODEL_OBJECT = "tecnologias";
+	
 
 	@Autowired
 	private TecnologiaService tecnologiaService;
-	@Autowired
-	private DepartamentoService departamentoService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ModelAndView listarEmpleados(Model model) {
+	public ModelAndView listarTecnologias(Model model) {
 		List<TecnologiaDto> tecnologias = tecnologiaService.findAll();
-		model.addAttribute("tecnologias", tecnologias);
+		model.addAttribute(LIST_MODEL_OBJECT, tecnologias);
 		return new ModelAndView(LIST_VIEW, model.asMap());
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ModelAndView showNewPage(Model model) {
-		model.addAttribute("tecnologia", new TecnologiaDto());
-		model.addAttribute("departamentos", departamentoService.findAll());
-		return new ModelAndView(TECNOLOGIA_VIEW, model.asMap());
+		return new ModelAndView(TECNOLOGIA_VIEW);
 	}
 	
 	@RequestMapping(value="update/{id}", method=RequestMethod.GET)
-	public ModelAndView showUpdateEmpleado(@PathVariable Long id, Model model) {
+	public ModelAndView showUpdateTecnologia(@PathVariable Long id, Model model) {
 		TecnologiaDto tecnologia = tecnologiaService.findById(id);
-		model.addAttribute("tecnologia", tecnologia);
-		model.addAttribute("departamentos", departamentoService.findAll());
+		model.addAttribute(MODEL_OBJECT, tecnologia);
 		
 		return new ModelAndView(TECNOLOGIA_VIEW, model.asMap());
 	}
 	
 	@RequestMapping(value="new", method=RequestMethod.POST)
-	public String insertarEmpleado(@ModelAttribute TecnologiaDto tecnologia, Model model) {
-		if(tecnologia.getId() != null) {
-			tecnologiaService.update(tecnologia);
-		} else {
-			tecnologiaService.insert(tecnologia);
+	public String insertarTecnologia(@ModelAttribute(MODEL_OBJECT) @Valid TecnologiaDto tecnologia, BindingResult bindingResult, Model model) {
+		
+		try {
+			if (tecnologia.getId() != null) {
+				tecnologiaService.update(tecnologia);
+			} else {
+				tecnologiaService.insert(tecnologia);
+			}
+		} catch(GetronicsDaoException ex) {
+			bindingResult.reject(ex.getMessage());
+			return TECNOLOGIA_VIEW;
 		}
-		return "redirect:/tecnologia";
+		return REDIRECT_TO_TECNOLOGIA;
 	}
 	
 	@RequestMapping("delete/{id}")
-	public String eliminarEmpleado(@PathVariable Long id, Model model) {
+	public String eliminarTecnologia(@PathVariable Long id, Model model) {
 		tecnologiaService.remove(id);
-		return "redirect:/tecnologia";
+		return REDIRECT_TO_TECNOLOGIA;
 	}
 	
-	@InitBinder
+	@ModelAttribute(MODEL_OBJECT)
+	public TecnologiaDto createTecnologiaDtoModel() {
+		return new TecnologiaDto();
+	}
+	
+	@InitBinder(MODEL_OBJECT)
 	public void initBinder(WebDataBinder binder) {
 		
 	}

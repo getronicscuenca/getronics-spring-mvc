@@ -1,13 +1,11 @@
 package es.getronics.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -122,9 +120,6 @@ public class DepartamentoController {
 	@InitBinder(MODEL_OBJECT)
 	public void initBinder(WebDataBinder binder) {
 		binder.setValidator(departamentoValidator);
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setLenient(false);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
 
 	@ModelAttribute(MODEL_OBJECT)

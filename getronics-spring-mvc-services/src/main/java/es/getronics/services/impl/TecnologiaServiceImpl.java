@@ -10,6 +10,7 @@ import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.getronics.base.dao.exception.GetronicsDaoException;
 import es.getronics.bom.Tecnologia;
 import es.getronics.converter.Converter;
 import es.getronics.dao.TecnologiaDao;
@@ -70,6 +71,9 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 
 	@Override
 	public TecnologiaDto insert(TecnologiaDto dto) {
+		if(!tecnologiaDao.findByName(dto.getNombre()).isEmpty()) {
+			throw new GetronicsDaoException("tecnologia.already.exists");
+		}
 		Tecnologia entity = tecnologiaConverter.map(dto);
 		dto = tecnologiaConverter.convert(tecnologiaDao.insert(entity));
 		
