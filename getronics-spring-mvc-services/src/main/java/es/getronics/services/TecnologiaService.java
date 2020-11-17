@@ -16,4 +16,7 @@ public interface TecnologiaService {
 	
 	List<TecnologiaDTO> findAllTechnologies();
 	TecnologiaDTO insert(TecnologiaDTO dto);
+	TecnologiaDTO findById(Long id);
+	TecnologiaDTO update(TecnologiaDTO dto);
+
 }

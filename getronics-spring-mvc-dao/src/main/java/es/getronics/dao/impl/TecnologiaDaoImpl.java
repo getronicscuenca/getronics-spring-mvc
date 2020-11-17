@@ -27,4 +27,15 @@ public class TecnologiaDaoImpl implements TecnologiaDao {
 
 	}
 
+	@Override
+	public Tecnologia update(Tecnologia entity) {
+		sessionFactory.getCurrentSession().update(entity);
+		return entity;
+	}
+
+	@Override
+	public Tecnologia findById(Long id) {
+		return (Tecnologia) sessionFactory.getCurrentSession().find("select id from Tecnologia");
+	}
+
 }

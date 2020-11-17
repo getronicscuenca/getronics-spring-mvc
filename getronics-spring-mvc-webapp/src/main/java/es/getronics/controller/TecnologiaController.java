@@ -9,12 +9,16 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.bom.Tecnologia;
+import es.getronics.dto.DepartamentoDto;
+import es.getronics.dto.EmpleadoDto;
 import es.getronics.dto.TecnologiaDTO;
 import es.getronics.services.TecnologiaService;
 
@@ -27,10 +31,10 @@ import es.getronics.services.TecnologiaService;
 @RequestMapping("tecnologia")
 @Controller
 public class TecnologiaController {
-	
+
 	@Autowired
 	private TecnologiaService tecnologiaService;
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView findAllTechnologies() {
 		List<TecnologiaDTO> technologies = tecnologiaService.findAllTechnologies();
@@ -38,18 +42,27 @@ public class TecnologiaController {
 		model.put("technologies", technologies);
 		return new ModelAndView("tecnologia.list", model);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView insertarTecnologia(@ModelAttribute("tecnologia") TecnologiaDTO tecnologia) {
-		if(tecnologia.getNombre() !=null) {
+	public ModelAndView insertarTecnologia(@ModelAttribute("tecnologia") TecnologiaDTO tecnologia, Model model) {
+
+		if (tecnologia.getNombre() != null) {
 			tecnologiaService.insert(tecnologia);
-		}else {
-			
+			model.addAttribute("technologies", tecnologiaService.findAllTechnologies());
+			return new ModelAndView("tecnologia.list", model.asMap());
+
+		} else {
+			//tecnologiaService.update(tecnologia);
+
 		}
+		return new ModelAndView("tecnologia.nuevo");
+	}
+
+	@RequestMapping(value = "update/{id}", method = RequestMethod.GET)
+	public ModelAndView showUpdateTecnologia(@PathVariable Long id, Model model) {
+		model.addAttribute("technology", tecnologiaService.findById(id));
 	
 		return new ModelAndView("tecnologia.nuevo");
-	
-		
 	}
 
 }

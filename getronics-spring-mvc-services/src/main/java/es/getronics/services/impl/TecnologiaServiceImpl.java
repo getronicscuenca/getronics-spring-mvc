@@ -13,6 +13,7 @@ import es.getronics.bom.Tecnologia;
 import es.getronics.converter.Converter;
 import es.getronics.dao.TecnologiaDao;
 import es.getronics.dto.DepartamentoDto;
+import es.getronics.dto.EmpleadoDto;
 import es.getronics.dto.TecnologiaDTO;
 import es.getronics.services.TecnologiaService;
 
@@ -26,6 +27,7 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 	private Converter<Tecnologia, TecnologiaDTO> tecnologiaConverter;
 	@Autowired
 	private ModelMapper modelMapper;
+
 	@Override
 	public List<TecnologiaDTO> findAllTechnologies() {
 		// TODO Auto-generated method stub
@@ -37,17 +39,39 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 		return retorno;
 	}
 
-	
 	@Override
 	public TecnologiaDTO insert(TecnologiaDTO dto) {
 		Tecnologia entity = modelMapper.map(dto, Tecnologia.class);
-		dto= modelMapper.map(tecnologiaDao.insert(entity), TecnologiaDTO.class);
+		dto = modelMapper.map(tecnologiaDao.insert(entity), TecnologiaDTO.class);
 		return dto;
 	}
 
-
+	/*@Override
+	public List<TecnologiaDTO> findById(Long id) {
+		List<Tecnologia> found = tecnologiaDao.findById(id);
+		List<TecnologiaDTO> retorno = new ArrayList<TecnologiaDTO>();
+		for (Tecnologia tecnologia : found) {
+			retorno.add(tecnologiaConverter.convert(tecnologia));
+		}
+		return retorno;
+	}*/
+	
 	
 
+	@Override
+	public TecnologiaDTO update(TecnologiaDTO dto) {
+		Tecnologia entity = tecnologiaConverter.map(dto);
+		tecnologiaDao.update(entity);
+		return dto;
+	}
+
+	@Override
+	public TecnologiaDTO findById(Long id) {
+		Tecnologia tec= tecnologiaDao.findById(id);
+		return tecnologiaConverter.convert(tec);
+	}
+	
+	
 	
 
 }
