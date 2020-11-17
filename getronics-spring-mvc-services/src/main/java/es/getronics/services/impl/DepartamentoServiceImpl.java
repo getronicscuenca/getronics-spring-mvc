@@ -17,6 +17,7 @@ import es.getronics.dao.EmpleadoDao;
 import es.getronics.dao.TecnologiasDao;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
+import es.getronics.dto.TecnologiasDto;
 import es.getronics.exceptions.DepartamentoExistenteException;
 import es.getronics.exceptions.EmpleadosExistentes;
 import es.getronics.services.DepartamentoService;
@@ -68,6 +69,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	@Override
 	public void update(DepartamentoDto dto) {
 		Departamento entity = modelMapper.map(dto, Departamento.class);
+		entity.setTecnologia(obtenerTecnologias(dto.getTecnologiasLista()));
 		departamentoDao.update(entity);
 
 	}
@@ -75,7 +77,6 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	@Override
 	public void saveOrUpdate(DepartamentoDto entity) {
 		throw new NotYetImplementedException("metodo no implementado todavia");
-
 	}
 
 	@Override
@@ -151,5 +152,30 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 		}
 		entity.setTecnologia(tecnologias);
 		departamentoDao.update(entity);
+	}
+	
+	public List<TecnologiasDto> obtenerTecnologiasCheckbox(Long idDepartamento){
+		// cojo las tecnologias del departamento
+		List<Tecnologias> tecnologiasDepartamento = obtenerTecnologiasDepartamento(idDepartamento);
+		// cojo todas las tecnologias 
+		List<Tecnologias> tecnologias = tecnologiasDao.findAll();
+		// la lista que voy a retornar
+		List<TecnologiasDto> resultado = new ArrayList<>();
+		// recorro comprobando si la tecnologia esta relacionada con el departamento
+		for(Tecnologias tecnologia : tecnologias) {
+			if(tecnologiasDepartamento.contains(tecnologia)) {
+				TecnologiasDto dto = modelMapper.map(tecnologia, TecnologiasDto.class);
+				//establezco variable a true para checkear el checkbox
+				dto.setAnadida(true);
+				resultado.add(dto);
+			}else {
+				TecnologiasDto dto = modelMapper.map(tecnologia, TecnologiasDto.class);
+				//establezco variable a true para uncheckear el checkbox
+				dto.setAnadida(false);
+				resultado.add(dto);
+			}
+		}
+		// retorno listado de dto con la variable
+		return resultado;
 	}
 }

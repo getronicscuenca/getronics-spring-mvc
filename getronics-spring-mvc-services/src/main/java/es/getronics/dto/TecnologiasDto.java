@@ -6,7 +6,17 @@ public class TecnologiasDto {
 	private String nombre;
 	private String descripcion;
 	private Long idDepartamento;
+	private boolean anadida;
 	
+	
+
+	public boolean isAnadida() {
+		return anadida;
+	}
+
+	public void setAnadida(boolean anadida) {
+		this.anadida = anadida;
+	}
 
 	public Long getIdDepartamento() {
 		return idDepartamento;

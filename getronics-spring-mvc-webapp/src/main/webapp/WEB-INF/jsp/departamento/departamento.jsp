@@ -56,7 +56,27 @@
 	<c:choose>
 		<c:when test="${tecnologias.size() > 0}">
 			<div>
-				<form:checkboxes items="${tecnologias }" path="tecnologiasLista" itemLabel="nombre" itemValue="id" class="m-1"/>
+				<!-- 
+				<form:checkboxes items="${tecnologias }" var="tecnologia" path="tecnologiasLista" checked="anadida" itemLabel="nombre" itemValue="id" class="m-1"/>
+			 -->
+				
+				
+				<c:forEach items="${tecnologias }" var="tecnologia">
+					<c:choose>
+						<c:when test="${tecnologia.anadida == true}">
+							<c:set var="check" value="checked"></c:set>
+							<form:checkbox path="tecnologiasLista" value="${tecnologia.id }" label="${tecnologia.nombre }" checked="checked"/>
+			
+						</c:when>
+						<c:otherwise>
+							<form:checkbox path="tecnologiasLista" value="${tecnologia.id }" label="${tecnologia.nombre }" />
+						</c:otherwise>
+					</c:choose>
+					
+					
+				</c:forEach>
+				
+				
 			</div>
 		</c:when>
 		<c:otherwise>

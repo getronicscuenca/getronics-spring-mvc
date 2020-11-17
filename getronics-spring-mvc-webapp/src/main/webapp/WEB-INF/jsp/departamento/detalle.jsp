@@ -26,6 +26,6 @@
 				<li class="list-group-item">${tecnologia.nombre }<a class="btn btn-danger float-right" href="./eliminar/tecnologia/${departamento.id}/${tecnologia.id }">Borrar</a></li>
 			</c:forEach>
 		</ul>
-		<a href="./../../departamento" class="btn btn-primary mt-2">Volver a departamentos</a>
+		<a href="/getronics-spring-mvc-webapp/departamento" class="btn btn-primary mt-2">Volver a departamentos</a>
 	</div>
 </div>

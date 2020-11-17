@@ -79,6 +79,7 @@ public class DepartamentoController {
 	public ModelAndView showUpdateDepartamento(@PathVariable Long id, Model model) {
 		model.addAttribute("departamento", departamentoService.findById(id));
 		model.addAttribute("empleados", empleadoService.findAll());
+		model.addAttribute("tecnologias", departamentoService.obtenerTecnologiasCheckbox(id));
 		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
 
 	}
@@ -101,11 +102,11 @@ public class DepartamentoController {
 		
 		if (departamento.getId() != null) {
 			// da error al buscar un id nulo, con lo cual si el departamento no tiene empleados no busco  
-			if(departamento.getIdEmpleado()!=null)
+			if(departamento.getIdEmpleado()!=null) {
 				departamento.setNombreEmpleado(empleadoService.findById(departamento.getIdEmpleado()).getNombre());
+			}
 			departamentoService.update(departamento);
 		} else {
-			
 			departamentoService.insert(departamento);
 		}
 		return "redirect:/departamento";
@@ -119,9 +120,9 @@ public class DepartamentoController {
 	}
 	
 	@RequestMapping(value="ver/eliminar/tecnologia/{iddepartamento}/{idtecnologia}", method=RequestMethod.GET)
-	public ModelAndView eliminar(@PathVariable Long iddepartamento, @PathVariable Long idtecnologia, Model model) {
+	public String eliminar(@PathVariable Long iddepartamento, @PathVariable Long idtecnologia, Model model) {
 		departamentoService.eliminarTecnologia(idtecnologia, iddepartamento);
-		return null;
+		return "redirect:/departamento/ver/"+iddepartamento;
 	}
 
 
