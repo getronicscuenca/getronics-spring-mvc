@@ -8,7 +8,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,9 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.base.dao.exception.GetronicsDaoException;
 import es.getronics.dto.DepartamentoDto;
-import es.getronics.dto.EmpleadoDto;
 import es.getronics.services.DepartamentoService;
-import es.getronics.services.EmpleadoService;
 import es.getronics.services.TecnologiaService;
 import es.getronics.validators.DepartamentoValidator;
 
@@ -36,59 +33,55 @@ public class DepartamentoController {
 	private final String DEPARTAMENTO_VIEW = "departamento.departamento";
 	private final String DEPARTAMENTO_DETALLE = "departamento.detalle";
 	private final String DEPARTAMENTO_ALTA = "departamento.alta";
+	private final String REDIRECT_TO_DEPARTAMENTO = "redirect:/departamento";
 
+	private final String MODEL_OBJECT = "departamento";
+	private final String LIST_MODEL_OBJECT = "departamentos";
+	private final String TECNOLOGIAS_OBJECT = "tecnologias";
+	
 	@Autowired
 	private DepartamentoService departamentoService;
 	@Autowired
 	private TecnologiaService tecnologiaService;
 	@Autowired
 	private DepartamentoValidator departamentoValidator;
-	@Autowired
-	private EmpleadoService empleadoService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listarDepartamentos(Model model) {
 		List<DepartamentoDto> departamentos = departamentoService.findAll();
-		List<EmpleadoDto> empleados = empleadoService.findAll();
-
-		model.addAttribute("departamentos", departamentos);
-		model.addAttribute("empleados", empleados);
-
+		model.addAttribute(LIST_MODEL_OBJECT, departamentos);
 		return new ModelAndView(LIST_VIEW, model.asMap());
 
 	}
 
+	/**
+	 * Método de apoyo para retornar la vista DEPARTAMENTO_VIEW inicializada
+	 * @param model Model para inicializar los objetos de la vista
+	 * @return Departamento View Page
+	 */
+	private String departamentoViewPage(Model model) {
+		model.addAttribute(TECNOLOGIAS_OBJECT, tecnologiaService.findAllAsItems());
+		return DEPARTAMENTO_VIEW;
+	}
+	
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView showNewPage(Model model) {
-		model.addAttribute("tecnologias", tecnologiaService.findAllAsItems());
-		model.addAttribute("departamento", new DepartamentoDto());
-
-		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
+	public String showNewPage(Model model) {
+		return departamentoViewPage(model);
 	}
 
 	@RequestMapping(value = "update/{id}", method = RequestMethod.GET)
-	public ModelAndView showUpdateDepartamento(@PathVariable Long id, Model model) {
-		model.addAttribute("departamento", departamentoService.findById(id));
-		model.addAttribute("tecnologias", tecnologiaService.findAllAsItems());
-
-		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
+	public String showUpdateDepartamento(@PathVariable Long id, Model model) {
+		model.addAttribute(MODEL_OBJECT, departamentoService.findById(id));
+		return departamentoViewPage(model);
 
 	}
-
-	@RequestMapping(value = "ver/{id}", method = RequestMethod.GET)
-	public ModelAndView showDepartamento(@PathVariable Long id, Model model) {
-		model.addAttribute("departamento", departamentoService.findById(id));
-
-		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
-
-	}
-
+	
 	@RequestMapping(value = "new", method = RequestMethod.POST)
-	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento,
+	public String insertarDepartmento(@ModelAttribute(MODEL_OBJECT) @Valid DepartamentoDto departamento,
 			BindingResult bindingResult, Model model) {
 		Date fecha = new Date();
 		if (bindingResult.hasErrors()) {
-			return DEPARTAMENTO_VIEW;
+			return departamentoViewPage(model);
 		}
 		try {
 			if (departamento.getId() != null) {
@@ -99,27 +92,34 @@ public class DepartamentoController {
 			}
 		} catch(GetronicsDaoException ex) {
 			bindingResult.reject(ex.getMessage());
-			return DEPARTAMENTO_VIEW;
+			return departamentoViewPage(model);
 		}
 		
-		return "redirect:/departamento";
+		return REDIRECT_TO_DEPARTAMENTO;
 	}
+
+	@RequestMapping(value = "ver/{id}", method = RequestMethod.GET)
+	public ModelAndView showDepartamento(@PathVariable Long id, Model model) {
+		model.addAttribute(MODEL_OBJECT, departamentoService.findById(id));
+		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
+	}
+
+	
 
 	@RequestMapping("delete/{id}")
 	public String eliminarDepartamento(@PathVariable long id, Model model) {
-
 		departamentoService.remove(id);
-		return "redirect:/departamento";
+		return REDIRECT_TO_DEPARTAMENTO;
 
 	}
 
 	@RequestMapping(value = "alta/{id}", method = RequestMethod.POST)
 	public ModelAndView editarFecha(@PathVariable long id, Model model) {
-		model.addAttribute("departamento", departamentoService.findById(id));
+		model.addAttribute(MODEL_OBJECT, departamentoService.findById(id));
 		return new ModelAndView(DEPARTAMENTO_ALTA, model.asMap());
 	}
 
-	@InitBinder("departamento")
+	@InitBinder(MODEL_OBJECT)
 	public void initBinder(WebDataBinder binder) {
 		binder.setValidator(departamentoValidator);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -127,7 +127,7 @@ public class DepartamentoController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
 
-	@ModelAttribute("departamento")
+	@ModelAttribute(MODEL_OBJECT)
 	public DepartamentoDto createDepartamentoDtoModel() {
 		return new DepartamentoDto();
 	}

@@ -24,7 +24,6 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import es.getronics.base.dao.GenericDao;
 import es.getronics.base.dao.exception.GetronicsDaoException;
-import es.getronics.bom.Departamento;
 
 /**
  * @author jgarcia
