@@ -67,6 +67,8 @@ public class DepartamentoController {
 	public ModelAndView showUpdateDepartamento(@PathVariable Long id, Model model) {
 		model.addAttribute("departamento", departamentoService.findById(id));
 		model.addAttribute("empleados", empleadoService.findAll());
+		model.addAttribute("tecnologiasRelacionadas",  departamentoService.recogerTecnologiasRelacionadas(id));
+		model.addAttribute("tecnologias", tecnologiasService.findAll());
 		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
 
 	}

@@ -49,18 +49,44 @@
 									</form:select>
 								</c:when>
 								<c:otherwise>
-									<p  cssClass="text-danger"><spring:message code="departamento.empleadoVacio"></spring:message></p>
+									<p cssClass="text-danger">
+										<spring:message code="departamento.empleadoVacio"></spring:message>
+									</p>
 								</c:otherwise>
 							</c:choose>
 						</div>
 						<div class="form-group col-md-11 mt-3">
 							<c:choose>
-								<c:when test="${tecnologias.size() > 0}">
-									<label><spring:message code="departamento.tecnologias"></spring:message></label>
-									<form:checkboxes items="${tecnologias }" path="tecnologiaId" itemLabel="nombre" itemValue="id" class="ml-3"/>
+								<c:when test="${title==insertTitle }">
+									<c:choose>
+										<c:when test="${tecnologias.size() > 0}">
+											<label><spring:message
+													code="departamento.tecnologias"></spring:message></label>
+											<form:checkboxes items="${tecnologias }" path="tecnologiaId"
+												itemLabel="nombre" itemValue="id" class="ml-3" />
+										</c:when>
+										<c:otherwise>
+											<p cssClass="text-danger">
+												<spring:message code="departamento.tecnologiasVacias"></spring:message>
+											</p>
+										</c:otherwise>
+									</c:choose>
+
 								</c:when>
 								<c:otherwise>
-									<p  cssClass="text-danger"><spring:message code="departamento.tecnologiasVacias"></spring:message></p>
+									<label><spring:message code="departamento.tecnologias"></spring:message></label>
+									<c:forEach items="${tecnologias }" var="tecnologia">
+										<c:set var="check" value="" />
+										<c:forEach items="${tecnologiasRelacionadas }"
+											var="tecnologiaRelacionada">
+											<c:if
+												test="${tecnologia.id.equals(tecnologiaRelacionada.id) }">
+												<c:set var="check" value="checked" />
+											</c:if>
+										</c:forEach>
+										<form:checkbox path="tecnologiaId" value="${tecnologia.id}"
+											label="${tecnologia.nombre}" checked="${check } " class="ml-3" />
+									</c:forEach>
 								</c:otherwise>
 							</c:choose>
 						</div>

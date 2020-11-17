@@ -67,6 +67,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	@Override
 	public void update(DepartamentoDto dto) {
 		Departamento entity = modelMapper.map(dto, Departamento.class);
+		entity.setTecnologia(obtenerTecnologias(dto.getTecnologiaId()));
 		departamentoDao.update(entity);
 
 	}
