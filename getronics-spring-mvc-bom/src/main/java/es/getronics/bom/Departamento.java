@@ -14,7 +14,7 @@ public class Departamento implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	@Column(name = "NOMBRE")
 	private String nombre;
 	@Column(name = "DESCRIPCION")
@@ -26,15 +26,17 @@ public class Departamento implements Serializable {
 	private Set<Empleado> empleados;
 	
     @ManyToMany
-    @JoinTable(name = "DEPARATAMENTO_TECNOLOGIA",
-    joinColumns = {@JoinColumn(referencedColumnName = "ID", columnDefinition = "TECNOLOGIA_ID")})
+    @JoinTable(
+    		name = "DEPARATAMENTO_TECNOLOGIA",
+    		joinColumns = @JoinColumn(name = "departamento_id"),
+    		inverseJoinColumns = @JoinColumn(name = "tecnologia_id"))
     private Set<Tecnologia> tecnologias;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -68,6 +70,14 @@ public class Departamento implements Serializable {
 
 	public void setEmpleados(Set<Empleado> empleados) {
 		this.empleados = empleados;
+	}
+
+	public Set<Tecnologia> getTecnologias() {
+		return tecnologias;
+	}
+
+	public void setTecnologias(Set<Tecnologia> tecnologias) {
+		this.tecnologias = tecnologias;
 	}
 
 	@Override

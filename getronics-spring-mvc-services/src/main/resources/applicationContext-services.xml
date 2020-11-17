@@ -57,7 +57,7 @@
 		<aop:pointcut id="all-service-methods" 
 			expression="execution(* es.getronics.services.impl.*ServiceImpl.*(..))"/>
 		<aop:pointcut id="all-converter-methods" 
-			expression="execution(* es.getronics.converter.*Converter.*(..))"/>
+			expression="execution(* es.getronics.converter.*ConverterImpl.*(..))"/>
         <aop:advisor advice-ref="local-tx-advice" pointcut-ref="all-service-methods"/>
         <aop:advisor advice-ref="local-tx-advice" pointcut-ref="all-converter-methods"/>
     </aop:config>

@@ -4,25 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.cfg.NotYetImplementedException;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.getronics.base.dao.exception.GetronicsDaoException;
 import es.getronics.bom.Departamento;
+import es.getronics.converter.Converter;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.services.DepartamentoService;
 
 
 @Service("departamentoService")
-public class DepartamentoServiceImpl implements DepartamentoService{
+public class DepartamentoServiceImpl implements DepartamentoService {
 
 	
 	@Autowired
-	DepartamentoDao departamentoDao;
+	private DepartamentoDao departamentoDao;
 	
 	@Autowired
-	private ModelMapper modelMapper;
+	private Converter<Departamento, DepartamentoDto> departamentoConverter;
 	
 	public DepartamentoServiceImpl()
 	{
@@ -32,7 +33,7 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 	@Override
 	public DepartamentoDto findById(Long id){
 		Departamento entity = departamentoDao.findById(id);
-		return modelMapper.map(entity, DepartamentoDto.class);
+		return departamentoConverter.convert(entity);
 		
 	}
 
@@ -42,7 +43,7 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 		List<Departamento> found= departamentoDao.findAll();
 		for(Departamento departamento: found)
 		{
-			result.add(modelMapper.map(departamento, DepartamentoDto.class));
+			result.add(departamentoConverter.convert(departamento));
 		}
 		return result;
 	}
@@ -54,7 +55,7 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 
 	@Override
 	public void update(DepartamentoDto dto) {
-		Departamento entity = modelMapper.map(dto, Departamento.class);
+		Departamento entity = departamentoConverter.map(dto);
 		departamentoDao.update(entity);
 		
 	}
@@ -67,39 +68,28 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 
 	@Override
 	public DepartamentoDto insert(DepartamentoDto dto) {
-		Departamento entity = modelMapper.map(dto, Departamento.class);
-		dto= modelMapper.map(departamentoDao.insert(entity), DepartamentoDto.class);
+		
+		Departamento entity = departamentoConverter.map(dto);
+		if(!departamentoDao.findByName(dto.getNombre()).isEmpty()) {
+			throw new GetronicsDaoException("departamento.already.exists");
+		}
+		dto= departamentoConverter.convert(departamentoDao.insert(entity));
 		return dto;
 	}
 
 	@Override
 	public void remove(DepartamentoDto entity) {
 		throw new NotYetImplementedException("metodo no implementado todavia");
-	
-		
 	}
 
 	@Override
 	public void remove(Long id) {
 		departamentoDao.remove(id);
-		
 	}
 
 	@Override
 	public List<DepartamentoDto> findByExample(DepartamentoDto example) {
 		throw new NotYetImplementedException("metodo no implementado todavia");
-	}
-	
-	@Override
-	public String findByName(DepartamentoDto departamento){
-		List<Departamento> lista =departamentoDao.findAll();
-		for(Departamento dep:lista) {
-			if(dep.getNombre().equals(departamento.getNombre())) {
-				return dep.getNombre();
-			}
-		}
-		return "";
-		
 	}
 	
 }

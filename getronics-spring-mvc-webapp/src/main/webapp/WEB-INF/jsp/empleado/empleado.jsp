@@ -4,7 +4,7 @@
 <spring:message code="empleado.new.title" var="insertTitle" />
 <spring:message code="empleado.update.title" var="updateTitle" />
 <c:choose>
-	<c:when test="${ alumno.id == null}">
+	<c:when test="${ empleado.id == null}">
 		<c:set value="${ insertTitle }" var="title" />
 	</c:when>
 	<c:otherwise>
@@ -41,7 +41,7 @@
 							<label><spring:message code="empleado.departamento"></spring:message></label>
 							<div class="custom-control custom-radio">
 								<form:radiobuttons path="idDepartamento"
-									items="${departamentos}" itemLabel="nombre" itemValue="id" />
+									items="${departamentos}" itemLabel="nombre" itemValue="id" element="div class=\"col-12\"" cssClass="mr-2" />
 							</div>
 						</div>
 						<div class="form-group col-md-11">

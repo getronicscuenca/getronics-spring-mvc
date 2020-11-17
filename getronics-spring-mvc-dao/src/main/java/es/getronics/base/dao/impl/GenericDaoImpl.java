@@ -24,6 +24,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import es.getronics.base.dao.GenericDao;
 import es.getronics.base.dao.exception.GetronicsDaoException;
+import es.getronics.bom.Departamento;
 
 /**
  * @author jgarcia
@@ -127,6 +128,14 @@ public abstract class GenericDaoImpl<T, ID extends Serializable> extends
 			safe.add(clazz.cast(o));
 		}
 		return safe;
+	}
+	
+	public List<T> findByCriteria(DetachedCriteria criteria) {
+		return getHibernateTemplate().findByCriteria(criteria);
+	}
+	
+	public DetachedCriteria createCriteria() {
+		return DetachedCriteria.forClass(getClazz());
 	}
 
 	public void refresh(T entity) {

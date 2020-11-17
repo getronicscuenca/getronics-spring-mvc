@@ -17,8 +17,9 @@ public class DepartamentoValidator implements Validator {
 
 	@Override
 	public void validate(Object target, Errors er) {
+		DepartamentoDto departamento = DepartamentoDto.class.cast(target);
+		
 		ValidationUtils.rejectIfEmptyOrWhitespace(er, "nombre", "nombre_vacio");
-		DepartamentoDto departamento =(DepartamentoDto) target;
 		
 		boolean espacioBlanco=departamento.getNombre().contains(" ");
 		boolean demasiadoGrande= (departamento.getNombre().length()>20);

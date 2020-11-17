@@ -1,5 +1,9 @@
 package es.getronics.dto;
 
+import java.util.Date;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * Objeto de transferenca empleado
  * 
@@ -9,12 +13,18 @@ package es.getronics.dto;
 public class EmpleadoDto {
 
 	private Long id;
+	@NotBlank
 	private String nombre;
+	@NotBlank
 	private String apellido1;
+	@NotBlank
 	private String apellido2;
 	private Long idDepartamento;
 	private String departamento;
-	private Long jefe;
+	private Date fechaAlta;
+	private Date fechaModificacion;
+	private Date fechaBaja;
+	private boolean activo;
 	
 	public Long getId() {
 		return id;
@@ -52,12 +62,30 @@ public class EmpleadoDto {
 	public void setDepartamento(String departamento) {
 		this.departamento = departamento;
 	}
-	public Long getJefe() {
-		return jefe;
+	
+	public Date getFechaAlta() {
+		return fechaAlta;
 	}
-	public void setJefe(Long jefe) {
-		this.jefe = jefe;
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
 	}
 	
-	
+	public Date getFechaModificacion() {
+		return fechaModificacion;
+	}
+	public void setFechaModificacion(Date fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+	public Date getFechaBaja() {
+		return fechaBaja;
+	}
+	public void setFechaBaja(Date fechaBaja) {
+		this.fechaBaja = fechaBaja;
+	}
+	public boolean isActivo() {
+		return activo;
+	}
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}	
 }

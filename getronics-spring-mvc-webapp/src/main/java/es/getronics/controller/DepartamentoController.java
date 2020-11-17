@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,27 +18,29 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import es.getronics.base.dao.exception.GetronicsDaoException;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
+import es.getronics.services.TecnologiaService;
 import es.getronics.validators.DepartamentoValidator;
 
 @RequestMapping("departamento")
 @Controller
 public class DepartamentoController {
 
-	private final String LIST_VIEW = "departamento/list";
-	private final String DEPARTAMENTO_VIEW = "departamento/departamento";
-	private final String DEPARTAMENTO_DETALLE = "departamento/detalle";
-	private final String ERROR_VIEW = "departamento/error";
-	private final String DEPARTAMENTO_ALTA = "departamento/alta";
+	private final String LIST_VIEW = "departamento.list";
+	private final String DEPARTAMENTO_VIEW = "departamento.departamento";
+	private final String DEPARTAMENTO_DETALLE = "departamento.detalle";
+	private final String DEPARTAMENTO_ALTA = "departamento.alta";
 
 	@Autowired
 	private DepartamentoService departamentoService;
+	@Autowired
+	private TecnologiaService tecnologiaService;
 	@Autowired
 	private DepartamentoValidator departamentoValidator;
 	@Autowired
@@ -57,7 +60,7 @@ public class DepartamentoController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView showNewPage(Model model) {
-		model.addAttribute("jefe", empleadoService.findAll());
+		model.addAttribute("tecnologias", tecnologiaService.findAllAsItems());
 		model.addAttribute("departamento", new DepartamentoDto());
 
 		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
@@ -66,8 +69,8 @@ public class DepartamentoController {
 	@RequestMapping(value = "update/{id}", method = RequestMethod.GET)
 	public ModelAndView showUpdateDepartamento(@PathVariable Long id, Model model) {
 		model.addAttribute("departamento", departamentoService.findById(id));
-		List<EmpleadoDto> jefe = empleadoService.findAll();
-		model.addAttribute("jefe", jefe);
+		model.addAttribute("tecnologias", tecnologiaService.findAllAsItems());
+
 		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
 
 	}
@@ -75,7 +78,6 @@ public class DepartamentoController {
 	@RequestMapping(value = "ver/{id}", method = RequestMethod.GET)
 	public ModelAndView showDepartamento(@PathVariable Long id, Model model) {
 		model.addAttribute("departamento", departamentoService.findById(id));
-		model.addAttribute("jefe", empleadoService.findById(id));
 
 		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
 
@@ -85,21 +87,21 @@ public class DepartamentoController {
 	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento,
 			BindingResult bindingResult, Model model) {
 		Date fecha = new Date();
-		String depar = departamentoService.findByName(departamento);
 		if (bindingResult.hasErrors()) {
-			return "/departamento/departamento";
+			return DEPARTAMENTO_VIEW;
 		}
-
-		if (depar.equals("") || depar.equals(null)) {
-
-			departamento.setAlta(fecha);
-			departamentoService.insert(departamento);
-		} else {
+		try {
 			if (departamento.getId() != null) {
-				departamento.setAlta(fecha);
 				departamentoService.update(departamento);
+			} else {
+				departamento.setAlta(fecha);
+				departamentoService.insert(departamento);
+			}
+		} catch(GetronicsDaoException ex) {
+			bindingResult.reject(ex.getMessage());
+			return DEPARTAMENTO_VIEW;
 		}
-		}
+		
 		return "redirect:/departamento";
 	}
 
@@ -117,18 +119,7 @@ public class DepartamentoController {
 		return new ModelAndView(DEPARTAMENTO_ALTA, model.asMap());
 	}
 
-	@RequestMapping(value = "chAlta/{id}", method = RequestMethod.POST)
-	public String guardarFecha(@PathVariable long id, @ModelAttribute DepartamentoDto departamento,
-			@RequestParam Date date) {
-
-		departamento = departamentoService.findById(id);
-		departamento.setAlta(date);
-		departamentoService.update(departamento);
-
-		return "redirect:/departamento";
-	}
-
-	@InitBinder
+	@InitBinder("departamento")
 	public void initBinder(WebDataBinder binder) {
 		binder.setValidator(departamentoValidator);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

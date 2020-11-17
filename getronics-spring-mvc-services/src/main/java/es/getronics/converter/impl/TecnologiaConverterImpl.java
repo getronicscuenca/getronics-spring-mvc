@@ -3,15 +3,13 @@
  */
 package es.getronics.converter.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import es.getronics.bom.Empleado;
 import es.getronics.bom.Tecnologia;
 import es.getronics.converter.Converter;
-import es.getronics.dao.DepartamentoDao;
-import es.getronics.dto.EmpleadoDto;
+import es.getronics.dto.KeyValueItem;
 import es.getronics.dto.TecnologiaDto;
+import es.getronics.dto.TecnologiaItem;
 
 /**
  * Convierte de Entidad empleado a Dto
@@ -40,5 +38,13 @@ public class TecnologiaConverterImpl implements Converter<Tecnologia, Tecnologia
 		result.setDescripcion(dto.getDescripcion());
 		
 		return result;
+	}
+
+	@Override
+	public KeyValueItem mapToKeyValue(Tecnologia source) {
+		TecnologiaItem item = new TecnologiaItem();
+		item.setKey(source.getId());
+		item.setValue(source.getNombre());
+		return item;
 	}
 }

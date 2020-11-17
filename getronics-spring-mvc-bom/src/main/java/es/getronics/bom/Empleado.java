@@ -1,6 +1,7 @@
 package es.getronics.bom;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.*;
 //esto es un ajodida prueba de git
@@ -21,6 +22,12 @@ public class Empleado implements Serializable {
 	private String apellido1;
 	@Column(name = "APELLIDO_2")
 	private String apellido2;
+	@Column(name = "FECHA_ALTA")
+	private LocalDate fechaAlta;
+	@Column(name = "FECHA_MODIFICACION")
+	private LocalDate fechaModificacion;
+	@Column(name = "FECHA_BAJA")
+	private LocalDate fechaBaja;
 	
 	@ManyToOne
 	private Departamento departamento;
@@ -54,6 +61,26 @@ public class Empleado implements Serializable {
 	}
 	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
+	}
+	
+	public LocalDate getFechaAlta() {
+		return fechaAlta;
+	}
+	public void setFechaAlta(LocalDate fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+	
+	public LocalDate getFechaModificacion() {
+		return fechaModificacion;
+	}
+	public void setFechaModificacion(LocalDate fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+	public LocalDate getFechaBaja() {
+		return fechaBaja;
+	}
+	public void setFechaBaja(LocalDate fechaBaja) {
+		this.fechaBaja = fechaBaja;
 	}
 	@Override
 	public int hashCode() {

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import es.getronics.bom.Tecnologia;
 import es.getronics.converter.Converter;
 import es.getronics.dao.TecnologiaDao;
+import es.getronics.dto.KeyValueItem;
 import es.getronics.dto.TecnologiaDto;
 import es.getronics.services.TecnologiaService;
 
@@ -88,6 +89,16 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 	@Override
 	public List<TecnologiaDto> findByExample(TecnologiaDto example) {
 		throw new NotYetImplementedException("Método no implementado todavía");
+	}
+
+	@Override
+	public List<KeyValueItem> findAllAsItems() {
+		List<Tecnologia> tecnologias = tecnologiaDao.findAll();
+		List<KeyValueItem> items = new ArrayList<KeyValueItem>();
+		for (Tecnologia tecnologia : tecnologias) {
+			items.add(tecnologiaConverter.mapToKeyValue(tecnologia));
+		}
+		return items;
 	}
 	
 }

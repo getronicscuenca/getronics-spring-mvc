@@ -64,7 +64,13 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
 	@Override
 	public void update(EmpleadoDto dto) {
-		Empleado entity = empleadoConverter.map(dto);
+		Empleado entity = empleadoDao.findById(dto.getId());
+		entity.setNombre(dto.getNombre());
+		entity.setApellido1(dto.getApellido1());
+		entity.setApellido2(dto.getApellido2());
+		if(dto.getIdDepartamento() != null) {
+			entity.setDepartamento(departamentoDao.findById(dto.getIdDepartamento()));
+		}
 		empleadoDao.update(entity);
 	}
 
