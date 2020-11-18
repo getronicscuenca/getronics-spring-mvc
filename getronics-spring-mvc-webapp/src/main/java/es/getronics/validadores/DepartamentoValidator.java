@@ -1,4 +1,4 @@
-package es.getronics.validators;
+package es.getronics.validadores;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

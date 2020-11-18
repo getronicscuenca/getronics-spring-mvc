@@ -33,7 +33,7 @@ import es.getronics.exceptions.EmpleadosExistentes;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
 import es.getronics.services.TecnologiasService;
-import es.getronics.validators.DepartamentoValidator;
+import es.getronics.validadores.DepartamentoValidator;
 
 @RequestMapping("departamento")
 @Controller
