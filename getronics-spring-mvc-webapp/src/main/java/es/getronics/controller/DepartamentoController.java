@@ -171,7 +171,7 @@ public class DepartamentoController {
 		tecnologiaService.update(tecnologia);
 		
 		
-//		departamento.setEmpleados(empleadoService.findAll(did));
+        departamento.setEmpleados(empleadoService.findAll(did));
 		model.addAttribute("departamento", departamento);
 		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
 		
