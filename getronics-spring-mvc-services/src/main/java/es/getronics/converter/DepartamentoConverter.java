@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import es.getronics.bom.Departamento;
+import es.getronics.bom.Empleado;
 import es.getronics.bom.Tecnologia;
+import es.getronics.dao.EmpleadoDao;
 import es.getronics.dao.TecnologiaDao;
 import es.getronics.dto.DepartamentoDto;
+import es.getronics.dto.EmpleadoDto;
 import es.getronics.dto.TecnologiaDto;
 
 
@@ -22,6 +25,8 @@ public class DepartamentoConverter implements Converter<Departamento, Departamen
 	private ModelMapper mapper;
 	@Autowired
 	private TecnologiaDao tecnologiaDao;
+	@Autowired
+	private EmpleadoDao empleadoDao;
 
 	@Override
 	public DepartamentoDto convert(Departamento source) {
@@ -44,9 +49,20 @@ public class DepartamentoConverter implements Converter<Departamento, Departamen
 			}
 			result.setTecnologias(set);
 		}
+//		if(dto.getEmpleados()!=null)
+//		{
+//			Set<Empleado> set= new HashSet<Empleado>();
+//			for (EmpleadoDto empleado : dto.getEmpleados()) {
+//				set.add(empleadoDao.findById(empleado.getId()));
+//			}
+//			result.setEmpleados(set);
+//		}
+		
+		
+		
 		return result;
 	}
 
-	
+	   
 
 }

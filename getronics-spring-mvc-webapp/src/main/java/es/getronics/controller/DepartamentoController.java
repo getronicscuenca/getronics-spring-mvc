@@ -2,6 +2,7 @@ package es.getronics.controller;
 
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -55,6 +56,8 @@ public class DepartamentoController {
 	private DepartamentoValidator departamentoValidator;
 	@Autowired 
 	private TecnologiaEditor tecnologiaEditor;
+	
+	
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listarDepartamentos(Model model) {
@@ -150,6 +153,32 @@ public class DepartamentoController {
 		return new ModelAndView(DEPARTAMENTO_ALTA, model.asMap());
 	}
 
+	@RequestMapping(value = "deleteTecnologia/{tid}/{did}")
+	public ModelAndView deleteTecnologia(@PathVariable Long tid,@PathVariable Long did, Model model)
+	{
+		//departamento y tecnologia a updatear
+		DepartamentoDto departamento= departamentoService.findById(did);
+		TecnologiaDto tecnologia = tecnologiaService.findById(tid);
+		//borramos la tecnologia y update
+		List<TecnologiaDto> tecnologias=departamento.getTecnologias();
+		tecnologias.remove(tecnologia);
+		departamento.setTecnologias(tecnologias);
+		departamentoService.update(departamento);
+		//borramos el departamento y uddate
+		List<DepartamentoDto> departamentos = tecnologia.getDepartamentos();
+		departamentos.remove(departamento);
+		tecnologia.setDepartamentos(departamentos);
+		tecnologiaService.update(tecnologia);
+		
+		
+//		departamento.setEmpleados(empleadoService.findAll(did));
+		model.addAttribute("departamento", departamento);
+		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
+		
+		
+	}
+	
+	
 	@RequestMapping(value = "ascenso/{did}/{eid}")
 	public ModelAndView ascender(@PathVariable long eid, @PathVariable long did, Model model) {
 
