@@ -9,7 +9,7 @@
 	<div class="col5">
 		<form:form  action="${ urlFind }" modelAttribute="departamento" cssclass="form-horizontal">
 			<label for="nombre">Nombre:</label>
-			<form:input path="nombre" cssClass="form-control" />
+			<form:input path="nombre" id="buscar" cssClass="form-control" />
 			<form:button value="submit" class="btn btn-info">Buscar</form:button>
 			
 		</form:form>
@@ -56,3 +56,11 @@
 		<form:form action="${ url }" >
 			<button type="submit"><spring:message code="departamento.options.add"></spring:message></button>
 		</form:form>
+<script>
+var elemento=document.getElementById("buscar");
+elemento.addEventListener("keyup", function(){
+	var texto= elemento.value;
+	window.location.assign("http://localhost:8080/getronics-spring-mvc-webapp/departamento/find/"+texto);
+});
+</script>		
+		
