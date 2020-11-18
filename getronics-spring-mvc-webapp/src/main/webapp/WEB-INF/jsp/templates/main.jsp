@@ -3,6 +3,8 @@
 <html lang="es">
 
 <head>
+<base href="${pageContext.servletContext.contextPath}/index">
+
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
@@ -19,6 +21,7 @@
 
 <title><tiles:getAsString name="title" /></title>
 </head>
+
 
 <body>
 	<div class="container-fluid">
