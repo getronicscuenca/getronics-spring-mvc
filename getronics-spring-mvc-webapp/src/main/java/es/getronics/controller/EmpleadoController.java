@@ -26,6 +26,7 @@ import es.getronics.exceptions.ExcepcionDepartamento;
 import es.getronics.exceptions.ExcepcionEmpleado;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
+import es.getronics.services.impl.DepartamentoServiceImpl;
 import es.getronics.services.impl.EmpleadoServiceImpl;
 
 /**
@@ -89,6 +90,7 @@ public class EmpleadoController {
 			//departamento.setAlta(fecha);
 			try {
 				empleadoService.insert(empleado);
+				//CUIDAOOOOO MIRAR ESTO BIEN
 				departamentoService.nuevoEmpleDepartamento(empleado);
 			}
 			catch(ExcepcionEmpleado excepcion) {

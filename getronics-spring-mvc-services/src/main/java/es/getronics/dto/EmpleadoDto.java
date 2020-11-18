@@ -23,7 +23,7 @@ public class EmpleadoDto {
 	private String apellido2;
 	private Long idDepartamento;
 	private String departamento;
-	private Long jefe;
+	//private Long jefe;
 	
 	public Long getId() {
 		return id;
@@ -61,12 +61,12 @@ public class EmpleadoDto {
 	public void setDepartamento(String departamento) {
 		this.departamento = departamento;
 	}
-	public Long getJefe() {
+	/*public Long getJefe() {
 		return jefe;
 	}
 	public void setJefe(Long jefe) {
 		this.jefe = jefe;
-	}
+	}*/
 	
 	
 }

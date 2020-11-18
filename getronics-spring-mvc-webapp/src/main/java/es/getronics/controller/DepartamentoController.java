@@ -4,9 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +24,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.dto.DepartamentoDto;
+import es.getronics.dto.DepartamentoListItemDTO;
 import es.getronics.dto.EmpleadoDto;
 import es.getronics.dto.TecnologiaDto;
 import es.getronics.exceptions.ExcepcionDepartamento;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
 import es.getronics.services.TecnologiaService;
+import es.getronics.services.impl.DepartamentoServiceImpl;
+import es.getronics.services.impl.EmpleadoServiceImpl;
+import es.getronics.services.impl.TecnologiaServiceImpl;
 import es.getronics.validators.DepartamentoValidator;
 
 @RequestMapping("departamento")
@@ -40,22 +46,38 @@ public class DepartamentoController {
 	private final String ERROR_VIEW = "departamento/error";
 	private final String DEPARTAMENTO_ALTA = "departamento/alta";
 
+	//@Resource
+	//@Qualifier("departamentoService")
+	//private DepartamentoService departamentoService;
+	
 	@Autowired
 	private DepartamentoService departamentoService;
+	
+	//@Resource
+	//@Qualifier("tecnologiaService")
+	//private TecnologiaService tecnologiaService;
+	
 	@Autowired
 	private TecnologiaService tecnologiaService;
-	@Autowired
-	private DepartamentoValidator departamentoValidator;
+	
+	//@Resource
+	//@Qualifier("empleadoService")
+	//private EmpleadoService empleadoService;
+		
 	@Autowired
 	private EmpleadoService empleadoService;
+	
+	@Autowired
+	private DepartamentoValidator departamentoValidator;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listarDepartamentos(Model model) {
+		//List<DepartamentoListItemDTO> departamentos = departamentoService.T3findAll();
 		List<DepartamentoDto> departamentos = departamentoService.findAll();
 		//List<EmpleadoDto> empleados= departamentoService.findAllT3(departamento);
 		List<TecnologiaDto> tecnologias = tecnologiaService.findAll();
 		model.addAttribute("departamentos", departamentos);
-		model.addAttribute("tecnologias", tecnologias);
+		//model.addAttribute("tecnologias", tecnologias);
 
 		return new ModelAndView(LIST_VIEW, model.asMap());
 
@@ -120,6 +142,40 @@ public class DepartamentoController {
 		}
 		return "redirect:/departamento";
 	}
+	
+	/*@RequestMapping(value = "new", method = RequestMethod.POST)
+	public String insertarDepartamentoT3(@ModelAttribute("departamento") @Valid DepartamentoListItemDTO departamento,
+			BindingResult bindingResult, Model model) {
+		//Date fecha = new Date();
+		//String depar = departamentoService.findByName(departamento);
+		
+		if (bindingResult.hasErrors()) { 
+			List<ObjectError> listaErrores = bindingResult.getAllErrors();
+			String mensajeError="";
+			for(ObjectError error:listaErrores) {
+				mensajeError=mensajeError+"<br/>"+error.getCode();
+			}
+			model.addAttribute("mensaje", mensajeError);
+			return "departamento.error";
+		}
+
+		if (departamento.getNombre() != null) {
+			departamentoService.updateT3(departamento);
+		} else {
+			//departamento.setAlta(fecha);
+			try {
+			departamentoService.insertT3(departamento);
+			}
+			catch(ExcepcionDepartamento excepcion) {
+				String mensaje= excepcion.getMessage();
+				model.addAttribute("mensaje", mensaje);
+				return "departamento.error";
+			}
+		
+		}
+		return "redirect:/departamento";
+	}*/
+
 
 	@RequestMapping("delete/{id}")
 	public String eliminarDepartamento(@PathVariable Long id, Model model) {

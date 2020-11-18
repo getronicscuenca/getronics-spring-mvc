@@ -5,6 +5,7 @@ package es.getronics.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.cfg.NotYetImplementedException;
 import org.modelmapper.ModelMapper;
@@ -15,11 +16,14 @@ import es.getronics.bom.Departamento;
 import es.getronics.bom.Empleado;
 import es.getronics.converter.Converter;
 import es.getronics.converter.EmpleadoConverter;
+import es.getronics.converter.impl.EmpleadoConverterImpl;
+//import es.getronics.converter.EmpleadoConverterImpl;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
 import es.getronics.dao.impl.DepartamentoDaoImpl;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
+import es.getronics.dto.TecnologiaDto;
 import es.getronics.exceptions.ExcepcionDepartamento;
 import es.getronics.exceptions.ExcepcionEmpleado;
 import es.getronics.services.EmpleadoService;
@@ -35,6 +39,7 @@ import es.getronics.services.impl.DepartamentoServiceImpl;
 @Service("empleadoService")
 public class EmpleadoServiceImpl implements EmpleadoService {
 	//FALTA EL FINDBYNAME, QUIZAS LO NECESITEMOS
+	//EN EL FINAL ESTAN LOS NUEVOS OVERRIDES
 
 	@Autowired
 	EmpleadoDao empleadoDao;
@@ -45,16 +50,10 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	@Autowired
-	private Converter<Empleado, EmpleadoDto> empleadoConverter;
+	//@Autowired(required=true)
+	//private EmpleadoConverter<EmpleadoDto, Empleado> empleadoConverter;
 		
 		
-	@Override
-	public List<Empleado> findAllT3(EmpleadoDto tipo1) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public EmpleadoServiceImpl() {
 		super();
 	}
@@ -62,7 +61,8 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 	@Override
 	public EmpleadoDto findById(Long id) {
 		Empleado entity = empleadoDao.findById(id);
-		return empleadoConverter.convert(entity);
+		//return empleadoConverter.convert(entity);
+		return modelMapper.map(entity, EmpleadoDto.class);
 	}
 
 	@Override
@@ -70,7 +70,8 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 		List<EmpleadoDto> result = new ArrayList<>();
 		List<Empleado> found = empleadoDao.findAll();
 		for(Empleado empleado: found) {
-			result.add(empleadoConverter.convert(empleado));
+			//result.add(empleadoConverter.convert(empleado));
+			result.add(modelMapper.map(empleado, EmpleadoDto.class));
 		}
 		return result;
 	}
@@ -82,7 +83,8 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
 	@Override
 	public void update(EmpleadoDto dto) {
-		Empleado entity = empleadoConverter.map(dto);
+		//Empleado entity = empleadoConverter.map(dto);
+		Empleado entity = modelMapper.map(dto, Empleado.class);
 		empleadoDao.update(entity);
 	}
 
@@ -93,7 +95,8 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
 	@Override
 	public EmpleadoDto insert(EmpleadoDto dto) throws ExcepcionEmpleado{
-		Empleado entity = empleadoConverter.map(dto);
+		//Empleado entity = empleadoConverter.map(dto);
+		Empleado entity = modelMapper.map(dto, Empleado.class);
 		
 		Boolean empleadoExiste=false;
 		
@@ -116,7 +119,8 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 					throw new ExcepcionEmpleado("El empleado tiene que tener un jefe");
 				}
 				else {*/
-					dto = empleadoConverter.convert(empleadoDao.insert(entity));
+					//dto = empleadoConverter.convert(empleadoDao.insert(entity));
+					dto= modelMapper.map(empleadoDao.insert(entity), EmpleadoDto.class);
 				}
 		return dto;
 	}
@@ -134,12 +138,12 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 	@Override
 	public void remove(Long id) throws ExcepcionEmpleado {
 		EmpleadoDto dto = modelMapper.map(empleadoDao.findById(id), EmpleadoDto.class);
-		if (dto.getJefe()!=null){
+		/*if (dto.getJefe()!=null){
 			throw new ExcepcionEmpleado("No se puede eliminar el empleado porque es un jefe");
 		}
-		else {
+		else {*/
 		empleadoDao.remove(id);
-		}
+		//}
 	}
 
 	@Override
@@ -151,5 +155,46 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 	public List<EmpleadoDto> findByExample(EmpleadoDto example) {
 		throw new NotYetImplementedException("Método no implementado todavía");
 	}
+	
+	//FINAL METODOS OVERRIDES
+	@Override
+	public List<Empleado> T3findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateT3(Empleado entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Empleado insertT3(Empleado entity) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public EmpleadoDto nuevaTecnoDepartamento(TecnologiaDto entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<Long> convertToListId(Set<EmpleadoDto> source) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<EmpleadoDto> mapToListId(Set<Long> dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
+	
 	
 }

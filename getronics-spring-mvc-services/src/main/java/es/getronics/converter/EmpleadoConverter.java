@@ -1,62 +1,13 @@
-/**
- * 
- */
 package es.getronics.converter;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import java.util.Set;
 
 import es.getronics.bom.Empleado;
-import es.getronics.dao.DepartamentoDao;
-import es.getronics.dao.EmpleadoDao;
 import es.getronics.dto.EmpleadoDto;
 
-/**
- * Convierte de Entidad empleado a Dto
- * 
- * @author jgarcia
- *
- */
-@Component
-public class EmpleadoConverter implements Converter<Empleado, EmpleadoDto> {
-
-	@Autowired
-	private DepartamentoDao departamentoDao;
-	
-	@Autowired
-	private EmpleadoDao empleadoDao;
-	
-	@Override
-	public EmpleadoDto convert(Empleado source) {
-		EmpleadoDto result = new EmpleadoDto();
-		result.setId(source.getId());
-		result.setNombre(source.getNombre());
-		result.setApellido1(source.getApellido1());
-		result.setApellido2(source.getApellido2());
-		if(source.getDepartamento() != null) {
-			result.setIdDepartamento(source.getDepartamento().getId());
-			result.setDepartamento(source.getDepartamento().getNombre());
-		}
-		//NUEVO
-		//result.setJefe(source.getJefe().getId());
-		return result;
-	}
-
-	@Override
-	public Empleado map(EmpleadoDto dto) {
-		Empleado result = new Empleado();
-		result.setId(dto.getId());
-		result.setNombre(dto.getNombre());
-		result.setApellido1(dto.getApellido1());
-		result.setApellido2(dto.getApellido2());
-		if(dto.getIdDepartamento() != null) {
-			result.setDepartamento(departamentoDao.findById(dto.getIdDepartamento()));
-		}
-		//NUEVO
-		//if(dto.getJefe() != null) {
-		//	result.setJefe(empleadoDao.findById(dto.getJefe()));
-		//}
+public interface EmpleadoConverter <S, D> {
 		
-		return result;
-	}
+	Set<D> convertToListSet(Set<S> source);
+	Set<Empleado> mapToListSet(Set<EmpleadoDto> dto);
+
 }

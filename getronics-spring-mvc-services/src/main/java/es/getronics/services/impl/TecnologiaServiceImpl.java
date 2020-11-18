@@ -2,6 +2,7 @@ package es.getronics.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.cfg.NotYetImplementedException;
 import org.modelmapper.ModelMapper;
@@ -12,6 +13,7 @@ import es.getronics.bom.Departamento;
 import es.getronics.bom.Empleado;
 import es.getronics.bom.Tecnologia;
 import es.getronics.converter.Converter;
+import es.getronics.converter.TecnologiaConverter;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
 import es.getronics.dao.TecnologiaDao;
@@ -27,7 +29,7 @@ import es.getronics.services.TecnologiaService;
 
 @Service("tecnologiaService")
 public class TecnologiaServiceImpl implements TecnologiaService{
-	
+	// EN EL FINAL LOS METODOS OVERRIDES
 	@Autowired
 	DepartamentoDao departamentoDao;
 	
@@ -39,22 +41,13 @@ public class TecnologiaServiceImpl implements TecnologiaService{
 		
 	@Autowired
 	private ModelMapper modelMapper;
-	
-	/*@Autowired
-	private Converter<Empleado, EmpleadoDto> empleadoConverter;*/
-	
-	/*@Autowired
-	private Converter<Departamento, DepartamentoDto> departamentoConverter;*/
+		
+	//@Autowired
+	//private TecnologiaConverter<Tecnologia, TecnologiaDto> tecnologiaConverter;
 	
 	public TecnologiaServiceImpl()
 	{
 		super();
-	}
-	
-	@Override
-	public List<Departamento> findAllT3(TecnologiaDto tipo1) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	@Override
@@ -109,6 +102,7 @@ public class TecnologiaServiceImpl implements TecnologiaService{
 	@Override
 	public TecnologiaDto insert(TecnologiaDto dto) throws ExcepcionTecnologia {
 		Tecnologia entity = modelMapper.map(dto, Tecnologia.class);
+		//Tecnologia entity = tecnologiaConverter.mapToList(dto);
 						
 		Boolean tecnologiaExiste=false;
 				
@@ -124,6 +118,7 @@ public class TecnologiaServiceImpl implements TecnologiaService{
 				
 					dto= modelMapper.map(tecnologiaDao.insert(entity), TecnologiaDto.class);
 					//dto = departamentoConverter.convert(departamentoDao.insert(entity));
+					//dto= tecnologiaConverter.convertToList(tecnologiaDao.insert(entity));
 					
 				}
 		return dto;
@@ -175,6 +170,44 @@ public class TecnologiaServiceImpl implements TecnologiaService{
 		throw new NotYetImplementedException("metodo no implementado todavia");
 	}
 	
+	//FINAL METODOS OVERRIDES
+
+	@Override
+	public List<Departamento> T3findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateT3(Departamento entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Departamento insertT3(Departamento entity) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TecnologiaDto nuevaTecnoDepartamento(TecnologiaDto entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<Long> convertToListId(Set<TecnologiaDto> source) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<TecnologiaDto> mapToListId(Set<Long> dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	/*@Override
 	public String findByName(TecnologiaDto tecnologia){
 		List<Tecnologia> lista =tecnologiaDao.findAll();
@@ -186,5 +219,10 @@ public class TecnologiaServiceImpl implements TecnologiaService{
 		return "";
 		
 	}*/
+	
+	
+	
+	
+	
 	
 }

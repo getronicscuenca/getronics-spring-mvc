@@ -19,9 +19,11 @@ public class TecnologiaDto {
 	private String desc;
 	
 	private Long idDepartamento;
-	private String departamento;
+	//private String departamento;
+	
+	private Set<Long> idDepartamentos;
 			
-	private Set<Departamento> departamentos;
+	private Set<DepartamentoDto> departamentos;
 	
 	public Long getId() {
 		return id;
@@ -47,12 +49,21 @@ public class TecnologiaDto {
 		this.desc = desc;
 	}
 
-	public Set<Departamento> getDepartamentos() {
+	
+	public Set<DepartamentoDto> getDepartamentos() {
 		return departamentos;
 	}
 
-	public void setDepartamentos(Set<Departamento> departamentos) {
+	public void setDepartamentos(Set<DepartamentoDto> departamentos) {
 		this.departamentos = departamentos;
+	}
+
+	public Set<Long> getIdDepartamentos() {
+		return idDepartamentos;
+	}
+
+	public void setIdDepartamentos(Set<Long> idDepartamentos) {
+		this.idDepartamentos = idDepartamentos;
 	}
 
 	public Long getIdDepartamento() {
@@ -62,14 +73,7 @@ public class TecnologiaDto {
 	public void setIdDepartamento(Long idDepartamento) {
 		this.idDepartamento = idDepartamento;
 	}
-
-	public String getDepartamento() {
-		return departamento;
-	}
-
-	public void setDepartamento(String departamento) {
-		this.departamento = departamento;
-	}
 	
-	
+
+			
 }

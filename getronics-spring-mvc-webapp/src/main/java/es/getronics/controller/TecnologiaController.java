@@ -29,6 +29,8 @@ import es.getronics.exceptions.ExcepcionTecnologia;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
 import es.getronics.services.TecnologiaService;
+import es.getronics.services.impl.DepartamentoServiceImpl;
+import es.getronics.services.impl.TecnologiaServiceImpl;
 import es.getronics.validators.DepartamentoValidator;
 import es.getronics.validators.TecnologiaValidator;
 
@@ -104,6 +106,7 @@ public class TecnologiaController {
 		} else {
 			try {
 				tecnologiaService.insert(tecnologia);
+				departamentoService.nuevaTecnoDepartamento(tecnologia);
 			}
 			catch(ExcepcionTecnologia excepcion) {
 				String mensaje= excepcion.getMessage();

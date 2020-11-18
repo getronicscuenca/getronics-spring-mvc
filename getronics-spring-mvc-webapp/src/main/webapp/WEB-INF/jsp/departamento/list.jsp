@@ -21,29 +21,36 @@
 					<td>${departamento.nombre}</td>
 					<td>${departamento.desc}</td>
 					<td>${departamento.jefe}</td>
-										
+					
 					<c:forEach items="${ departamento.empleados }" var="empleado">
        				
            				<td>${ empleado.nombre }
            				${ empleado.apellido1 }
            				${ empleado.apellido2 }
            				</td>
-           			</c:forEach>
-           			<c:forEach items="${ departamento.tecnologias }" var="tecnologia">
-       				
-           				<td>${ tecnologia.nombre }
-           					${ tecnologia.desc }
-           				</td>
-           				</tr>
+           				<td></td>
+           				<td></td>
            				<tr>
            					<td></td>
            					<td></td>
            					<td></td>
            					<td></td>
-           					<td></td>
-           								
+           				
            			</c:forEach>
-           			
+							<td></td>
+					<c:forEach items="${ departamento.tecnologias }" var="tecnologia">
+						
+						<td>${ tecnologia.nombre }
+           					
+           				</td>
+           			</c:forEach>
+           			</tr>
+										
+					<td></td>
+					<td></td>
+           			<td></td>
+           			<td></td>
+           			<td></td>
            			<td></td>			
 					<td>
 						<a class="mr-2"

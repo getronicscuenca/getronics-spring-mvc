@@ -2,9 +2,13 @@ package es.getronics.base.services;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
+import es.getronics.bom.Departamento;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
+import es.getronics.dto.TecnologiaDto;
+import es.getronics.exceptions.ExcepcionDepartamento;
 
 
 /**
@@ -13,7 +17,7 @@ import es.getronics.dto.EmpleadoDto;
  *
  * @param <T> DTO del servicio
  */
-public interface GenericService<T1, T2, T3, ID extends Serializable> {
+public interface GenericService<T1, T2, T3, T4, ID extends Serializable> {
 
 	/**
      * Buscar un instancia de T en el BBDD por su ID.
@@ -31,7 +35,9 @@ public interface GenericService<T1, T2, T3, ID extends Serializable> {
      */
     List<T1> findAll();
     
-    List<T3> findAllT3(T1 tipo1);
+    List<T3> T3findAll();
+    
+    //List<T3> findAllT3(T1 tipo1);
     
     /**
      * Devolver una lista ordenada de todos los objetos de tipo T
@@ -50,6 +56,8 @@ public interface GenericService<T1, T2, T3, ID extends Serializable> {
      */
     void update(T1 entity);
     
+    void updateT3(T3 entity);
+    
     /**
      * Hace un update de la entidad si ya existe o un save si no existe.
      * 
@@ -64,6 +72,12 @@ public interface GenericService<T1, T2, T3, ID extends Serializable> {
      * @return el entity nuevo. 
      */
     T1 insert(T1 entity) throws Exception;
+    
+    T3 insertT3(T3 entity) throws Exception;
+    
+    Set<Long> convertToListId(Set<T1> source);
+    
+    Set<T1> mapToListId(Set<Long> dto);
 
     //AÑADIR UN NUEVO EMPLEADO EN UN DEPARTAMENTO
     T1 nuevoEmpleDepartamento(T3 entity);
@@ -71,6 +85,13 @@ public interface GenericService<T1, T2, T3, ID extends Serializable> {
     
     //ELIMINAR UN EMPLEADO DE UN DEPARTAMENTO POR SU ID
     T1 eliminarEmpleDepartamento(Long id);
+    
+  //AÑADIR UNA NUEVA TECNOLOGIA EN UN DEPARTAMENTO
+    T1 nuevaTecnoDepartamento(T4 entity);
+    
+    
+    //ELIMINAR UNA TECNOLOGIA DE UN DEPARTAMENTO POR SU ID
+    //T1 eliminarEmpleDepartamento(Long id);
     
     /**
      * Borrar una instancia del BBDD.  

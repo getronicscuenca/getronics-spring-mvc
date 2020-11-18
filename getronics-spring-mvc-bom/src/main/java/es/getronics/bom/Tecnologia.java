@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -33,6 +35,8 @@ public class Tecnologia implements Serializable {
 	private String desc;
 	
 	@ManyToMany
+	@JoinTable(name = "DEPARTAMENTO_TECNOLOGIA",
+	joinColumns = {@JoinColumn(referencedColumnName = "ID", columnDefinition = "DEPARTAMENTO_ID")})
 	private Set<Departamento> departamentos;
 
 	public long getId() {

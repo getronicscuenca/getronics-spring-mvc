@@ -54,7 +54,7 @@
 						<div class="form-group col-md-11">
 							<label><spring:message code="tecnologia.departamentos"></spring:message></label>
 							<div class="custom-control custom-radio">
-								<form:radiobuttons path="id"
+								<form:radiobuttons path="idDepartamento"
 									items="${departamentos}" itemLabel="nombre" itemValue="id" required="required" />
 							</div>
 						</div>

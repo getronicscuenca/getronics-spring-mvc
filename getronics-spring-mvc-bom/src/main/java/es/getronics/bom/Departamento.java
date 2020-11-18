@@ -35,7 +35,9 @@ public class Departamento implements Serializable {
 	@OneToMany(mappedBy = "departamento")
 	private Set<Empleado> empleados;
 	
-	@ManyToMany(mappedBy= "departamento")
+	@ManyToMany
+	@JoinTable(name = "DEPARTAMENTO_TECNOLOGIA",
+	joinColumns = {@JoinColumn(referencedColumnName = "ID", columnDefinition = "TECNOLOGIA_ID")})
     private Set<Tecnologia> tecnologias;
 
 	public Empleado getJefe() {
