@@ -18,5 +18,8 @@ public interface TecnologiaService {
 	TecnologiaDTO insert(TecnologiaDTO dto);
 	TecnologiaDTO findById(Long id);
 	TecnologiaDTO update(TecnologiaDTO dto);
+	TecnologiaDTO delete(TecnologiaDTO dto);
+	TecnologiaDTO delete(Long id);
+
 
 }

@@ -10,6 +10,9 @@ public interface TecnologiaDao {
 	Tecnologia insert(Tecnologia entity);
 	Tecnologia findById(Long id);
 	Tecnologia update(Tecnologia entity);
+	Tecnologia delete(Tecnologia entity);
+	Tecnologia delete(Long id);
+
 	
 
 }

@@ -7,13 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.getronics.bom.Departamento;
-import es.getronics.bom.Empleado;
 import es.getronics.bom.Tecnologia;
 import es.getronics.converter.Converter;
 import es.getronics.dao.TecnologiaDao;
-import es.getronics.dto.DepartamentoDto;
-import es.getronics.dto.EmpleadoDto;
 import es.getronics.dto.TecnologiaDTO;
 import es.getronics.services.TecnologiaService;
 
@@ -45,7 +41,6 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 		dto = modelMapper.map(tecnologiaDao.insert(entity), TecnologiaDTO.class);
 		return dto;
 	}
-	
 
 	@Override
 	public TecnologiaDTO update(TecnologiaDTO dto) {
@@ -56,11 +51,21 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 
 	@Override
 	public TecnologiaDTO findById(Long id) {
-		Tecnologia tec= tecnologiaDao.findById(id);
+		Tecnologia tec = tecnologiaDao.findById(id);
 		return tecnologiaConverter.convert(tec);
 	}
-	
-	
-	
 
+	@Override
+	public TecnologiaDTO delete(TecnologiaDTO dto) {
+		Tecnologia entity = tecnologiaConverter.map(dto);
+		tecnologiaDao.delete(entity);
+		return dto;
+	}
+
+	@Override
+	public TecnologiaDTO delete(Long id) {
+		tecnologiaDao.delete(id);
+		return null;
+		
+	}
 }

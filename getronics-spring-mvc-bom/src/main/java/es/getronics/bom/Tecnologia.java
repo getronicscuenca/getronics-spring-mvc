@@ -44,5 +44,6 @@ public class Tecnologia {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
 	
 }

@@ -40,4 +40,22 @@ public class TecnologiaDaoImpl implements TecnologiaDao {
 	
 	}
 
+	@Override
+	public Tecnologia delete(Tecnologia entity) {
+		sessionFactory.getCurrentSession().delete(entity);
+		return entity;
+	}
+
+	@Override
+	public Tecnologia delete(Long id) {
+		Tecnologia t =(Tecnologia) sessionFactory.getCurrentSession().get(Tecnologia.class, id);
+		sessionFactory.getCurrentSession().delete(t);
+		return t;
+		/*Tecnologia entity = findById(id);
+		if(entity != null) {
+			delete(entity);
+		}
+		return entity;*/
+		
+	}
 }
