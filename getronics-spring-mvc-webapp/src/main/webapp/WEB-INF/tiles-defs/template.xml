@@ -5,6 +5,13 @@
 
 <tiles-definitions>
 
+	<!-- Default Main Template -->
+    <definition name=".outTemplate" template="/WEB-INF/jsp/templates/out.jsp">
+        <put-attribute name="title" value="Getronics Cuenca" type="string" />
+        <put-attribute name="footer" value="/WEB-INF/jsp/common/footer.jsp" />
+        <put-attribute name="body" value="/WEB-INF/jsp/common/blank.jsp" />
+    </definition>
+    
     <!-- Default Main Template -->
     <definition name=".mainTemplate" template="/WEB-INF/jsp/templates/main.jsp">
         <put-attribute name="title" value="Getronics Cuenca" type="string" />
@@ -13,7 +20,11 @@
         <put-attribute name="menu" value="/WEB-INF/jsp/common/menu.jsp" />
         <put-attribute name="body" value="/WEB-INF/jsp/common/blank.jsp" />
     </definition>
- 
+    
+    <definition name="login" extends=".outTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp//user/login.jsp" />
+    </definition>
+     
     <definition name="index" extends=".mainTemplate">
         <put-attribute name="body" value="/WEB-INF/jsp/index.jsp" />
     </definition>

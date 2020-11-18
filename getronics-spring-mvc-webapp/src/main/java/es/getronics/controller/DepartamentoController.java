@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -69,7 +70,13 @@ public class DepartamentoController {
 
 	@RequestMapping(value = "update/{id}", method = RequestMethod.GET)
 	public String showUpdateDepartamento(@PathVariable Long id, Model model) {
-		model.addAttribute(MODEL_OBJECT, departamentoService.findById(id));
+		DepartamentoDto departamento = departamentoService.findById(id);
+		if(departamento != null) {
+			model.addAttribute(MODEL_OBJECT, departamentoService.findById(id));
+		} else {
+			return REDIRECT_TO_DEPARTAMENTO;
+		}
+		
 		return departamentoViewPage(model);
 
 	}

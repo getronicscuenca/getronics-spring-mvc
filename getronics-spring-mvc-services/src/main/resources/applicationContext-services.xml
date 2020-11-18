@@ -36,7 +36,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="hibernateProperties">
 			<props>				
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 			</props>
@@ -58,8 +58,11 @@
 			expression="execution(* es.getronics.services.impl.*ServiceImpl.*(..))"/>
 		<aop:pointcut id="all-converter-methods" 
 			expression="execution(* es.getronics.converter.*ConverterImpl.*(..))"/>
+		<aop:pointcut id="security-methods" 
+			expression="execution(* es.getronics.security.service.GetronicsUserDetailsService.*(..))"/>
         <aop:advisor advice-ref="local-tx-advice" pointcut-ref="all-service-methods"/>
         <aop:advisor advice-ref="local-tx-advice" pointcut-ref="all-converter-methods"/>
+        <aop:advisor advice-ref="local-tx-advice" pointcut-ref="security-methods"/>
     </aop:config>
 	
     <tx:advice id="local-tx-advice" transaction-manager="txManager">
