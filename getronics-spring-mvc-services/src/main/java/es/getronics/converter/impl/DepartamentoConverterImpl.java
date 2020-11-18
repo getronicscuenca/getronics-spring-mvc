@@ -38,8 +38,10 @@ public class DepartamentoConverterImpl implements Converter<Departamento, Depart
 		result.setTecnologias(tecnologias);
 		
 		List<String> empleados = new ArrayList<String>();
-		for(Empleado empleado : source.getEmpleados()) {
-			empleados.add(empleado.getNombre() + " " + empleado.getApellido1() + " " + empleado.getApellido2());
+		if(source.getEmpleados() != null) {
+			for(Empleado empleado : source.getEmpleados()) {
+				empleados.add(empleado.getNombre() + " " + empleado.getApellido1() + " " + empleado.getApellido2());
+			}
 		}
 		result.setEmpleados(empleados);
 		
@@ -55,8 +57,10 @@ public class DepartamentoConverterImpl implements Converter<Departamento, Depart
 		result.setAlta(dto.getAlta());
 		result.setDescripcion(dto.getDescripcion());
 		Set<Tecnologia> tecnologias = new HashSet<Tecnologia>();
-		for(Long tecnologiaId : dto.getSelectedTecnologias()) {
-			tecnologias.add(tecnologiaDao.findById(tecnologiaId));
+		if(dto.getSelectedTecnologias() != null) {
+			for(Long tecnologiaId : dto.getSelectedTecnologias()) {
+				tecnologias.add(tecnologiaDao.findById(tecnologiaId));
+			}
 		}
 		result.setTecnologias(tecnologias);
 		return result;

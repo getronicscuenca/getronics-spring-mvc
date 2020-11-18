@@ -40,7 +40,7 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 	@Override
 	public TecnologiaDto findById(Long id) {
 		Tecnologia entity = tecnologiaDao.findById(id);
-		return tecnologiaConverter.convert(entity);
+		return entity != null ? tecnologiaConverter.convert(entity) : null;
 	}
 
 	@Override
