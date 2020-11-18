@@ -43,26 +43,27 @@ public class TecnologiaController {
 		return new ModelAndView("tecnologia.list", model);
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value="new",method = RequestMethod.POST)
 	public ModelAndView insertarTecnologia(@ModelAttribute("tecnologia") TecnologiaDTO tecnologia, Model model) {
 
-		if (tecnologia.getNombre() != null) {
+		if (tecnologia.getId() != null) {
+			tecnologiaService.update(tecnologia);
+			model.addAttribute("technologies", tecnologiaService.findAllTechnologies());
+			return new ModelAndView("tecnologia.list", model.asMap());
+		} else {
 			tecnologiaService.insert(tecnologia);
 			model.addAttribute("technologies", tecnologiaService.findAllTechnologies());
 			return new ModelAndView("tecnologia.list", model.asMap());
-
-		} else {
-			//tecnologiaService.update(tecnologia);
-
 		}
-		return new ModelAndView("tecnologia.nuevo");
 	}
 
 	@RequestMapping(value = "update/{id}", method = RequestMethod.GET)
-	public ModelAndView showUpdateTecnologia(@PathVariable Long id, Model model) {
-		model.addAttribute("technology", tecnologiaService.findById(id));
-	
-		return new ModelAndView("tecnologia.nuevo");
+	public ModelAndView showUpdateTecnologia(@ModelAttribute("tecnologia") TecnologiaDTO tecnologia,
+			@PathVariable Long id, Model model) {
+		
+		model.addAttribute("technologies", tecnologiaService.findById(id));
+
+		return new ModelAndView("tecnologia.actualizar", model.asMap());
 	}
 
 }

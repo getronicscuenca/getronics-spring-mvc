@@ -45,17 +45,6 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 		dto = modelMapper.map(tecnologiaDao.insert(entity), TecnologiaDTO.class);
 		return dto;
 	}
-
-	/*@Override
-	public List<TecnologiaDTO> findById(Long id) {
-		List<Tecnologia> found = tecnologiaDao.findById(id);
-		List<TecnologiaDTO> retorno = new ArrayList<TecnologiaDTO>();
-		for (Tecnologia tecnologia : found) {
-			retorno.add(tecnologiaConverter.convert(tecnologia));
-		}
-		return retorno;
-	}*/
-	
 	
 
 	@Override

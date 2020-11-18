@@ -3,6 +3,7 @@ package es.getronics.dao.impl;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.type.LongType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -35,7 +36,8 @@ public class TecnologiaDaoImpl implements TecnologiaDao {
 
 	@Override
 	public Tecnologia findById(Long id) {
-		return (Tecnologia) sessionFactory.getCurrentSession().find("select id from Tecnologia");
+		 return (Tecnologia) sessionFactory.getCurrentSession().get(Tecnologia.class, id);
+	
 	}
 
 }

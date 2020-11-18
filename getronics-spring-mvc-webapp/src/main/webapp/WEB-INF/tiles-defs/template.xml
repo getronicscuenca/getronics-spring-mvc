@@ -65,5 +65,8 @@
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tecnologias/nuevo.jsp" />
 	</definition>
-
+	<definition name="tecnologia.actualizar" extends=".mainTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tecnologias/actualizar.jsp" />
+	</definition>	
 </tiles-definitions>
