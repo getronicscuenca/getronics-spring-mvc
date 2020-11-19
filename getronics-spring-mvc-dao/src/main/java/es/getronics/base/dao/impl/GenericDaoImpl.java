@@ -128,9 +128,17 @@ public abstract class GenericDaoImpl<T, ID extends Serializable> extends
 		}
 		return safe;
 	}
+	
+	public List<T> findByCriteria(DetachedCriteria criteria) {
+		return getHibernateTemplate().findByCriteria(criteria);
+	}
 
 	public void refresh(T entity) {
 		getHibernateTemplate().refresh(entity);
+	}
+	
+	public DetachedCriteria createCriteria() {
+		return DetachedCriteria.forClass(getClazz());
 	}
 
 	/**

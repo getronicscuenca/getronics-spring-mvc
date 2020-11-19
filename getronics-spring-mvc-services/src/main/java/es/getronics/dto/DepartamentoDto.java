@@ -1,6 +1,7 @@
 package es.getronics.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class DepartamentoDto {
 
@@ -10,13 +11,15 @@ public class DepartamentoDto {
 	private Date alta;
 	private Long idEmpleado;
 	private String nombreEmpleado;
-	private Long[] tecnologiaId;
+	private List<Long> tecnologiaId;
 
 	
-	public Long[] getTecnologiaId() {
+
+	public List<Long> getTecnologiaId() {
 		return tecnologiaId;
 	}
-	public void setTecnologiaId(Long[] tecnologiaId) {
+
+	public void setTecnologiaId(List<Long> tecnologiaId) {
 		this.tecnologiaId = tecnologiaId;
 	}
 

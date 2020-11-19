@@ -67,7 +67,6 @@ public class DepartamentoController {
 	public ModelAndView showUpdateDepartamento(@PathVariable Long id, Model model) {
 		model.addAttribute("departamento", departamentoService.findById(id));
 		model.addAttribute("empleados", empleadoService.findAll());
-		model.addAttribute("tecnologiasRelacionadas",  departamentoService.recogerTecnologiasRelacionadas(id));
 		model.addAttribute("tecnologias", tecnologiasService.findAll());
 		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
 
@@ -93,7 +92,6 @@ public class DepartamentoController {
 			departamentoService.update(departamento);
 		} else {
 			departamentoService.validarDepartamento(departamento);
-
 		}
 		return "redirect:/departamento";
 	}
@@ -111,13 +109,12 @@ public class DepartamentoController {
 
 	}
 
-
 	@RequestMapping(value = "alta/{id}", method = RequestMethod.POST)
 	public ModelAndView editarFecha(@PathVariable Long id, Model model) {
 		model.addAttribute("departamento", departamentoService.findById(id));
 		return new ModelAndView(DEPARTAMENTO_ALTA, model.asMap());
 	}
-	
+
 	@RequestMapping(value = "borrarTecnologia/{idTecnologia}/{idDepartamento}", method = RequestMethod.POST)
 	public String borrarTecnologia(@PathVariable Long idTecnologia, @PathVariable Long idDepartamento, Model model) {
 		departamentoService.borrarTecnologia(idTecnologia, idDepartamento);

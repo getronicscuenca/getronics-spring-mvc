@@ -12,10 +12,11 @@ import org.springframework.stereotype.Service;
 import es.getronics.bom.Departamento;
 import es.getronics.bom.Empleado;
 import es.getronics.bom.Tecnologias;
+import es.getronics.converter.Converter;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
-import es.getronics.dao.TecnologiasDao;
 import es.getronics.dto.DepartamentoDto;
+import es.getronics.dto.TecnologiasDto;
 import es.getronics.exceptions.DepartamentoExistenteException;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
@@ -24,7 +25,7 @@ import es.getronics.services.EmpleadoService;
 public class DepartamentoServiceImpl implements DepartamentoService {
 
 	@Autowired
-	private TecnologiasDao tecnologiasDao;
+	private Converter<Departamento, DepartamentoDto> departamentoConverter;
 
 	@Autowired
 	private DepartamentoDao departamentoDao;
@@ -44,8 +45,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
 	@Override
 	public DepartamentoDto findById(Long id) {
-		Departamento entity = departamentoDao.findById(id);
-		return modelMapper.map(entity, DepartamentoDto.class);
+		return departamentoConverter.convert(departamentoDao.findById(id));
 
 	}
 
@@ -54,7 +54,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 		List<DepartamentoDto> result = new ArrayList<>();
 		List<Departamento> found = departamentoDao.findAll();
 		for (Departamento departamento : found) {
-			result.add(modelMapper.map(departamento, DepartamentoDto.class));
+			result.add(departamentoConverter.convert(departamento));
 		}
 		return result;
 	}
@@ -66,8 +66,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
 	@Override
 	public void update(DepartamentoDto dto) {
-		Departamento entity = modelMapper.map(dto, Departamento.class);
-		entity.setTecnologia(obtenerTecnologias(dto.getTecnologiaId()));
+		Departamento entity = departamentoConverter.map(dto);
 		departamentoDao.update(entity);
 
 	}
@@ -80,9 +79,8 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
 	@Override
 	public DepartamentoDto insert(DepartamentoDto dto) {
-		Departamento entity = modelMapper.map(dto, Departamento.class);
-		entity.setTecnologia(obtenerTecnologias(dto.getTecnologiaId()));
-		dto = modelMapper.map(departamentoDao.insert(entity), DepartamentoDto.class);
+		Departamento entity = departamentoConverter.map(dto);
+		dto= departamentoConverter.convert(departamentoDao.insert(entity));
 		return dto;
 	}
 
@@ -103,11 +101,18 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	}
 
 	@Override
-	public boolean findByName(DepartamentoDto departamentoDto) {
+	public List<DepartamentoDto> findByName(DepartamentoDto departamentoDto) {
 		Departamento example = new Departamento();
 		example.setNombre(departamentoDto.getNombre());
-		List<Departamento> entity = departamentoDao.findByExample(example);
-		return entity.isEmpty();
+		List<DepartamentoDto> result = new ArrayList<>();
+		for (Departamento departamento : departamentoDao.findByExample(example)) {
+			result.add(departamentoConverter.convert(departamento));
+		}
+		return result;
+	}
+	
+	public List<Departamento> buscarName(DepartamentoDto dto){
+		return departamentoDao.findByName(dto.getNombre());
 	}
 
 	@Override
@@ -142,13 +147,13 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 			departamento.setIdEmpleado(null);
 			departamento.setNombreEmpleado("");
 			insert(departamento);
-		} else if (primerDepartamento(departamento) == false && findByName(departamento) == true
+		} else if (primerDepartamento(departamento) == false && findByName(departamento).isEmpty()
 				&& empleadoAsignado(departamento) == false) {
 			departamento.setAlta(new Date());
 			departamento.setNombreEmpleado(empleadoService.findById(departamento.getIdEmpleado()).getNombre());
 			insert(departamento);
 		} else {
-			if (findByName(departamento) == false) {
+			if (findByName(departamento).isEmpty() == false) {
 				throw new DepartamentoExistenteException(
 						"El departamento " + "'" + departamento.getNombre() + "'" + " ya existe.");
 			} else if (empleadoAsignado(departamento) == true) {
@@ -162,17 +167,13 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	}
 
 	@Override
-	public List<Tecnologias> obtenerTecnologias(Long[] ids) {
-		List<Tecnologias> lista= new ArrayList<>();
-		for(Long id: ids) {
-			lista.add(tecnologiasDao.findById(id));
+	public List<TecnologiasDto> recogerTecnologiasRelacionadas(Long id) {
+		List <Tecnologias> tecnologias= departamentoDao.findById(id).getTecnologia();
+		List<TecnologiasDto> result = new ArrayList<>();
+		for (Tecnologias tecnologia : tecnologias) {
+			result.add(modelMapper.map(tecnologia, TecnologiasDto.class));
 		}
-		return lista;
-	}
-
-	@Override
-	public List<Tecnologias> recogerTecnologiasRelacionadas(Long id) {
-		return departamentoDao.findById(id).getTecnologia();
+		return result;
 	}
 
 	@Override

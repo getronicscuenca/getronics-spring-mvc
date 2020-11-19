@@ -6,6 +6,8 @@ package es.getronics.base.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+
 /**
  * Define metodos genericos de los daos
  * 
@@ -103,6 +105,9 @@ public interface GenericDao<T, ID extends Serializable> {
 	
 	public void doRollback();
 	
+	List<T> findByCriteria(DetachedCriteria criteria);
+	
+	DetachedCriteria createCriteria();
 	
 	
 }
