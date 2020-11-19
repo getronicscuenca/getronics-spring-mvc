@@ -22,6 +22,7 @@ public class DepartamentoDto {
 	private EmpleadoDto jefe;
 	private String encargado;
 	private List<TecnologiaDto> tecnologias;
+
 	
 	
 	
@@ -52,6 +53,9 @@ public class DepartamentoDto {
 			return false;
 		return true;
 	}
+	
+	
+	
 	public List<TecnologiaDto> getTecnologias() {
 		return tecnologias;
 	}
