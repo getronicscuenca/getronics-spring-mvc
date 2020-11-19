@@ -56,11 +56,11 @@
 		<form:form action="${ url }" >
 			<button type="submit"><spring:message code="departamento.options.add"></spring:message></button>
 		</form:form>
-<script>
+<!-- <script>
 var elemento=document.getElementById("buscar");
 elemento.addEventListener("keyup", function(){
 	var texto= elemento.value;
 	window.location.assign("http://localhost:8080/getronics-spring-mvc-webapp/departamento/find/"+texto);
 });
-</script>		
+</script>	 -->	
 		
