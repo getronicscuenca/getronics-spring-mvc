@@ -21,6 +21,8 @@
 
 	<mvc:view-controller path="/index"
 		view-name="index" />
+	<mvc:view-controller path="/login"
+		view-name="login" />
 	<mvc:resources location="/WEB-INF/assets/"
 		mapping="/assets/**" />
 	<mvc:resources location="/WEB-INF/css/" mapping="/css/**" />
@@ -30,7 +32,6 @@
 		<bean id="localeChangeInterceptor"
 			class="es.getronics.controller.interceptors.LocaleChangeInterceptorGetronics" />
 	</mvc:interceptors>
-	
 	<!-- MESSAGES -->
 
 	<bean

@@ -17,13 +17,13 @@ public class Departamento implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	@Column(name = "NOMBRE")
 	@NotBlank
 	private String nombre;
 	@Column(name = "DESCRIPCION")
 	@NotBlank
-	private String desc;
+	private String descripcion;
 	
 	//@Column(name = "ALTA")
 	//private Date alta;
@@ -35,10 +35,13 @@ public class Departamento implements Serializable {
 	@OneToMany(mappedBy = "departamento")
 	private Set<Empleado> empleados;
 	
-	@ManyToMany
-	@JoinTable(name = "DEPARTAMENTO_TECNOLOGIA",
-	joinColumns = {@JoinColumn(referencedColumnName = "ID", columnDefinition = "TECNOLOGIA_ID")})
-    private Set<Tecnologia> tecnologias;
+	 @ManyToMany
+	 @JoinTable(
+	 name = "DEPARTAMENTO_TECNOLOGIA",
+	 joinColumns = @JoinColumn(name = "departamento_id"),
+	 inverseJoinColumns = @JoinColumn(name = "tecnologia_id"))
+   
+	 private Set<Tecnologia> tecnologias;
 
 	public Empleado getJefe() {
 		return jefe;
@@ -48,11 +51,12 @@ public class Departamento implements Serializable {
 		this.jefe = jefe;
 	}
 
-	public long getId() {
+	
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -63,14 +67,7 @@ public class Departamento implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	public String getDesc() {
-		return desc;
-	}
-
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
+	
 
 	/*public Date getAlta() {
 		return alta;
@@ -79,6 +76,14 @@ public class Departamento implements Serializable {
 	public void setAlta(Date alta) {
 		this.alta = alta;
 	}*/
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
 	public Set<Empleado> getEmpleados() {
 		return empleados;
@@ -97,7 +102,7 @@ public class Departamento implements Serializable {
 		this.tecnologias = tecnologias;
 	}
 
-	@Override
+	/*@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -123,6 +128,6 @@ public class Departamento implements Serializable {
 		} else if (!nombre.equals(other.nombre))
 			return false;
 		return true;
-	}
+	}*/
 
 }

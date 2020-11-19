@@ -4,20 +4,27 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import es.getronics.bom.Departamento;
+import es.getronics.bom.Empleado;
 import es.getronics.bom.Tecnologia;
 import es.getronics.converter.Converter;
 import es.getronics.converter.DepartamentoConverter;
+import es.getronics.converter.EmpleadoConverter;
 import es.getronics.converter.TecnologiaConverter;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.TecnologiaDao;
 import es.getronics.dto.DepartamentoDto;
+import es.getronics.dto.EmpleadoDto;
+import es.getronics.dto.KeyValueItem;
 import es.getronics.dto.TecnologiaDto;
+import es.getronics.dto.TecnologiaItem;
 
-public class TecnologiaConverterImpl implements Converter<Tecnologia, TecnologiaDto>, TecnologiaConverter<Tecnologia, TecnologiaDto> {
+@Component ("tecnologiaConverter")
+public class TecnologiaConverterImpl implements Converter<Tecnologia, TecnologiaDto> {
 
-	@Autowired
+	/*@Autowired
 	private DepartamentoDao departamentoDao;
 	
 	@Autowired
@@ -26,28 +33,38 @@ public class TecnologiaConverterImpl implements Converter<Tecnologia, Tecnologia
 	@Autowired
 	private DepartamentoConverter<Departamento, DepartamentoDto> departamentoConverter;
 	
+	@Autowired
+	private EmpleadoConverter<Empleado, EmpleadoDto> empleadoConverter;*/
+	
 	@Override
 	public TecnologiaDto convert(Tecnologia source) {
 		TecnologiaDto result = new TecnologiaDto();
 		result.setId(source.getId());
 		result.setNombre(source.getNombre());
-		result.setDesc(source.getDesc());
-				
-		return result;
-	}
-
-	@Override
-	public Tecnologia map(TecnologiaDto dto) {
-		Tecnologia result= new Tecnologia();
-		result.setId(dto.getId());
-		//result.setId(1L);
-		result.setNombre(dto.getNombre());
-		result.setDesc(dto.getDesc());
+		result.setDescripcion(source.getDescripcion());
 		
 		return result;
 	}
 
 	@Override
+	public Tecnologia map(TecnologiaDto dto) {
+		Tecnologia result = new Tecnologia();
+		result.setId(dto.getId());
+		result.setNombre(dto.getNombre());
+		result.setDescripcion(dto.getDescripcion());
+		
+		return result;
+	}
+
+	@Override
+	public KeyValueItem mapToKeyValue(Tecnologia source) {
+		TecnologiaItem item = new TecnologiaItem();
+		item.setKey(source.getId());
+		item.setValue(source.getNombre());
+		return item;
+	}
+
+	/*@Override
 	public TecnologiaDto convertToList(Tecnologia source) { 
 		TecnologiaDto result = new TecnologiaDto();
 		result.setId(source.getId());
@@ -66,17 +83,20 @@ public class TecnologiaConverterImpl implements Converter<Tecnologia, Tecnologia
 	@Override
 	public Tecnologia mapToList(TecnologiaDto dto) {
 		Tecnologia result = new Tecnologia();
-		result.setId(dto.getId());
-		//result.setId(1L);
+		//result.setId(dto.getId());
+		result.setId(1L);
 		result.setNombre(dto.getNombre());
 		result.setDesc(dto.getDesc());
-		
-		if(dto.getDepartamentos() != null) {
-			result.setDepartamentos(departamentoConverter.mapToListSet(dto.getDepartamentos()));
-			
-		}
 				
+		Set<Departamento> departamentos = new HashSet<Departamento>();
+		if(dto.getIdDepartamentos() != null) {
+			for(Long departamentoId : dto.getIdDepartamentos()) {
+				departamentos.add(departamentoDao.findById(departamentoId));
+			}
+		}
+		result.setDepartamentos(departamentos);
 		return result;
+	
 	}
 	@Override
 	public Set<TecnologiaDto> convertToListSet(Set<Tecnologia> source) {
@@ -107,6 +127,6 @@ public class TecnologiaConverterImpl implements Converter<Tecnologia, Tecnologia
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+	*/
 	
 }

@@ -1,14 +1,13 @@
 package es.getronics.dto;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import es.getronics.bom.Empleado;
-import es.getronics.bom.Tecnologia;
 
 
 public class DepartamentoDto {
@@ -18,15 +17,15 @@ public class DepartamentoDto {
 	@Length(min = 3, max = 15, message="Longitud de nombre incorrecta" )
 	private String nombre;
 	@NotEmpty(message="La descripcion no puede estar vacia")
-	private String desc;
+	private String descripcion;
 	//private Date alta;
 	//private Long jefe;
 	private Long idJefe;
 	private String jefe;
 	
-	private Set<EmpleadoDto> empleados;
-	
-	private Set<TecnologiaDto> tecnologias;
+	private List<Long> selectedTecnologias;
+	private List<String> tecnologias;
+	private List<String> empleados;
 		
 	/*private Set<Empleado> empleados;
 	
@@ -44,11 +43,12 @@ public class DepartamentoDto {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getDesc() {
-		return desc;
+	
+	public String getDescripcion() {
+		return descripcion;
 	}
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 	/*public Date getAlta() {
 		return alta;
@@ -68,17 +68,23 @@ public class DepartamentoDto {
 	public void setJefe(String jefe) {
 		this.jefe = jefe;
 	}
-	public Set<EmpleadoDto> getEmpleados() {
-		return empleados;
+	public List<Long> getSelectedTecnologias() {
+		return selectedTecnologias;
 	}
-	public void setEmpleados(Set<EmpleadoDto> empleados) {
-		this.empleados = empleados;
+	public void setSelectedTecnologias(List<Long> selectedTecnologias) {
+		this.selectedTecnologias = selectedTecnologias;
 	}
-	public Set<TecnologiaDto> getTecnologias() {
+	public List<String> getTecnologias() {
 		return tecnologias;
 	}
-	public void setTecnologias(Set<TecnologiaDto> tecnologias) {
+	public void setTecnologias(List<String> tecnologias) {
 		this.tecnologias = tecnologias;
+	}
+	public List<String> getEmpleados() {
+		return empleados;
+	}
+	public void setEmpleados(List<String> empleados) {
+		this.empleados = empleados;
 	}
 	
 		

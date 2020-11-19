@@ -17,6 +17,7 @@ import es.getronics.converter.EmpleadoConverter;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
 import es.getronics.dto.EmpleadoDto;
+import es.getronics.dto.KeyValueItem;
 
 /**
  * Convierte de Entidad empleado a Dto
@@ -24,8 +25,8 @@ import es.getronics.dto.EmpleadoDto;
  * @author jgarcia
  *
  */
-@Component
-public class EmpleadoConverterImpl implements Converter<Empleado, EmpleadoDto>, EmpleadoConverter<Empleado, EmpleadoDto> {
+@Component("empleadoConverter")
+public class EmpleadoConverterImpl implements Converter<Empleado, EmpleadoDto> {
 
 	@Autowired
 	private DepartamentoDao departamentoDao;
@@ -45,6 +46,8 @@ public class EmpleadoConverterImpl implements Converter<Empleado, EmpleadoDto>, 
 			result.setDepartamento(source.getDepartamento().getNombre());
 		}
 		//result.setJefe(source.getJefe().getId());
+		//CUIDAO CON EL SETACTIVO
+		result.setActivo(true);
 		
 		return result;
 	}
@@ -68,6 +71,13 @@ public class EmpleadoConverterImpl implements Converter<Empleado, EmpleadoDto>, 
 	}
 
 	@Override
+	public KeyValueItem mapToKeyValue(Empleado source) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+	/*@Override
 	public Set<EmpleadoDto> convertToListSet(Set<Empleado> source) {
 		Set<EmpleadoDto> listaEmpleados = new HashSet<EmpleadoDto>();
 		for(Empleado empleado:source) {
@@ -95,7 +105,7 @@ public class EmpleadoConverterImpl implements Converter<Empleado, EmpleadoDto>, 
 	public Empleado mapToList(EmpleadoDto dto) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 	
 	
 

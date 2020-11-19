@@ -24,6 +24,7 @@ public class EmpleadoDto {
 	private Long idDepartamento;
 	private String departamento;
 	//private Long jefe;
+	private boolean activo;
 	
 	public Long getId() {
 		return id;
@@ -67,6 +68,13 @@ public class EmpleadoDto {
 	public void setJefe(Long jefe) {
 		this.jefe = jefe;
 	}*/
+	public boolean isActivo() {
+		return activo;
+	}
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+	
 	
 	
 }

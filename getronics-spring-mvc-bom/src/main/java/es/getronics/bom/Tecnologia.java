@@ -26,24 +26,22 @@ public class Tecnologia implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	@Column(name = "NOMBRE")
 	@NotBlank
 	private String nombre;
 	@Column(name = "DESCRIPCION")
 	@NotBlank
-	private String desc;
+	private String descripcion;
 	
-	@ManyToMany
-	@JoinTable(name = "DEPARTAMENTO_TECNOLOGIA",
-	joinColumns = {@JoinColumn(referencedColumnName = "ID", columnDefinition = "DEPARTAMENTO_ID")})
-	private Set<Departamento> departamentos;
-
-	public long getId() {
+	@ManyToMany(mappedBy = "tecnologias")
+    private Set<Departamento> departamentos;
+		
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -54,13 +52,14 @@ public class Tecnologia implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	public String getDesc() {
-		return desc;
+	
+	
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public Set<Departamento> getDepartamentos() {

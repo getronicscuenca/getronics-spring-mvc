@@ -3,6 +3,7 @@
 <html lang="es">
 
 <head>
+<base href="${pageContext.servletContext.contextPath}/index">
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
@@ -13,6 +14,8 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
+
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Roboto+Mono:400,500|Material+Icons" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/css/getronics.css"/>" />

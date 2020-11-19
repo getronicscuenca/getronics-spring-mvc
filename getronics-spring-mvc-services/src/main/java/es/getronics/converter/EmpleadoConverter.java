@@ -7,7 +7,7 @@ import es.getronics.dto.EmpleadoDto;
 
 public interface EmpleadoConverter <S, D> {
 		
-	Set<D> convertToListSet(Set<S> source);
-	Set<Empleado> mapToListSet(Set<EmpleadoDto> dto);
+	/*Set<D> convertToListSet(Set<S> source);
+	Set<Empleado> mapToListSet(Set<EmpleadoDto> dto);*/
 
 }

@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import org.hibernate.validator.constraints.NotBlank;
-//esto es un ajodida prueba de git
+
 @Entity
 @Table(name = "EMPLEADO")
 public class Empleado implements Serializable {
@@ -72,7 +72,8 @@ public class Empleado implements Serializable {
 	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
 	}
-	@Override
+	
+	/*@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -84,7 +85,7 @@ public class Empleado implements Serializable {
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
+	 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -115,5 +116,5 @@ public class Empleado implements Serializable {
 		} else if (!nombre.equals(other.nombre))
 			return false;
 		return true;
-	}
+	}*/
 }

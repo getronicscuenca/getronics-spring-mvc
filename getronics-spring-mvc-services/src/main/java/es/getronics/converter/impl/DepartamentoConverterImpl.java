@@ -1,6 +1,8 @@
 package es.getronics.converter.impl;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -18,15 +20,16 @@ import es.getronics.converter.EmpleadoConverter;
 import es.getronics.converter.TecnologiaConverter;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
+import es.getronics.dao.TecnologiaDao;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
+import es.getronics.dto.KeyValueItem;
 import es.getronics.dto.TecnologiaDto;
 
-@Component
-public class DepartamentoConverterImpl implements Converter<Departamento, DepartamentoDto>, 
-				DepartamentoConverter<Departamento, DepartamentoDto>{
+@Component("departamentoConverter")
+public class DepartamentoConverterImpl implements Converter<Departamento, DepartamentoDto> {
 	
-	@Autowired
+	/*@Autowired
 	private EmpleadoDao empleadoDao;
 	
 	@Autowired
@@ -36,39 +39,62 @@ public class DepartamentoConverterImpl implements Converter<Departamento, Depart
 	private EmpleadoConverter<Empleado, EmpleadoDto> empleadoConverter;
 	
 	@Autowired
-	private Converter<Tecnologia, TecnologiaDto> tecnologiaConverter;
-	
+	private TecnologiaConverter<Tecnologia, TecnologiaDto> tecnologiaConverter;
+	*/
+	@Autowired
+	private TecnologiaDao tecnologiaDao;
+
 	@Override
 	public DepartamentoDto convert(Departamento source) {
 		DepartamentoDto result = new DepartamentoDto();
 		result.setId(source.getId());
 		result.setNombre(source.getNombre());
 		//result.setAlta(source.getAlta());
-		result.setDesc(source.getDesc());
-		if(source.getJefe() != null) {
-			result.setIdJefe(source.getJefe().getId());
-			result.setJefe(source.getJefe().getNombre());
+		result.setDescripcion(source.getDescripcion());
+		List<Long> selectedTecnologias = new ArrayList<Long>();
+		List<String> tecnologias = new ArrayList<String>();
+		for(Tecnologia tecnologia : source.getTecnologias()) {
+			selectedTecnologias.add(tecnologia.getId());
+			tecnologias.add(tecnologia.getNombre());
 		}
+		result.setTecnologias(tecnologias);
 		
+		List<String> empleados = new ArrayList<String>();
+		if(source.getEmpleados() != null) {
+			for(Empleado empleado : source.getEmpleados()) {
+				empleados.add(empleado.getNombre() + " " + empleado.getApellido1() + " " + empleado.getApellido2());
+			}
+		}
+		result.setEmpleados(empleados);
+		
+		result.setSelectedTecnologias(selectedTecnologias);
 		return result;
 	}
 
 	@Override
 	public Departamento map(DepartamentoDto dto) {
-		Departamento result= new Departamento();
-		//result.setId(dto.getId());
-		result.setId(1L);
+		Departamento result = new Departamento();
+		result.setId(dto.getId());
 		result.setNombre(dto.getNombre());
-		//res.setAlta(dto.getAlta());
-		result.setDesc(dto.getDesc());
-		if(dto.getIdJefe() != null) {
-			result.setJefe(empleadoDao.findById(dto.getIdJefe()));
+		//result.setAlta(dto.getAlta());
+		result.setDescripcion(dto.getDescripcion());
+		Set<Tecnologia> tecnologias = new HashSet<Tecnologia>();
+		if(dto.getSelectedTecnologias() != null) {
+			for(Long tecnologiaId : dto.getSelectedTecnologias()) {
+				tecnologias.add(tecnologiaDao.findById(tecnologiaId));
+			}
 		}
-	
+		result.setTecnologias(tecnologias);
 		return result;
 	}
 
 	@Override
+	public KeyValueItem mapToKeyValue(Departamento source) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*@Override
 	public DepartamentoDto convertToList(Departamento source) { 
 		DepartamentoDto result = new DepartamentoDto();
 		result.setId(source.getId());
@@ -92,7 +118,7 @@ public class DepartamentoConverterImpl implements Converter<Departamento, Depart
 	public Departamento mapToList(DepartamentoDto dto) {
 		Departamento result = new Departamento();
 		//result.setId(dto.getId());
-		result.setId(1L);
+		result.setId(2L);
 		result.setNombre(dto.getNombre());
 		result.setDesc(dto.getDesc());
 		if(dto.getJefe() != null) {
@@ -142,6 +168,6 @@ public class DepartamentoConverterImpl implements Converter<Departamento, Depart
 			listaDepartamentos.add(departamentoDao.findById(identificador));
 		}
 		return listaDepartamentos;
-	}
+	}*/
 
 }
