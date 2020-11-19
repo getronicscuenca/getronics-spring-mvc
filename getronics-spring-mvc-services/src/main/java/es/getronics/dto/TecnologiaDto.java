@@ -9,10 +9,10 @@ public class TecnologiaDto {
 	private Long id;
 	private String nombre;
 	private String Descripcion;
-	private List<DepartamentoDto> departamentos;
 	
 	
 	
+	//equals hashccode
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -36,12 +36,8 @@ public class TecnologiaDto {
 			return false;
 		return true;
 	}
-	public List<DepartamentoDto> getDepartamentos() {
-		return departamentos;
-	}
-	public void setDepartamentos(List<DepartamentoDto> departamentos) {
-		this.departamentos = departamentos;
-	}
+	
+//	getters and setters
 	public Long getId() {
 		return id;
 	}
