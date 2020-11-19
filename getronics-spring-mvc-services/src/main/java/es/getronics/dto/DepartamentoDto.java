@@ -14,26 +14,27 @@ import org.hibernate.validator.constraints.NotBlank;
 public class DepartamentoDto {
 
 	private Long id;
+	@NotBlank
 	private String nombre;
 	@NotBlank(message="La descripcion no puede estar vacia")
-	private String desc;
+	private String descripcion;
 	private Date alta;
-	private List<EmpleadoDto> empleados;
-	private EmpleadoDto jefe;
-	private String encargado;
-	private List<TecnologiaDto> tecnologias;
-
+	private List<Long> selectedTecnologias;
+	private List<String> tecnologias;
+	private List<String> empleados;
+	private String jefe;
 	
 	
 	
 	
-	
+	//hashCode and equals
 	
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		return result;
 	}
@@ -46,6 +47,11 @@ public class DepartamentoDto {
 		if (getClass() != obj.getClass())
 			return false;
 		DepartamentoDto other = (DepartamentoDto) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		if (nombre == null) {
 			if (other.nombre != null)
 				return false;
@@ -55,19 +61,9 @@ public class DepartamentoDto {
 	}
 	
 	
+	//getters and setters
 	
-	public List<TecnologiaDto> getTecnologias() {
-		return tecnologias;
-	}
-	public void setTecnologias(List<TecnologiaDto> tecnologias) {
-		this.tecnologias = tecnologias;
-	}
-	public String getEncargado() {
-		return encargado;
-	}
-	public void setEncargado(String encargado) {
-		this.encargado = encargado;
-	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -80,11 +76,11 @@ public class DepartamentoDto {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getDesc() {
-		return desc;
+	public String getDescripcion() {
+		return descripcion;
 	}
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 	public Date getAlta() {
 		return alta;
@@ -92,18 +88,36 @@ public class DepartamentoDto {
 	public void setAlta(Date alta) {
 		this.alta = alta;
 	}
-	public List<EmpleadoDto> getEmpleados() {
+	public List<Long> getSelectedTecnologias() {
+		return selectedTecnologias;
+	}
+	public void setSelectedTecnologias(List<Long> selectedTecnologias) {
+		this.selectedTecnologias = selectedTecnologias;
+	}
+	public List<String> getTecnologias() {
+		return tecnologias;
+	}
+	public void setTecnologias(List<String> tecnologias) {
+		this.tecnologias = tecnologias;
+	}
+	public List<String> getEmpleados() {
 		return empleados;
 	}
-	public void setEmpleados(List<EmpleadoDto> empleados) {
+	public void setEmpleados(List<String> empleados) {
 		this.empleados = empleados;
 	}
-	public EmpleadoDto getJefe() {
+	public String getJefe() {
 		return jefe;
 	}
-	public void setJefe(EmpleadoDto jefe) {
+	public void setJefe(String jefe) {
 		this.jefe = jefe;
 	}
+	
+	
+	
+	
+	
+	
 
 
 

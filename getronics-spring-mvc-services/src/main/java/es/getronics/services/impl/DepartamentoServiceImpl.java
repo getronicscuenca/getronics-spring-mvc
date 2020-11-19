@@ -17,7 +17,7 @@ import es.getronics.bom.Tecnologia;
 import es.getronics.converter.Converter;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
-import es.getronics.dto.CategoriaDto;
+
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.TecnologiaDto;
 import es.getronics.services.DepartamentoService;

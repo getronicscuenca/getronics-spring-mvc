@@ -1,9 +1,11 @@
 package es.getronics.bom;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.*;
-//esto es un ajodida prueba de git
+
+
 @Entity
 @Table(name = "EMPLEADO")
 public class Empleado implements Serializable {
@@ -13,7 +15,7 @@ public class Empleado implements Serializable {
 	 */
 	private static final long serialVersionUID = -9054047698877645200L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(name = "NOMBRE")
 	private String nombre;
@@ -21,73 +23,19 @@ public class Empleado implements Serializable {
 	private String apellido1;
 	@Column(name = "APELLIDO_2")
 	private String apellido2;
+	@Column(name = "FECHA_ALTA")
+	private LocalDate fechaAlta;
+	@Column(name = "FECHA_MODIFICACION")
+	private LocalDate fechaModificacion;
+	@Column(name = "FECHA_BAJA")
+	private LocalDate fechaBaja;
 	@ManyToOne
-	@JoinColumn(name="CATEGORIA_ID")
-	private Categoria categoria;
-	@ManyToOne
-	@JoinColumn(name="DEPARTAMENTO_ID")
 	private Departamento departamento;
-	@OneToOne(mappedBy ="jefe")
+	@OneToOne(mappedBy = "jefe")
 	private Departamento jefeDepartamento;
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-	/**
-	 * @return the nombre
-	 */
-	public String getNombre() {
-		return nombre;
-	}
-	/**
-	 * @param nombre the nombre to set
-	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	/**
-	 * @return the apellido1
-	 */
-	public String getApellido1() {
-		return apellido1;
-	}
-	/**
-	 * @param apellido1 the apellido1 to set
-	 */
-	public void setApellido1(String apellido1) {
-		this.apellido1 = apellido1;
-	}
-	/**
-	 * @return the apellido2
-	 */
-	public String getApellido2() {
-		return apellido2;
-	}
-	/**
-	 * @param apellido2 the apellido2 to set
-	 */
-	public void setApellido2(String apellido2) {
-		this.apellido2 = apellido2;
-	}
-	
-	
-	public Departamento getDepartamento() {
-		return departamento;
-	}
-	public void setDepartamento(Departamento departamento) {
-		this.departamento = departamento;
-	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
+
+	// equals and hashcode
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -98,9 +46,7 @@ public class Empleado implements Serializable {
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		return result;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -132,5 +78,78 @@ public class Empleado implements Serializable {
 			return false;
 		return true;
 	}
-	
+
+	// getters and setters
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellido1() {
+		return apellido1;
+	}
+
+	public void setApellido1(String apellido1) {
+		this.apellido1 = apellido1;
+	}
+
+	public String getApellido2() {
+		return apellido2;
+	}
+
+	public void setApellido2(String apellido2) {
+		this.apellido2 = apellido2;
+	}
+
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
+
+	public LocalDate getFechaAlta() {
+		return fechaAlta;
+	}
+
+	public void setFechaAlta(LocalDate fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
+	public LocalDate getFechaModificacion() {
+		return fechaModificacion;
+	}
+
+	public void setFechaModificacion(LocalDate fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+
+	public LocalDate getFechaBaja() {
+		return fechaBaja;
+	}
+
+	public void setFechaBaja(LocalDate fechaBaja) {
+		this.fechaBaja = fechaBaja;
+	}
+
+	public Departamento getJefeDepartamento() {
+		return jefeDepartamento;
+	}
+
+	public void setJefeDepartamento(Departamento jefeDepartamento) {
+		this.jefeDepartamento = jefeDepartamento;
+	}
+
 }
