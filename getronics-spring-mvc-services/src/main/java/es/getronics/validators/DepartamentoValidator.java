@@ -17,7 +17,7 @@ public class DepartamentoValidator implements Validator {
 
 	@Override
 	public void validate(Object target, Errors er) {
-		ValidationUtils.rejectIfEmptyOrWhitespace(er, "nombre", "nombre_vacio");
+		ValidationUtils.rejectIfEmptyOrWhitespace(er, "nombre", "nombre");
 		DepartamentoDto departamento =(DepartamentoDto) target;
 		
 		boolean espacioBlanco=departamento.getNombre().contains(" ");
