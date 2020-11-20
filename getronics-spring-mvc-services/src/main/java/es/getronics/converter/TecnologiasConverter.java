@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import es.getronics.bom.Departamento;
 import es.getronics.bom.Tecnologias;
 import es.getronics.dao.DepartamentoDao;
+import es.getronics.dto.ItemTecnologia;
+import es.getronics.dto.KeyValueItem;
 import es.getronics.dto.TecnologiasDto;
 
 @Component
@@ -40,6 +42,14 @@ public class TecnologiasConverter implements Converter <Tecnologias, Tecnologias
 			tecnologia.anadirDepartamento(departamento);
 		}
 		return tecnologia;
+	}
+
+	@Override
+	public KeyValueItem mapItems(Tecnologias source) {
+		ItemTecnologia item = new ItemTecnologia();
+		item.setKey(source.getId());
+		item.setValue(source.getNombre());
+		return item;
 	}
 
 }

@@ -19,14 +19,25 @@ public class DepartamentoDto {
 	private Long idEmpleado;
 	private String nombreEmpleado;
 	private Set<Empleado> empleadoLista;
-	private Long[] tecnologiasLista;
+	private List<Long> selectedTecnologias;
+	private List<String> tecnologias;
+	
+	
 
-	public Long[] getTecnologiasLista() {
-		return tecnologiasLista;
+	public List<Long> getSelectedTecnologias() {
+		return selectedTecnologias;
 	}
 
-	public void setTecnologiasLista(Long[] tecnologiasLista) {
-		this.tecnologiasLista = tecnologiasLista;
+	public void setSelectedTecnologias(List<Long> selectedTecnologias) {
+		this.selectedTecnologias = selectedTecnologias;
+	}
+
+	public List<String> getTecnologias() {
+		return tecnologias;
+	}
+
+	public void setTecnologias(List<String> tecnologias) {
+		this.tecnologias = tecnologias;
 	}
 
 	public Set<Empleado> getEmpleadoLista() {

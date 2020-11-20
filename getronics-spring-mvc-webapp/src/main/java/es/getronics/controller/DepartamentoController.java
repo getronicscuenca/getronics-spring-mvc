@@ -71,18 +71,21 @@ public class DepartamentoController {
 	public ModelAndView showNewPage(Model model) {
 		model.addAttribute("departamento", new DepartamentoDto());
 		model.addAttribute("empleados", empleadoService.findAll());
-		model.addAttribute("tecnologias", tecnologiasService.findAll());
+		model.addAttribute("tecnologias", tecnologiasService.obtenerItemsTecnologia());
 		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
 	}
 
 	@RequestMapping(value = "update/{id}", method = RequestMethod.GET)
 	public ModelAndView showUpdateDepartamento(@PathVariable Long id, Model model) {
-		model.addAttribute("departamento", departamentoService.findById(id));
+		DepartamentoDto departamento = departamentoService.findById(id);
+		List<Long> tecno = departamento.getSelectedTecnologias();
+		model.addAttribute("departamento", departamento);
 		model.addAttribute("empleados", empleadoService.findAll());
-		model.addAttribute("tecnologias", departamentoService.obtenerTecnologiasCheckbox(id));
+		model.addAttribute("tecnologias", tecnologiasService.obtenerItemsTecnologia());
 		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
-
 	}
+	
+
 
 	@RequestMapping(value = "ver/{id}", method = RequestMethod.GET)
 	public ModelAndView showDepartamento(@PathVariable Long id, Model model) {

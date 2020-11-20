@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import es.getronics.bom.Departamento;
 import es.getronics.bom.Empleado;
 import es.getronics.bom.Tecnologias;
+import es.getronics.converter.Converter;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
 import es.getronics.dao.TecnologiasDao;
@@ -40,6 +41,9 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	Converter<Departamento,DepartamentoDto> departamentoConverter;
 
 	public DepartamentoServiceImpl() {
 		super();
@@ -48,7 +52,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	@Override
 	public DepartamentoDto findById(Long id) {
 		Departamento entity = departamentoDao.findById(id);
-		return modelMapper.map(entity, DepartamentoDto.class);
+		return departamentoConverter.convert(entity);
 	}
 
 	@Override
@@ -68,10 +72,8 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 
 	@Override
 	public void update(DepartamentoDto dto) {
-		Departamento entity = modelMapper.map(dto, Departamento.class);
-		entity.setTecnologia(obtenerTecnologias(dto.getTecnologiasLista()));
+		Departamento entity = departamentoConverter.map(dto);
 		departamentoDao.update(entity);
-
 	}
 
 	@Override
@@ -82,20 +84,10 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	@Override
 	public DepartamentoDto insert(DepartamentoDto dto) {
 		Departamento entity = modelMapper.map(dto, Departamento.class);
-		entity.setTecnologia(obtenerTecnologias(dto.getTecnologiasLista()));
 		dto = modelMapper.map(departamentoDao.insert(entity), DepartamentoDto.class);
 		return dto;
 	}
 	
-	// posible chapuza, investigar un metodo mejor de hacerlo ... 
-	public List<Tecnologias> obtenerTecnologias(Long[] ids){
-		List<Tecnologias> lista = new ArrayList<>();
-		for(Long id : ids) {
-			lista.add(tecnologiasDao.findById(id));
-		}
-		return lista;
-		
-	}
 
 	@Override
 	public void remove(DepartamentoDto entity) {
@@ -154,6 +146,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 		departamentoDao.update(entity);
 	}
 	
+	// mejor hacerlo en el converter ... 
 	public List<TecnologiasDto> obtenerTecnologiasCheckbox(Long idDepartamento){
 		// cojo las tecnologias del departamento
 		List<Tecnologias> tecnologiasDepartamento = obtenerTecnologiasDepartamento(idDepartamento);

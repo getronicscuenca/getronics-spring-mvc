@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import es.getronics.bom.Tecnologias;
 import es.getronics.converter.Converter;
 import es.getronics.dao.TecnologiasDao;
+import es.getronics.dto.ItemTecnologia;
+import es.getronics.dto.KeyValueItem;
 import es.getronics.dto.TecnologiasDto;
 import es.getronics.services.TecnologiasService;
 
@@ -78,6 +80,15 @@ public class TecnologiasServiceImpl implements TecnologiasService {
 	public List<TecnologiasDto> findByExample(TecnologiasDto example) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public List<KeyValueItem> obtenerItemsTecnologia(){
+		List<Tecnologias> tecnologias = tecnologiasDao.findAll();
+		List<KeyValueItem> items = new ArrayList<KeyValueItem>();
+		for(Tecnologias tecnologia : tecnologias) {
+			items.add(tecnologiasConverter.mapItems(tecnologia));
+		}
+		return items;
 	}
 
 }

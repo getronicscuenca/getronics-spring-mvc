@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import es.getronics.bom.Empleado;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dto.EmpleadoDto;
+import es.getronics.dto.KeyValueItem;
 
 /**
  * Convierte de Entidad empleado a Dto
@@ -49,5 +50,11 @@ public class EmpleadoConverter implements Converter<Empleado, EmpleadoDto> {
 			result.setDepartamento(departamentoDao.findById(dto.getIdDepartamento()));
 		}
 		return result;
+	}
+
+	@Override
+	public KeyValueItem mapItems(Empleado source) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

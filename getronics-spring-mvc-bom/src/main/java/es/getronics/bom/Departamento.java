@@ -35,7 +35,7 @@ public class Departamento implements Serializable {
 	private String nombreEmpleado;
 	
 	
-	@ManyToMany(fetch = FetchType.EAGER )
+	@ManyToMany
 	@JoinTable(name = "tecnologias_departamentos", joinColumns = @JoinColumn(name = "departamentoId"), inverseJoinColumns = @JoinColumn(name = "tecnologiasId"))
 	private List<Tecnologias> tecnologia;
 	
