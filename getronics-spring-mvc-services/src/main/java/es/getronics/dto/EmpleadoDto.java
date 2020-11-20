@@ -1,7 +1,8 @@
 package es.getronics.dto;
 
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
+import java.util.Date;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * Objeto de transferenca empleado
@@ -12,18 +13,17 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class EmpleadoDto {
 
 	private Long id;
-	@NotEmpty (message="Debe poner un nombre")
-	@Length(min = 3, max = 15, message="Longitud de nombre incorrecta" )
+	@NotBlank
 	private String nombre;
-	@NotEmpty (message="Debe poner el primer apellido")
-	@Length(min = 3, max = 15, message="Longitud de apellido incorrecta" )
+	@NotBlank
 	private String apellido1;
-	@NotEmpty (message="Debe poner el segundo apellido")
-	@Length(min = 3, max = 15, message="Longitud de apellido incorrecta" )
+	@NotBlank
 	private String apellido2;
 	private Long idDepartamento;
 	private String departamento;
-	//private Long jefe;
+	private Date fechaAlta;
+	private Date fechaModificacion;
+	private Date fechaBaja;
 	private boolean activo;
 	
 	public Long getId() {
@@ -62,19 +62,30 @@ public class EmpleadoDto {
 	public void setDepartamento(String departamento) {
 		this.departamento = departamento;
 	}
-	/*public Long getJefe() {
-		return jefe;
+	
+	public Date getFechaAlta() {
+		return fechaAlta;
 	}
-	public void setJefe(Long jefe) {
-		this.jefe = jefe;
-	}*/
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+	
+	public Date getFechaModificacion() {
+		return fechaModificacion;
+	}
+	public void setFechaModificacion(Date fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+	public Date getFechaBaja() {
+		return fechaBaja;
+	}
+	public void setFechaBaja(Date fechaBaja) {
+		this.fechaBaja = fechaBaja;
+	}
 	public boolean isActivo() {
 		return activo;
 	}
 	public void setActivo(boolean activo) {
 		this.activo = activo;
-	}
-	
-	
-	
+	}	
 }

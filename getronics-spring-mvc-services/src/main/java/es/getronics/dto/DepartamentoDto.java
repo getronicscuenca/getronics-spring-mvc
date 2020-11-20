@@ -2,35 +2,23 @@ package es.getronics.dto;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
-
 
 
 public class DepartamentoDto {
 
 	private Long id;
-	@NotEmpty (message="Debe poner un nombre")
-	@Length(min = 3, max = 15, message="Longitud de nombre incorrecta" )
+	@NotBlank
 	private String nombre;
-	@NotEmpty(message="La descripcion no puede estar vacia")
+	@NotBlank(message="La descripcion no puede estar vacia")
 	private String descripcion;
-	//private Date alta;
-	//private Long jefe;
-	private Long idJefe;
-	private String jefe;
-	
+	private Date alta;
 	private List<Long> selectedTecnologias;
 	private List<String> tecnologias;
 	private List<String> empleados;
-		
-	/*private Set<Empleado> empleados;
 	
-	private Set<Tecnologia> tecnologias;*/
-		
+	
 	public Long getId() {
 		return id;
 	}
@@ -43,30 +31,17 @@ public class DepartamentoDto {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
 	public String getDescripcion() {
 		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	/*public Date getAlta() {
+	public Date getAlta() {
 		return alta;
 	}
 	public void setAlta(Date alta) {
 		this.alta = alta;
-	}*/
-	public Long getIdJefe() {
-		return idJefe;
-	}
-	public void setIdJefe(Long idJefe) {
-		this.idJefe = idJefe;
-	}
-	public String getJefe() {
-		return jefe;
-	}
-	public void setJefe(String jefe) {
-		this.jefe = jefe;
 	}
 	public List<Long> getSelectedTecnologias() {
 		return selectedTecnologias;
@@ -86,7 +61,5 @@ public class DepartamentoDto {
 	public void setEmpleados(List<String> empleados) {
 		this.empleados = empleados;
 	}
-	
-		
-		
 }
+

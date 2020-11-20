@@ -1,11 +1,10 @@
 package es.getronics.bom;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.*;
-
-import org.hibernate.validator.constraints.NotBlank;
-
+//esto es un ajodida prueba de git
 @Entity
 @Table(name = "EMPLEADO")
 public class Empleado implements Serializable {
@@ -18,30 +17,21 @@ public class Empleado implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	@Column(name = "NOMBRE")
-	@NotBlank
 	private String nombre;
 	@Column(name = "APELLIDO_1")
-	@NotBlank
 	private String apellido1;
 	@Column(name = "APELLIDO_2")
-	@NotBlank
 	private String apellido2;
-	
-	//@JoinColumn(name="ID_JEFE")
-
-	@OneToOne
-	private Empleado jefe;
+	@Column(name = "FECHA_ALTA")
+	private LocalDate fechaAlta;
+	@Column(name = "FECHA_MODIFICACION")
+	private LocalDate fechaModificacion;
+	@Column(name = "FECHA_BAJA")
+	private LocalDate fechaBaja;
 	
 	@ManyToOne
 	private Departamento departamento;
 
-	
-	public Empleado getJefe() {
-		return jefe;
-	}
-	public void setJefe(Empleado jefe) {
-		this.jefe = jefe;
-	}
 	public Long getId() {
 		return id;
 	}
@@ -73,7 +63,26 @@ public class Empleado implements Serializable {
 		this.departamento = departamento;
 	}
 	
-	/*@Override
+	public LocalDate getFechaAlta() {
+		return fechaAlta;
+	}
+	public void setFechaAlta(LocalDate fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+	
+	public LocalDate getFechaModificacion() {
+		return fechaModificacion;
+	}
+	public void setFechaModificacion(LocalDate fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+	public LocalDate getFechaBaja() {
+		return fechaBaja;
+	}
+	public void setFechaBaja(LocalDate fechaBaja) {
+		this.fechaBaja = fechaBaja;
+	}
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -85,7 +94,7 @@ public class Empleado implements Serializable {
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
-	 
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -116,5 +125,5 @@ public class Empleado implements Serializable {
 		} else if (!nombre.equals(other.nombre))
 			return false;
 		return true;
-	}*/
+	}
 }

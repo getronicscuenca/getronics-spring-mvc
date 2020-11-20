@@ -6,10 +6,10 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,10 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.base.dao.exception.GetronicsDaoException;
 import es.getronics.dto.DepartamentoDto;
-import es.getronics.exceptions.ExcepcionDepartamento;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.TecnologiaService;
-//import es.getronics.validators.DepartamentoValidator;
+import es.getronics.validators.DepartamentoValidator;
 
 @RequestMapping("departamento")
 @Controller
@@ -43,9 +42,8 @@ public class DepartamentoController {
 	private DepartamentoService departamentoService;
 	@Autowired
 	private TecnologiaService tecnologiaService;
-	
-	/*@Autowired
-	private DepartamentoValidator departamentoValidator;*/
+	@Autowired
+	private DepartamentoValidator departamentoValidator;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listarDepartamentos(Model model) {
@@ -72,39 +70,37 @@ public class DepartamentoController {
 
 	@RequestMapping(value = "update/{id}", method = RequestMethod.GET)
 	public String showUpdateDepartamento(@PathVariable Long id, Model model) {
-		model.addAttribute(MODEL_OBJECT, departamentoService.findById(id));
+		DepartamentoDto departamento = departamentoService.findById(id);
+		if(departamento != null) {
+			model.addAttribute(MODEL_OBJECT, departamentoService.findById(id));
+		} else {
+			return REDIRECT_TO_DEPARTAMENTO;
+		}
+		
 		return departamentoViewPage(model);
 
 	}
 	
 	@RequestMapping(value = "new", method = RequestMethod.POST)
-	public String insertarDepartamento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento,
+	public String insertarDepartmento(@ModelAttribute(MODEL_OBJECT) @Valid DepartamentoDto departamento,
 			BindingResult bindingResult, Model model) {
-				
-		if (bindingResult.hasErrors()) { 
-			List<ObjectError> listaErrores = bindingResult.getAllErrors();
-			String mensajeError="";
-			for(ObjectError error:listaErrores) {
-				mensajeError=mensajeError+"<br/>"+error.getCode();
-			}
-			model.addAttribute("mensaje", mensajeError);
-			return "departamento.error";
+		Date fecha = new Date();
+		if (bindingResult.hasErrors()) {
+			return departamentoViewPage(model);
 		}
-
-		if (departamento.getId() != null) {
-			departamentoService.update(departamento);
-		} else {
-			try {
-			departamentoService.insert(departamento);
+		try {
+			if (departamento.getId() != null) {
+				departamentoService.update(departamento);
+			} else {
+				departamento.setAlta(fecha);
+				departamentoService.insert(departamento);
 			}
-			catch(ExcepcionDepartamento excepcion) {
-				String mensaje= excepcion.getMessage();
-				model.addAttribute("mensaje", mensaje);
-				return "departamento.error";
-			}
+		} catch(GetronicsDaoException ex) {
+			bindingResult.reject(ex.getMessage());
+			return departamentoViewPage(model);
+		}
 		
-		}
-		return "redirect:/departamento";
+		return REDIRECT_TO_DEPARTAMENTO;
 	}
 
 	@RequestMapping(value = "ver/{id}", method = RequestMethod.GET)
@@ -112,19 +108,14 @@ public class DepartamentoController {
 		model.addAttribute(MODEL_OBJECT, departamentoService.findById(id));
 		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
 	}
+
 	
 
 	@RequestMapping("delete/{id}")
-	public String eliminarDepartamento(@PathVariable Long id, Model model) {
-		try {
+	public String eliminarDepartamento(@PathVariable long id, Model model) {
 		departamentoService.remove(id);
-		}
-		catch(ExcepcionDepartamento excepcion) {
-			String mensaje= excepcion.getMessage();
-			model.addAttribute("mensaje", mensaje);
-			return "departamento.error";
-		}
-		return "redirect:/departamento";
+		return REDIRECT_TO_DEPARTAMENTO;
+
 	}
 
 	@RequestMapping(value = "alta/{id}", method = RequestMethod.POST)
@@ -133,11 +124,11 @@ public class DepartamentoController {
 		return new ModelAndView(DEPARTAMENTO_ALTA, model.asMap());
 	}
 
-	/*@InitBinder(MODEL_OBJECT)
+	@InitBinder(MODEL_OBJECT)
 	public void initBinder(WebDataBinder binder) {
 		binder.setValidator(departamentoValidator);
 	}
-	*/
+
 	@ModelAttribute(MODEL_OBJECT)
 	public DepartamentoDto createDepartamentoDtoModel() {
 		return new DepartamentoDto();

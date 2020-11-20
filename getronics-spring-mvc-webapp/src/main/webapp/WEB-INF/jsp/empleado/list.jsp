@@ -9,6 +9,9 @@
 			<th scope="col"><spring:message code="empleado.apellido1"></spring:message></th>
 			<th scope="col"><spring:message code="empleado.apellido2"></spring:message></th>
 			<th scope="col"><spring:message code="empleado.departamento"></spring:message></th>
+			<th scope="col"><spring:message code="empleado.fechaAlta"></spring:message></th>
+			<th scope="col"><spring:message code="empleado.fechaModificacion"></spring:message></th>
+			<th scope="col"><spring:message code="empleado.fechaBaja"></spring:message></th>
 			<th scope="col"><spring:message code="empleado.activo"></spring:message></th>
 			<th scope="col"><spring:message code="empleado.options"></spring:message></th>
 		</thead>
@@ -21,6 +24,9 @@
 					<td>${empleado.apellido1}</td>
 					<td>${empleado.apellido2}</td>
 					<td>${empleado.departamento}</td>
+					<td><fmt:formatDate pattern="dd/MM/yyyy" value="${empleado.fechaAlta}" /></td>
+					<td><fmt:formatDate pattern="dd/MM/yyyy" value="${empleado.fechaModificacion}" /></td>
+					<td><fmt:formatDate pattern="dd/MM/yyyy" value="${empleado.fechaBaja}" /></td>
 					<td>
 					<c:if test="${empleado.activo}"><span class="material-icons text-success">check_circle_outline</span></c:if>
 					<c:if test="${! empleado.activo}"><span class="material-icons text-danger">highlight_off</span></c:if>

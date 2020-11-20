@@ -8,7 +8,6 @@
 		<th scope="col"><spring:message code="departamento.code"></spring:message></th>
 		<th scope="col"><spring:message code="departamento.nombre"></spring:message></th>
 		<th scope="col"><spring:message code="departamento.tecnologia"></spring:message></th>
-		<th scope="col"><spring:message code="departamento.empleados"></spring:message></th>
 		<th scope="col"><spring:message code="departamento.options"></spring:message></th>
 	</thead>
 	<tbody>
@@ -19,11 +18,6 @@
 				<td>
 				<c:forEach items="${ departamento.tecnologias }" var="tecnologia" varStatus="status" >
 					${ tecnologia }<c:if test="${ not status.last }">, </c:if>
-				</c:forEach>
-				</td>
-				<td>
-				<c:forEach items="${ departamento.empleados }" var="empleado" varStatus="status" >
-					${ empleado }<c:if test="${ not status.last }">, </c:if>
 				</c:forEach>
 				</td>
 				<td><a
