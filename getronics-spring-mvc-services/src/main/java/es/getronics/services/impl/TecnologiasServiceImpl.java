@@ -10,6 +10,7 @@ import es.getronics.bom.Tecnologias;
 import es.getronics.converter.Converter;
 import es.getronics.dao.TecnologiasDao;
 import es.getronics.dto.TecnologiasDto;
+import es.getronics.exceptions.TecnologiasException;
 import es.getronics.services.TecnologiasService;
 
 @Service("tecnologiasService")
@@ -80,5 +81,17 @@ public class TecnologiasServiceImpl implements TecnologiasService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void validarTecnologias(TecnologiasDto tecnologias) throws TecnologiasException {
+		if(tecnologiasDao.findByName(tecnologias.getNombre()).isEmpty()) {
+			insert(tecnologias);
+		}else {
+			throw new TecnologiasException("La tecnologia '" + tecnologias.getNombre() + "' ya existe.");
+		}
+		
+	}
+	
+	
 
 }

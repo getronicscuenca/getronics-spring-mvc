@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.dto.TecnologiasDto;
+import es.getronics.exceptions.TecnologiasException;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.TecnologiasService;
 import es.getronics.validators.TecnologiasValidator;
@@ -28,6 +30,7 @@ public class TecnologiasController {
 	private final String LIST_VIEW = "tecnologias.list";
 	private final String TECNOLOGIAS_VIEW = "tecnologias.tecnologias";
 	private final String TECNOLOGIAS_DETALLE = "tecnologias.detalle";
+	private final String ERROR_VIEW="tecnologias.error";
 
 	@Autowired
 	private TecnologiasService tecnologiasService;
@@ -68,7 +71,7 @@ public class TecnologiasController {
 
 	@RequestMapping(value = "new", method = RequestMethod.POST)
 	public String insertarTecnologia(@ModelAttribute("tecnologias") @Valid TecnologiasDto tecnologias,
-			BindingResult bindingResult, Model model) {
+			BindingResult bindingResult, Model model) throws TecnologiasException {
 
 		if (bindingResult.hasErrors()) {
 			return TECNOLOGIAS_VIEW;
@@ -77,7 +80,7 @@ public class TecnologiasController {
 		if (tecnologias.getId() != null) {
 			tecnologiasService.update(tecnologias);
 		} else {
-			tecnologiasService.insert(tecnologias);
+			tecnologiasService.validarTecnologias(tecnologias);
 
 		}
 		return "redirect:/tecnologias";
@@ -87,6 +90,13 @@ public class TecnologiasController {
 	public String eliminarTecnologia(@PathVariable Long id, Model model) {
 		tecnologiasService.remove(id);
 		return "redirect:/tecnologias";
+	}
+	
+	@ExceptionHandler(TecnologiasException.class)
+	public ModelAndView tecnologiasException(TecnologiasException ex) {
+		ModelAndView model = new ModelAndView(ERROR_VIEW);
+		model.addObject("problema", ex.getMessage());
+		return model;
 	}
 
 	@InitBinder

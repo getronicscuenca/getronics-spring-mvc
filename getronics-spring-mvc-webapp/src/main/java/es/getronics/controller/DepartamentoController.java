@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.dto.DepartamentoDto;
-import es.getronics.exceptions.DepartamentoExistenteException;
+import es.getronics.exceptions.DepartamentoException;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
 import es.getronics.services.TecnologiasService;
@@ -82,7 +82,7 @@ public class DepartamentoController {
 
 	@RequestMapping(value = "new", method = RequestMethod.POST)
 	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento,
-			BindingResult bindingResult, Model model) throws DepartamentoExistenteException {
+			BindingResult bindingResult, Model model) throws DepartamentoException {
 		if (bindingResult.hasErrors()) {
 			return "departamento.departamento";
 		}
@@ -140,8 +140,8 @@ public class DepartamentoController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
 
-	@ExceptionHandler(DepartamentoExistenteException.class)
-	public ModelAndView handleException(DepartamentoExistenteException ex) {
+	@ExceptionHandler(DepartamentoException.class)
+	public ModelAndView handleException(DepartamentoException ex) {
 		ModelAndView model = new ModelAndView(ERROR_VIEW);
 		model.addObject("problema", ex.getMessage());
 		return model;

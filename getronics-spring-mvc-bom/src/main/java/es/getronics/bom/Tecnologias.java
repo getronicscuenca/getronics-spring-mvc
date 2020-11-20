@@ -5,6 +5,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name = "TECNOLOGIAS")
 public class Tecnologias {
@@ -14,9 +17,11 @@ public class Tecnologias {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Length(min=1,max=50) @NotBlank
 	@Column(name = "NOMBRE")
 	private String nombre;
 
+	@Length(max=100) @NotBlank
 	@Column(name = "DESCRIPCION")
 	private String descripcion;
 

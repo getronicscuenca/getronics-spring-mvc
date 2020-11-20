@@ -17,7 +17,7 @@ import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.TecnologiasDto;
-import es.getronics.exceptions.DepartamentoExistenteException;
+import es.getronics.exceptions.DepartamentoException;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
 
@@ -140,7 +140,7 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	}
 
 	@Override
-	public void validarDepartamento(DepartamentoDto departamento) throws DepartamentoExistenteException {
+	public void validarDepartamento(DepartamentoDto departamento) throws DepartamentoException {
 
 		if (primerDepartamento(departamento) == true) {
 			departamento.setAlta(new Date());
@@ -154,10 +154,10 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 			insert(departamento);
 		} else {
 			if (findByName(departamento).isEmpty() == false) {
-				throw new DepartamentoExistenteException(
+				throw new DepartamentoException(
 						"El departamento " + "'" + departamento.getNombre() + "'" + " ya existe.");
 			} else if (empleadoAsignado(departamento) == true) {
-				throw new DepartamentoExistenteException(
+				throw new DepartamentoException(
 						"El empleado " + "'" + empleadoService.findById(departamento.getIdEmpleado()).getNombre() + "'"
 								+ " ya tiene un departamento asignado.");
 			}

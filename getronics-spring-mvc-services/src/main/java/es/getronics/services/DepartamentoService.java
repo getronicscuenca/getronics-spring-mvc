@@ -7,7 +7,7 @@ import es.getronics.bom.Departamento;
 import es.getronics.bom.Tecnologias;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.TecnologiasDto;
-import es.getronics.exceptions.DepartamentoExistenteException;
+import es.getronics.exceptions.DepartamentoException;
 
 public interface DepartamentoService extends GenericService<DepartamentoDto, Departamento, Long> {
 
@@ -17,7 +17,7 @@ public interface DepartamentoService extends GenericService<DepartamentoDto, Dep
 
 	List<DepartamentoDto> findByName(DepartamentoDto dto);
 
-	void validarDepartamento(DepartamentoDto departamento) throws DepartamentoExistenteException;
+	void validarDepartamento(DepartamentoDto departamento) throws DepartamentoException;
 
 	List<TecnologiasDto> recogerTecnologiasRelacionadas(Long id);
 	
