@@ -6,27 +6,33 @@
 		<artifactId>getronics-spring-mvc</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>getronics-spring-mvc-webapp</artifactId>
 	<packaging>war</packaging>
-	
+
 	<name>Curso Spring Web MVC</name>
 	<url>http://maven.apache.org</url>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>es.getronics</groupId>
 			<artifactId>getronics-spring-mvc-services</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>es.getronics</groupId>
+			<artifactId>getronics-spring-security</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<!-- SPRING MVC -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-webmvc</artifactId>
-		    <version>${spring.version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
 		</dependency>
-
+		
 		<!-- JSTL -->
 		<dependency>
 			<groupId>jstl</groupId>
@@ -38,7 +44,7 @@
 			<artifactId>tiles-extras</artifactId>
 			<version>2.2.2</version>
 		</dependency>
-		
+
 		<!-- Servlet API -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -46,7 +52,7 @@
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 	</dependencies>
 
 	<build>
