@@ -13,19 +13,18 @@ import es.getronics.bom.User;
 import es.getronics.dao.UserDao;
 
 @Repository("userDao")
-public class UserDaoImpl extends GenericDaoImpl <User,Long> implements UserDao{
+public class UserDaoImpl extends GenericDaoImpl<User, Long> implements UserDao {
 
 	@Autowired
 	protected UserDaoImpl(SessionFactory sessionFactory) {
 		super(sessionFactory);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public User findByName(String username) {
-		DetachedCriteria criteria= createCriteria();
+		DetachedCriteria criteria = createCriteria();
 		criteria.add(Restrictions.like("username", username));
-		List<User> found= findByCriteria(criteria);
+		List<User> found = findByCriteria(criteria);
 		return !found.isEmpty() ? found.get(0) : null;
 	}
 

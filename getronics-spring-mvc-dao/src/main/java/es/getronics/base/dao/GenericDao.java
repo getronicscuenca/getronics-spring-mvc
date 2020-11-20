@@ -33,6 +33,14 @@ public interface GenericDao<T, ID extends Serializable> {
     List<T> findAll();
     
     /**
+     * Devolver una lista de todos los objetos de tipo T
+     * en el BBDD. 
+     * 
+     * @return una lista de objetos de tipo T.  
+     */
+    List<T> findByCriteria(DetachedCriteria criteria);
+    
+    /**
      * Devolver una lista ordenada de todos los objetos de tipo T
      * en el BBDD. 
      * 
@@ -102,12 +110,7 @@ public interface GenericDao<T, ID extends Serializable> {
 	/**
 	 * Do rollback.
 	 */
-	
 	public void doRollback();
 	
-	List<T> findByCriteria(DetachedCriteria criteria);
-	
 	DetachedCriteria createCriteria();
-	
-	
 }

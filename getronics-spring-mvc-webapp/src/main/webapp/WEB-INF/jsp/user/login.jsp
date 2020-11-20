@@ -15,13 +15,15 @@
 
 						<div class="form-group col-md-11">
 							<label for="j_username"><spring:message
-									code="login.username"></spring:message></label> <input type="text"
-								class="form-control" id="j_username" name="j_username" />
+									code="login.username"></spring:message></label> 
+							<input type="text" class="form-control"
+								id="j_username" name="j_username" />
 						</div>
 						<div class="form-group col-md-11">
 							<label for="j_password"><spring:message
-									code="login.password"></spring:message></label> <input type="password"
-								class="form-control" id="j_password" name="j_password" />
+									code="login.password"></spring:message></label> 
+							<input type="password" class="form-control"
+								id="j_password" name="j_password" />
 						</div>
 
 						<div class="form-group col-md-11">

@@ -28,5 +28,4 @@ public class DepartamentoDaoImpl extends GenericDaoImpl<Departamento, Long> impl
 		criteria.add(Restrictions.like("nombre", name));
 		return findByCriteria(criteria);
 	}
-
 }

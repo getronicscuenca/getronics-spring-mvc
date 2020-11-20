@@ -20,7 +20,6 @@
 			<artifactId>getronics-spring-mvc-services</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>es.getronics</groupId>
 			<artifactId>getronics-spring-security</artifactId>

@@ -14,9 +14,7 @@
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
 
-<link
-	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Roboto+Mono:400,500|Material+Icons"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Roboto+Mono:400,500|Material+Icons" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/css/getronics.css"/>" />
@@ -29,7 +27,7 @@
 		<div class="row justify-content-center align-items-center mt-5">
 			<div class="col-6">
 				<tiles:insertAttribute name="header" />
-			</div>
+			</div> 
 		</div>
 		<div id="content">
 			<tiles:insertAttribute name="body" />
@@ -48,5 +46,5 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
 	crossorigin="anonymous"></script>
-
+	
 </html>

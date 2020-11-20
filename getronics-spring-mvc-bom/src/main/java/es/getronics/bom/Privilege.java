@@ -14,13 +14,13 @@ import javax.persistence.Table;
 public class Privilege {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
 	private String name;
 
-	// bi-directional many-to-many association to Role
-	@ManyToMany(mappedBy = "privileges")
+	//bi-directional many-to-many association to Role
+	@ManyToMany(mappedBy="privileges")
 	private List<Role> roles;
 
 	public Integer getId() {

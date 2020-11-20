@@ -16,14 +16,18 @@ import javax.persistence.Table;
 public class Role {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
 	private String name;
 
-	// bi-directional many-to-many association to Privilege
+	//bi-directional many-to-many association to Privilege
 	@ManyToMany
-	@JoinTable(name = "roles_privileges", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "privilege_id"))
+	@JoinTable(
+		name="roles_privileges", 
+		joinColumns= @JoinColumn(name="role_id") , 
+		inverseJoinColumns= @JoinColumn(name="privilege_id")
+		)
 	private List<Privilege> privileges;
 
 	public Integer getId() {
