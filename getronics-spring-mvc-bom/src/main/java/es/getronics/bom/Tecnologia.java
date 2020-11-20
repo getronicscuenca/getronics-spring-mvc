@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-@Entity
+@Entity 
 @Table(name = "TECNOLOGIA")
 public class Tecnologia implements Serializable {
 

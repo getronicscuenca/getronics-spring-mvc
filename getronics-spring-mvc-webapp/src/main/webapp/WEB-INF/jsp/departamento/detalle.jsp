@@ -2,18 +2,53 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<h1>${ departamento.nombre }</h1>
-
-<spring:url value="/departamento/alta/${ departamento.id }" var="url2"></spring:url>
-<p>fecha de creacion: ${ departamento.alta }
-	<form:form action="${ url2 }" >
-		<button type="submit">editar fecha</button>
-	</form:form>
-</p>
-
-
-
-<p>${ departamento.desc }</p>
-
-<spring:url value="/departamento" var="url"></spring:url>
-<a href="${ url }">Volver a departamentos</a>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>MostrarDepartamentos</title>
+<style>
+	table{
+		background-color:lightblue;
+	}
+	th{
+		background-color:lightgreen;
+	}
+</style>
+</head>
+<body>
+	<h2>Mostrando Departamentos...</h2>
+	<!--  ${mosList} -->
+	
+	<table border="1">
+            <tr>
+                <th style="width:  250px;">Nombre</th>
+                <th style="width: 250px;">Descripcion</th>
+                <th style="width:  250px;">Tecnologias</th>
+                <th style="width: 250px;">Empleados</th>
+                
+            </tr>
+            
+            <c:forEach var="departamento" 
+                       items="${departamentos}"
+                       varStatus="status">
+                <tr>
+                    <td>${departamento.nombre}</td>
+                    <td>${departamento.descripcion}</td>
+                    <td>
+						<c:forEach items="${ departamento.tecnologias }" var="tecnologia" varStatus="status" >
+						${ tecnologia }<c:if test="${ not status.last }">, </c:if>
+						</c:forEach>
+					</td>
+					<td>
+						<c:forEach items="${ departamento.empleados }" var="empleado" varStatus="status" >
+						${ empleado }<c:if test="${ not status.last }">, </c:if>
+						</c:forEach>
+					</td>
+				</tr>
+            </c:forEach>
+        </table>
+	
+	<a href="/getronics-spring-mvc-webapp/departamento">Volver</a>
+</body>
+</html>
