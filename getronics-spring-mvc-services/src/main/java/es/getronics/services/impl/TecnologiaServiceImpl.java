@@ -5,6 +5,7 @@ package es.getronics.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import es.getronics.base.dao.exception.GetronicsDaoException;
 import es.getronics.bom.Tecnologia;
 import es.getronics.converter.Converter;
 import es.getronics.dao.TecnologiaDao;
+import es.getronics.dto.DepartamentoDto;
+import es.getronics.dto.EmpleadoDto;
 import es.getronics.dto.KeyValueItem;
 import es.getronics.dto.TecnologiaDto;
 import es.getronics.services.TecnologiaService;
@@ -104,5 +107,54 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 		}
 		return items;
 	}
+
+	@Override
+	public List<DepartamentoDto> T3findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateT3(DepartamentoDto entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public DepartamentoDto insertT3(DepartamentoDto entity) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<Long> convertToListId(Set<TecnologiaDto> source) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<TecnologiaDto> mapToListId(Set<Long> dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TecnologiaDto nuevoEmpleDepartamento(DepartamentoDto entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TecnologiaDto eliminarEmpleDepartamento(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TecnologiaDto nuevaTecnoDepartamento(EmpleadoDto entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 }

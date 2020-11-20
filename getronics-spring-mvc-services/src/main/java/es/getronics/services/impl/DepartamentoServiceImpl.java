@@ -2,6 +2,7 @@ package es.getronics.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import es.getronics.bom.Departamento;
 import es.getronics.converter.Converter;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dto.DepartamentoDto;
+import es.getronics.dto.EmpleadoDto;
+import es.getronics.dto.TecnologiaDto;
 import es.getronics.services.DepartamentoService;
 
 
@@ -90,5 +93,54 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	public List<DepartamentoDto> findByExample(DepartamentoDto example) {
 		throw new NotYetImplementedException("metodo no implementado todavia");
 	}
+
+	@Override
+	public List<EmpleadoDto> T3findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateT3(EmpleadoDto entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public EmpleadoDto insertT3(EmpleadoDto entity) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<Long> convertToListId(Set<DepartamentoDto> source) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<DepartamentoDto> mapToListId(Set<Long> dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DepartamentoDto nuevoEmpleDepartamento(EmpleadoDto entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DepartamentoDto eliminarEmpleDepartamento(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DepartamentoDto nuevaTecnoDepartamento(TecnologiaDto entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 }

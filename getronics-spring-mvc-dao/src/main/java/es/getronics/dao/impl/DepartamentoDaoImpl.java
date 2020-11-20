@@ -28,11 +28,4 @@ public class DepartamentoDaoImpl extends GenericDaoImpl<Departamento, Long> impl
 		criteria.add(Restrictions.like("nombre", name));
 		return findByCriteria(criteria);
 	}
-
-	@Override
-	public List<Departamento> findByName(String name) {
-		DetachedCriteria criteria = createCriteria();
-		criteria.add(Restrictions.like("nombre", name));
-		return findByCriteria(criteria);
-	}
 }
