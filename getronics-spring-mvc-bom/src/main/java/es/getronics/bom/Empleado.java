@@ -1,6 +1,7 @@
 package es.getronics.bom;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.*;
 
@@ -27,70 +28,68 @@ public class Empleado implements Serializable {
 	@Length(min=1)@NotBlank
 	@Column(name = "APELLIDO_2")
 	private String apellido2;
+	@Column(name = "FECHA_ALTA")
+	private LocalDate fechaAlta;
+	@Column(name = "FECHA_MODIFICACION")
+	private LocalDate fechaModificacion;
+	@Column(name = "FECHA_BAJA")
+	private LocalDate fechaBaja;
 	
 	
 	
 	@ManyToOne
 	private Departamento departamento;
-	/**
-	 * @return the id
-	 */
+
 	public Long getId() {
 		return id;
 	}
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
-	/**
-	 * @return the nombre
-	 */
 	public String getNombre() {
 		return nombre;
 	}
-	/**
-	 * @param nombre the nombre to set
-	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	/**
-	 * @return the apellido1
-	 */
 	public String getApellido1() {
 		return apellido1;
 	}
-	/**
-	 * @param apellido1 the apellido1 to set
-	 */
 	public void setApellido1(String apellido1) {
 		this.apellido1 = apellido1;
 	}
-	/**
-	 * @return the apellido2
-	 */
 	public String getApellido2() {
 		return apellido2;
 	}
-	/**
-	 * @param apellido2 the apellido2 to set
-	 */
 	public void setApellido2(String apellido2) {
 		this.apellido2 = apellido2;
 	}
-	
-	
 	public Departamento getDepartamento() {
 		return departamento;
 	}
 	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
+	
+	public LocalDate getFechaAlta() {
+		return fechaAlta;
+	}
+	public void setFechaAlta(LocalDate fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+	
+	public LocalDate getFechaModificacion() {
+		return fechaModificacion;
+	}
+	public void setFechaModificacion(LocalDate fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+	public LocalDate getFechaBaja() {
+		return fechaBaja;
+	}
+	public void setFechaBaja(LocalDate fechaBaja) {
+		this.fechaBaja = fechaBaja;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
