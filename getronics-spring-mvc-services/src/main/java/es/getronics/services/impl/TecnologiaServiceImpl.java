@@ -13,6 +13,7 @@ import es.getronics.base.exceptions.TecnologiaExisteException;
 import es.getronics.bom.Tecnologia;
 import es.getronics.converter.Converter;
 import es.getronics.dao.TecnologiaDao;
+import es.getronics.dto.KeyValueItem;
 import es.getronics.dto.TecnologiaDto;
 import es.getronics.services.TecnologiaService;
 
@@ -24,8 +25,7 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 	private TecnologiaDao tecnologiaDao;
 	@Autowired
 	private Converter<Tecnologia,TecnologiaDto> tecnologiaConverter;
-	@Autowired
-	private ModelMapper modelMapper;
+	
 	
 	public TecnologiaServiceImpl() {
 		super();
@@ -35,7 +35,7 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 	@Override
 	public TecnologiaDto findById(Long id) {
 		Tecnologia entity = tecnologiaDao.findById(id);
-		return modelMapper.map(entity, TecnologiaDto.class);
+		return entity != null ? tecnologiaConverter.convert(entity) : null;
 	}
 		
 
@@ -57,7 +57,7 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 
 	@Override
 	public void update(TecnologiaDto dto) {
-		Tecnologia entity = modelMapper.map(dto, Tecnologia.class);
+		Tecnologia entity = tecnologiaConverter.map(dto);
 		tecnologiaDao.update(entity);
 		
 	}
@@ -70,7 +70,7 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 
 	@Override
 	public TecnologiaDto insert(TecnologiaDto dto) {
-		Tecnologia entity =  modelMapper.map(dto, Tecnologia.class);
+		Tecnologia entity =  tecnologiaConverter.map(dto);
 		tecnologiaDao.insert(entity);
 		return dto;
 		
@@ -109,6 +109,17 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 	@Override
 	public List<TecnologiaDto> findByCriteria(DetachedCriteria criteria) {
 		throw new NotYetImplementedException("Metodo no implementado todavia");
+	}
+
+
+	@Override
+	public List<KeyValueItem> findAllAsItems() {
+		List<Tecnologia> tecnologias = tecnologiaDao.findAll();
+		List<KeyValueItem> items = new ArrayList<KeyValueItem>();
+		for (Tecnologia tecnologia : tecnologias) {
+			items.add(tecnologiaConverter.mapToKeyValue(tecnologia));
+		}
+		return items;
 	}
 
 	

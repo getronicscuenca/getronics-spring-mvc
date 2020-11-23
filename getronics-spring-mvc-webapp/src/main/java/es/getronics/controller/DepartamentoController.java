@@ -45,13 +45,13 @@ public class DepartamentoController {
 	private final String DEPARTAMENTO_VIEW = "departamento.departamento";
 	private final String DEPARTAMENTO_DETALLE = "departamento.detalle";
 	private final String DEPARTAMENTO_ALTA = "departamento.alta";
+	private final String REDIRECT_TO_DEPARTAMENTO = "redirect:/departamento";
 
 	@Autowired
 	private TecnologiaService tecnologiaService;
 	@Autowired
 	private DepartamentoService departamentoService;
-	@Autowired
-	private EmpleadoService empleadoService;
+	
 	@Autowired
 	private DepartamentoValidator departamentoValidator;
 	@Autowired 
@@ -66,27 +66,26 @@ public class DepartamentoController {
 		return new ModelAndView(LIST_VIEW, model.asMap());
 
 	}
+	private String departamentoViewPage(Model model) {
+		model.addAttribute("tecnologias", tecnologiaService.findAllAsItems());
+		return DEPARTAMENTO_VIEW;
+	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView showNewPage(Model model) {
-		model.addAttribute("departamento", new DepartamentoDto());
-		model.addAttribute("tecnologias", tecnologiaService.findAll());
-		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
+	public String showNewPage(Model model) {
+		return departamentoViewPage(model);
 	}
 
 	@RequestMapping(value = "update/{id}", method = RequestMethod.GET)
-	public ModelAndView showUpdateDepartamento(@PathVariable Long id, Model model) {
+	public String showUpdateDepartamento(@PathVariable Long id, Model model) {
 		model.addAttribute("departamento", departamentoService.findById(id));
-		model.addAttribute("tecnologias", tecnologiaService.findAll());
-		return new ModelAndView(DEPARTAMENTO_VIEW, model.asMap());
-
+//		model.addAttribute("tecnologias", tecnologiaService.findAll());
+		return departamentoViewPage(model);
 	}
 
 	@RequestMapping(value = "ver/{id}", method = RequestMethod.GET)
 	public ModelAndView showDepartamento(@PathVariable Long id, Model model) {
-		DepartamentoDto dpt = departamentoService.findById(id);
-		dpt.setEmpleados(empleadoService.findAll(id));
-		model.addAttribute("departamento", dpt);
+		model.addAttribute("departamento", departamentoService.findById(id));
 		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
 
 	}
@@ -160,18 +159,18 @@ public class DepartamentoController {
 		DepartamentoDto departamento= departamentoService.findById(did);
 		TecnologiaDto tecnologia = tecnologiaService.findById(tid);
 		//borramos la tecnologia y update
-		List<TecnologiaDto> tecnologias=departamento.getTecnologias();
-		tecnologias.remove(tecnologia);
-		departamento.setTecnologias(tecnologias);
+		List<Long> tecnologias=departamento.getSelectedTecnologias();
+		tecnologias.remove(tecnologia.getId());
+		departamento.setSelectedTecnologias(tecnologias);
 		departamentoService.update(departamento);
 		//borramos el departamento y uddate
-		List<DepartamentoDto> departamentos = tecnologia.getDepartamentos();
-		departamentos.remove(departamento);
-		tecnologia.setDepartamentos(departamentos);
+//		List<Long> departamentos = tecnologia.ge();
+//		departamentos.remove(departamento);
+//		tecnologia.setDepartamentos(departamentos);
 		tecnologiaService.update(tecnologia);
 		
 		
-        departamento.setEmpleados(empleadoService.findAll(did));
+       
 		model.addAttribute("departamento", departamento);
 		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
 		
@@ -184,7 +183,6 @@ public class DepartamentoController {
 
 		departamentoService.link(did, eid);
 		DepartamentoDto dpt = departamentoService.findById(did);
-		dpt.setEmpleados(empleadoService.findAll(did));
 		model.addAttribute("departamento", dpt);
 		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
 

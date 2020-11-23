@@ -1,6 +1,5 @@
 package es.getronics.dao.impl;
 
-
 import java.util.HashSet;
 import java.util.Set;
 import org.hibernate.SessionFactory;
@@ -13,41 +12,40 @@ import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.TecnologiaDao;
 
 @Repository("tecnologiaDao")
-public class TecnologiaDaoImpl extends GenericDaoImpl<Tecnologia, Long> implements TecnologiaDao{
-	
+public class TecnologiaDaoImpl extends GenericDaoImpl<Tecnologia, Long> implements TecnologiaDao {
+
 	@Autowired
 	DepartamentoDao departamentoDao;
-	
+
 	@Autowired
 	protected TecnologiaDaoImpl(SessionFactory sessionFactory) {
 		super(sessionFactory);
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-	public void remove(Long id)
-	{
-		//tecnologia a borrar
+	public void remove(Long id) {
+		// tecnologia a borrar
 		Tecnologia tecnologia = findById(id);
-		//lista de departamentos que usan esa tecnologia
-		Set<Departamento> Departamentos =tecnologia.getDepartamentos();
-		//recorremos cada departamento que tiene esa tecnologia
+		// lista de departamentos que usan esa tecnologia
+		Set<Departamento> Departamentos = tecnologia.getDepartamentos();
+		// borramos la lista de departamentos que tienen la tecnologia
+		tecnologia.setDepartamentos(new HashSet<Departamento>());
+		// recorremos cada departamento que tiene esa tecnologia
 		for (Departamento departamento : Departamentos) {
-			//lista de tecnologias de este departamento
-			Set<Tecnologia> tecnologias=departamento.getTecnologias();
-			//si en la lista de tecnologias esta la que vamos a borrar la eliminiamos y actualizamos el departamento
-			if(tecnologias.contains(tecnologia))
-			{
+			// lista de tecnologias de este departamento
+			Set<Tecnologia> tecnologias = departamento.getTecnologias();
+			// si en la lista de tecnologias esta la que vamos a borrar la eliminiamos y
+			// actualizamos el departamento
+			if (tecnologias.contains(tecnologia)) {
 				tecnologias.remove(tecnologia);
 				departamento.setTecnologias(tecnologias);
 				departamentoDao.update(departamento);
 			}
-			
+
 		}
-		//borramos la lista de departamentos que tienen la tecnologia
+		// borramos la lista de departamentos que tienen la tecnologia
 		tecnologia.setDepartamentos(new HashSet<Departamento>());
-		//actualizamos
+		// actualizamos
 		update(tecnologia);
 		super.remove(id);
 	}

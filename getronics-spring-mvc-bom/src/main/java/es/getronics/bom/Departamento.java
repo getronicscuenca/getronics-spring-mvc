@@ -82,11 +82,11 @@ public class Departamento implements Serializable {
 		this.alta = alta;
 	}
 
-	public String getDesc() {
+	public String getDescripcion() {
 		return descripcion;
 	}
 
-	public void setDesc(String desc) {
+	public void setDescripcion(String desc) {
 		this.descripcion = desc;
 	}
 

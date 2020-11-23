@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import es.getronics.bom.Departamento;
 import es.getronics.bom.Empleado;
@@ -20,12 +21,14 @@ import es.getronics.converter.Converter;
 import es.getronics.dao.TecnologiaDao;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.KeyValueItem;
+import es.getronics.dto.TecnologiaItem;
 
 /**
  * @author alatorre
  *
  * 
  */
+@Component("departamentoConverter")
 public class DepartamentoConverterImpl implements Converter<Departamento, DepartamentoDto> {
 
 	@Autowired
@@ -38,13 +41,15 @@ public class DepartamentoConverterImpl implements Converter<Departamento, Depart
 		result.setId(source.getId());
 		result.setNombre(source.getNombre());
 		result.setAlta(source.getAlta());
-		result.setDescripcion(source.getDesc());
+		result.setDescripcion(source.getDescripcion());
 		// Tecnologia-departamento
 		List<Long> selectedTecnologias = new ArrayList<Long>();
 		List<String> tecnologias = new ArrayList<String>();
+		List<TecnologiaItem> tecnologiaItems = new ArrayList<TecnologiaItem>();
 		for (Tecnologia tecnologia : source.getTecnologias()) {
 			selectedTecnologias.add(tecnologia.getId());
 			tecnologias.add(tecnologia.getNombre());
+			tecnologiaItems.add(new TecnologiaItem(tecnologia.getId(),tecnologia.getNombre()));
 		}
 		result.setTecnologias(tecnologias);
 		result.setSelectedTecnologias(selectedTecnologias);
@@ -67,7 +72,7 @@ public class DepartamentoConverterImpl implements Converter<Departamento, Depart
 		result.setId(source.getId());
 		result.setNombre(source.getNombre());
 		result.setAlta(source.getAlta());
-		result.setDesc(source.getDescripcion());
+		result.setDescripcion(source.getDescripcion());
 		// tecnologia-Departmento
 		Set<Tecnologia> tecnologias = new HashSet<Tecnologia>();
 		if (source.getSelectedTecnologias() != null) {

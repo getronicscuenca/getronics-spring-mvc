@@ -13,4 +13,21 @@ package es.getronics.dto;
  */
 public class TecnologiaItem extends KeyValueItem{
 
+	/**
+	 * Constructor
+	 * @param key
+	 * @param value
+	 */
+	public TecnologiaItem(Object key, Object value) {
+		super(key, value);
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * Constructor
+	 */
+	public TecnologiaItem() {
+		// TODO Auto-generated constructor stub
+	}
+
 }

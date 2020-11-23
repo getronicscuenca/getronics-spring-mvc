@@ -17,6 +17,16 @@ public class KeyValueItem {
 	private Object value;
 	
 	
+	
+	public KeyValueItem() {
+		super();
+	}
+
+	public KeyValueItem(Object key, Object value) {
+		super();
+		this.key = key;
+		this.value = value;
+	}
 	//getters and setters
 	
 	public Object getKey() {

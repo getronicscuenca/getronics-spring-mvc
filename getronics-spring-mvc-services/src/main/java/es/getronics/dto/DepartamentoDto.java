@@ -21,6 +21,7 @@ public class DepartamentoDto {
 	private Date alta;
 	private List<Long> selectedTecnologias;
 	private List<String> tecnologias;
+	private List<TecnologiaItem> tecnologiaItems;
 	private List<String> empleados;
 	private String jefe;
 	
@@ -34,7 +35,6 @@ public class DepartamentoDto {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		return result;
 	}
@@ -47,11 +47,6 @@ public class DepartamentoDto {
 		if (getClass() != obj.getClass())
 			return false;
 		DepartamentoDto other = (DepartamentoDto) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
 		if (nombre == null) {
 			if (other.nombre != null)
 				return false;
@@ -66,6 +61,12 @@ public class DepartamentoDto {
 	
 	public Long getId() {
 		return id;
+	}
+	public List<TecnologiaItem> getTecnologiaItems() {
+		return tecnologiaItems;
+	}
+	public void setTecnologiaItems(List<TecnologiaItem> tecnologiaItems) {
+		this.tecnologiaItems = tecnologiaItems;
 	}
 	public void setId(Long id) {
 		this.id = id;

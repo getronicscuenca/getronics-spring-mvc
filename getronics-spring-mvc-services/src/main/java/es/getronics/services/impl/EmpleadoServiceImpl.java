@@ -15,7 +15,6 @@ import es.getronics.bom.Empleado;
 import es.getronics.converter.Converter;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
-import es.getronics.dto.CategoriaDto;
 import es.getronics.dto.EmpleadoDto;
 import es.getronics.services.EmpleadoService;
 
@@ -30,11 +29,12 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
 	@Autowired
 	private EmpleadoDao empleadoDao;
-	
-	
+	@Autowired
+	private DepartamentoDao departamentoDao;
+
 	@Autowired
 	private Converter<Empleado, EmpleadoDto> empleadoConverter;
-		
+
 	public EmpleadoServiceImpl() {
 		super();
 	}
@@ -49,26 +49,18 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 	public List<EmpleadoDto> findAll() {
 		List<EmpleadoDto> result = new ArrayList<>();
 		List<Empleado> found = empleadoDao.findAll();
-		for(Empleado empleado: found) {
+		for (Empleado empleado : found) {
 			result.add(empleadoConverter.convert(empleado));
 		}
 		return result;
 	}
+
 	@Override
-	public List<EmpleadoDto>findAll(long id)
-	{
+	public List<EmpleadoDto> findAll(long id) {
 		List<EmpleadoDto> result = new ArrayList<>();
-		List<Empleado> todos =empleadoDao.findAll();
-		for(Empleado empleado: todos)
-		{
-			if(empleado.getDepartamento()!=null)
-			{
-				if(empleado.getDepartamento().getId()==id)
-				{
-					result.add(empleadoConverter.convert(empleado));
-				}
-			}
-			
+		List<Empleado> todos = empleadoDao.findAll();
+		for (Empleado empleado : todos) {
+			result.add(empleadoConverter.convert(empleado));
 		}
 		return result;
 	}
@@ -80,7 +72,14 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
 	@Override
 	public void update(EmpleadoDto dto) {
-		Empleado entity = empleadoConverter.map(dto);
+		Empleado entity = empleadoDao.findById(dto.getId());
+		entity.setNombre(dto.getNombre());
+		entity.setApellido1(dto.getApellido1());
+		entity.setApellido2(dto.getApellido2());
+		if(dto.getIdDepartamento() != null)
+		{
+			entity.setDepartamento(departamentoDao.findById(dto.getId()));
+		}
 		empleadoDao.update(entity);
 	}
 
@@ -93,10 +92,10 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 	public EmpleadoDto insert(EmpleadoDto dto) {
 		Empleado entity = empleadoConverter.map(dto);
 		dto = empleadoConverter.convert(empleadoDao.insert(entity));
-		
+
 		return dto;
 	}
-	
+
 	@Override
 	public void remove(Long id) {
 		empleadoDao.remove(id);
@@ -111,7 +110,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 	public List<EmpleadoDto> findByExample(EmpleadoDto example) {
 		throw new NotYetImplementedException("Método no implementado todavía");
 	}
-	
+
 	@Override
 	public List<EmpleadoDto> findByCriteria(DetachedCriteria criteria) {
 		// TODO Auto-generated method stub

@@ -48,16 +48,7 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 	@Override
 	public DepartamentoDto findById(Long id){
 		Departamento entity = departamentoDao.findById(id);
-		DepartamentoDto dto=modelMapper.map(entity, DepartamentoDto.class);
-		Set<Tecnologia> tecnologias =entity.getTecnologias();
-		List<TecnologiaDto> result = new ArrayList<TecnologiaDto>();
-		
-		for (Tecnologia tecnologia : tecnologias) {
-			result.add(tecnologiaConverter.convert(tecnologia));
-		}
-		dto.setTecnologias(result);
-		
-		return dto;
+		return departamentoConverter.convert(entity);
 		
 		
 	}
@@ -69,7 +60,7 @@ public class DepartamentoServiceImpl implements DepartamentoService{
 		List<Departamento> found= departamentoDao.findAll();
 		for(Departamento departamento: found)
 		{
-			result.add(modelMapper.map(departamento, DepartamentoDto.class));
+			result.add(departamentoConverter.convert(departamento));
 		}
 		return result;
 	}

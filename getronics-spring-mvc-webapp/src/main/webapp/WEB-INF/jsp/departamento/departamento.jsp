@@ -55,16 +55,16 @@
 						
 							<div class="form-group col-md-11">
 								<label for="descripcion"><spring:message
-									code="departamento.desc"></spring:message></label>
-								<form:errors path="desc" cssClass="error" />
-								<form:input path="desc" cssClass="form-control" />
+									code="departamento.descripcion"></spring:message></label>
+								<form:errors path="descripcion" cssClass="error" />
+								<form:input path="descripcion" cssClass="form-control" />
 							</div>
 						
 							<div class="form-group col-md-11">
 								<label><spring:message code="departamento.tecnologia"></spring:message></label>
 								<div class="custom-control custom-radio">
-									<form:checkboxes path="tecnologias" items="${tecnologias}"
-									itemLabel="nombre" itemValue="id" />
+									<form:checkboxes path="selectedTecnologias" items="${tecnologias}"
+									itemLabel="value" itemValue="key" />
 								</div>
 							</div>
 							<div class="form-group col-md-11">

@@ -13,4 +13,14 @@ package es.getronics.dto;
  */
 public class DepartamentoItem extends KeyValueItem {
 
+	/**
+	 * Constructor
+	 * @param key
+	 * @param value
+	 */
+	public DepartamentoItem(Object key, Object value) {
+		super(key, value);
+		// TODO Auto-generated constructor stub
+	}
+
 }

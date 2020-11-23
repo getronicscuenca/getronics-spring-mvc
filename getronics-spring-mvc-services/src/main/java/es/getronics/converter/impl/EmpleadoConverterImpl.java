@@ -11,6 +11,8 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
 import es.getronics.bom.Empleado;
 import es.getronics.converter.Converter;
 import es.getronics.dto.EmpleadoDto;
@@ -21,6 +23,7 @@ import es.getronics.dto.KeyValueItem;
  *
  * 
  */
+@Component("empleadoConverter")
 public class EmpleadoConverterImpl implements Converter<Empleado, EmpleadoDto> {
 
 	@Override
