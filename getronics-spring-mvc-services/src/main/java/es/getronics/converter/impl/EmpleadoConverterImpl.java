@@ -1,13 +1,14 @@
 /**
  * 
  */
-package es.getronics.converter;
+package es.getronics.converter.impl;
 
 import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import es.getronics.bom.Empleado;
+import es.getronics.converter.Converter;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dto.EmpleadoDto;
 
@@ -17,8 +18,8 @@ import es.getronics.dto.EmpleadoDto;
  * @author jgarcia
  *
  */
-@Component
-public class EmpleadoConverter implements Converter<Empleado, EmpleadoDto> {
+@Component("empleadoConverter")
+public class EmpleadoConverterImpl implements Converter<Empleado, EmpleadoDto> {
 
 	@Autowired
 	private DepartamentoDao departamentoDao;

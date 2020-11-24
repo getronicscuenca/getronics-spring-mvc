@@ -8,6 +8,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -112,8 +114,8 @@ public class DepartamentoController {
 	@RequestMapping(value = "alta/{id}", method = RequestMethod.POST)
 	public ModelAndView editarFecha(@PathVariable Long id, Model model) {
 		model.addAttribute("departamento", departamentoService.findById(id));
-		return new ModelAndView(DEPARTAMENTO_ALTA, model.asMap());
-	}
+		return new ModelAndView(DEPARTAMENTO_ALTA, model.asMap());		
+		}
 
 	@RequestMapping(value = "borrarTecnologia/{idTecnologia}/{idDepartamento}", method = RequestMethod.POST)
 	public String borrarTecnologia(@PathVariable Long idTecnologia, @PathVariable Long idDepartamento, Model model) {

@@ -1,4 +1,4 @@
-package es.getronics.converter;
+package es.getronics.converter.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +9,12 @@ import org.springframework.stereotype.Component;
 
 import es.getronics.bom.Departamento;
 import es.getronics.bom.Tecnologias;
+import es.getronics.converter.Converter;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dto.TecnologiasDto;
 
-@Component
-public class TecnologiasConverter implements Converter <Tecnologias, TecnologiasDto> {
+@Component("tecnologiasConverter")
+public class TecnologiasConverterImpl implements Converter <Tecnologias, TecnologiasDto> {
 
 	
 	

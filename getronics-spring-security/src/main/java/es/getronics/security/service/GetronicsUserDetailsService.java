@@ -22,7 +22,9 @@ public class GetronicsUserDetailsService implements UserDetailsService {
 	private UserDao userDao;
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
+
 		User user = userDao.findByName(username);
+		
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		
 		for( Role role : user.getRoles()) {
@@ -40,6 +42,7 @@ public class GetronicsUserDetailsService implements UserDetailsService {
 				true,
 				authorities);
 		return userDetails;
+		
 	}
 
 }

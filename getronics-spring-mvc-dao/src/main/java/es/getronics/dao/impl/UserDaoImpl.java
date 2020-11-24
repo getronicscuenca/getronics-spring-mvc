@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import es.getronics.base.dao.exception.GetronicsDaoException;
 import es.getronics.base.dao.impl.GenericDaoImpl;
 import es.getronics.bom.User;
 import es.getronics.dao.UserDao;
@@ -21,11 +22,16 @@ public class UserDaoImpl extends GenericDaoImpl<User, Long> implements UserDao {
 	}
 
 	@Override
-	public User findByName(String username) {
+	public User findByName(String username) throws GetronicsDaoException {
 		DetachedCriteria criteria = createCriteria();
 		criteria.add(Restrictions.like("username", username));
 		List<User> found = findByCriteria(criteria);
-		return !found.isEmpty() ? found.get(0) : null;
+		if(!found.isEmpty() && found.get(0) != null) {
+			return found.get(0);
+		}else {
+			 throw new GetronicsDaoException("El usuario " + username +" no existe.");
+		}
+		//return !found.isEmpty() ? found.get(0) : null;
 	}
 
 }

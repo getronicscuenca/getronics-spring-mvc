@@ -30,27 +30,27 @@ public class EmpleadoDaoImpl extends GenericDaoImpl<Empleado, Long> implements E
 
 	@Override
 	public Empleado insert(Empleado entity) {
-		entity.setFechaAlta(LocalDate.now());
+		//entity.setFechaAlta(LocalDate.now());
 		return super.insert(entity);
 	}
 
 	@Override
 	public void update(Empleado entity) {
-		entity.setFechaBaja(null);
-		entity.setFechaModificacion(LocalDate.now());
+		/*entity.setFechaBaja(null);
+		entity.setFechaModificacion(LocalDate.now());*/
 		super.update(entity);
 	}
 
 	@Override
 	public void saveOrUpdate(Empleado entity) {
-		entity.setFechaBaja(null);
-		entity.setFechaModificacion(LocalDate.now());
+		/*entity.setFechaBaja(null);
+		entity.setFechaModificacion(LocalDate.now());*/
 		super.saveOrUpdate(entity);
 	}
 
 	@Override
 	public void remove(Empleado entity) {
-		entity.setFechaBaja(LocalDate.now());
+		//entity.setFechaBaja(LocalDate.now());
 		super.saveOrUpdate(entity);
 	}
 

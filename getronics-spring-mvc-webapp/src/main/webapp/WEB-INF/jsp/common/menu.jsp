@@ -39,10 +39,10 @@
         </div>
       </li>
       
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown ">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <spring:message code="common.menu.tecnologias"></spring:message>
-        </a>
+        </a> 
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="${ urlTecnologias }"><spring:message code="common.menu.list"></spring:message></a>
           <form:form action="${ urlTecnologias }" >

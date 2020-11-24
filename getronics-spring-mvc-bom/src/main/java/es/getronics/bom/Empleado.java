@@ -28,15 +28,13 @@ public class Empleado implements Serializable {
 	@Length(min=1)@NotBlank
 	@Column(name = "APELLIDO_2")
 	private String apellido2;
-	@Column(name = "FECHA_ALTA")
+	/*@Column(name = "FECHA_ALTA")
 	private LocalDate fechaAlta;
 	@Column(name = "FECHA_MODIFICACION")
 	private LocalDate fechaModificacion;
 	@Column(name = "FECHA_BAJA")
-	private LocalDate fechaBaja;
-	
-	
-	
+	private LocalDate fechaBaja;*/
+
 	@ManyToOne
 	private Departamento departamento;
 
@@ -71,7 +69,7 @@ public class Empleado implements Serializable {
 		this.departamento = departamento;
 	}
 	
-	public LocalDate getFechaAlta() {
+	/*public LocalDate getFechaAlta() {
 		return fechaAlta;
 	}
 	public void setFechaAlta(LocalDate fechaAlta) {
@@ -89,7 +87,7 @@ public class Empleado implements Serializable {
 	}
 	public void setFechaBaja(LocalDate fechaBaja) {
 		this.fechaBaja = fechaBaja;
-	}
+	}*/
 	@Override
 	public int hashCode() {
 		final int prime = 31;
