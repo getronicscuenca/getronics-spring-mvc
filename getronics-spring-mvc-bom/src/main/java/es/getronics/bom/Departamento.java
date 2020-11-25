@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 
 
-
+//esto es el remoto Pruebas de departamento
 
 @Entity
 @Table(name = "DEPARTAMENTO")
