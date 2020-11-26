@@ -5,27 +5,25 @@ package es.getronics.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.cfg.NotYetImplementedException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.getronics.base.dao.exception.GetronicsDaoException;
 import es.getronics.bom.Empleado;
 import es.getronics.converter.Converter;
 import es.getronics.converter.impl.EmpleadoConverterImpl;
 import es.getronics.dao.DepartamentoDao;
 import es.getronics.dao.EmpleadoDao;
 import es.getronics.dto.EmpleadoDto;
-import es.getronics.dto.TecnologiaDto;
-import es.getronics.exceptions.ExcepcionEmpleado;
 import es.getronics.services.EmpleadoService;
 
 /**
  * Implementa la logica del servicio de empleados
  *
- * @author smartinez
+ * @author jgarcia
  *
  */
 @Service("empleadoService")
@@ -62,7 +60,7 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
 	@Override
 	public List<EmpleadoDto> findAllOrderBy(String[] orderBy, boolean asc) {
-		throw new NotYetImplementedException("Método no implementado todavía");
+		throw new NotYetImplementedException("MÃ©todo no implementado todavÃ­a");
 	}
 
 	@Override
@@ -79,11 +77,11 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
 	@Override
 	public void saveOrUpdate(EmpleadoDto entity) {
-		throw new NotYetImplementedException("Método no implementado todavía");
+		throw new NotYetImplementedException("MÃ©todo no implementado todavÃ­a");
 	}
 
 	@Override
-	public EmpleadoDto insert(EmpleadoDto dto) throws ExcepcionEmpleado {
+	public EmpleadoDto insert(EmpleadoDto dto) {
 		Empleado entity = empleadoConverter.map(dto);
 		
 		Boolean empleadoExiste=false;
@@ -96,11 +94,11 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 			}
 		}
 		if(empleadoExiste) {
-			throw new ExcepcionEmpleado("El empleado ya existe");
+			throw new GetronicsDaoException("El empleado ya existe");
 		}
 		else
 			if(dto.getIdDepartamento()== null) {
-				throw new ExcepcionEmpleado("El empleado tiene que pertenecer a un departamento");
+				throw new GetronicsDaoException("El empleado tiene que pertenecer a un departamento");
 			}
 			else 
 				{	/*if(dto.getJefe() == null) {
@@ -120,61 +118,12 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
 	@Override
 	public void remove(EmpleadoDto entity) {
-		throw new NotYetImplementedException("Método no implementado todavía");
+		throw new NotYetImplementedException("MÃ©todo no implementado todavÃ­a");
 	}
 
 	@Override
 	public List<EmpleadoDto> findByExample(EmpleadoDto example) {
-		throw new NotYetImplementedException("Método no implementado todavía");
+		throw new NotYetImplementedException("MÃ©todo no implementado todavÃ­a");
 	}
-
-	@Override
-	public List<Empleado> T3findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateT3(Empleado entity) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Empleado insertT3(Empleado entity) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<Long> convertToListId(Set<EmpleadoDto> source) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<EmpleadoDto> mapToListId(Set<Long> dto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public EmpleadoDto nuevoEmpleDepartamento(Empleado entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public EmpleadoDto eliminarEmpleDepartamento(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public EmpleadoDto nuevaTecnoDepartamento(TecnologiaDto entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	
 }

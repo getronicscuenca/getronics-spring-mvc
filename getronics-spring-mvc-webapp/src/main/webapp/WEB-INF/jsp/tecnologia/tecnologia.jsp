@@ -44,12 +44,12 @@
 						<div class="form-group col-md-11">
 							<label for="nombre"><spring:message
 									code="tecnologia.nombre"></spring:message></label>
-							<form:input path="nombre" cssClass="form-control" />
+							<form:input path="nombre" cssClass="form-control" required="required" minlength="3" />
 						</div>
 						<div class="form-group col-md-11">
 							<label for="descripcion"><spring:message
 									code="tecnologia.descripcion"></spring:message></label>
-							<form:input path="descripcion" cssClass="form-control" />
+							<form:input path="descripcion" cssClass="form-control" required="required" minlength="3" />
 						</div>
 						
 						<div class="form-group col-md-11">

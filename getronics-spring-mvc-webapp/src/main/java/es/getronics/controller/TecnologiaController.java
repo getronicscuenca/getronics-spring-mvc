@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.base.dao.exception.GetronicsDaoException;
 import es.getronics.dto.TecnologiaDto;
-import es.getronics.exceptions.ExcepcionTecnologia;
 import es.getronics.services.TecnologiaService;
 
 /**
@@ -75,9 +74,9 @@ public class TecnologiaController {
 			} else {
 				tecnologiaService.insert(tecnologia);
 			}
-		} catch(ExcepcionTecnologia ex) {
+		} catch(GetronicsDaoException ex) {
 			bindingResult.reject(ex.getMessage());
-			return "tecnologia.error";
+			return TECNOLOGIA_VIEW;
 		}
 		return REDIRECT_TO_TECNOLOGIA;
 	}
@@ -87,7 +86,7 @@ public class TecnologiaController {
 		try {
 			tecnologiaService.remove(id);
 		}
-		catch(ExcepcionTecnologia excepcion) {
+		catch(GetronicsDaoException excepcion) {
 			String mensaje= excepcion.getMessage();
 			model.addAttribute("mensaje", mensaje);
 			return "tecnologia.error";

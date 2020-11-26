@@ -53,7 +53,7 @@
 		<intercept-url pattern="/departamento/**" access="hasRole('DEPARTMENTS_R')" method="GET" />
 		<intercept-url pattern="/departamento/**" access="hasRole('DEPARTMENTS_W')" method="POST" />
 		<intercept-url pattern="/tecnologia/**" access="hasRole('TECHNOLOGIES_R')" method="GET" />
-		<intercept-url pattern="/tecnologia/**" access="hasRole('TECHNOLOGIES_W')" method="GET" />
+		<intercept-url pattern="/tecnologia/**" access="hasRole('TECHNOLOGIES_W')" method="POST" />
 		<form-login login-page="/login" default-target-url="/index" />
 		<logout invalidate-session="true" logout-success-url="/"
 			logout-url="/j_spring_security_logout" />

@@ -25,23 +25,23 @@
 						<div class="form-group col-md-11">
 							<label for="nombre"><spring:message
 									code="empleado.nombre"></spring:message></label>
-							<form:input path="nombre" cssClass="form-control" />
+							<form:input path="nombre" cssClass="form-control" required="required" minlength="3"/>
 						</div>
 						<div class="form-group col-md-11">
 							<label for="nombre"><spring:message
 									code="empleado.apellido1"></spring:message></label>
-							<form:input path="apellido1" cssClass="form-control" />
+							<form:input path="apellido1" cssClass="form-control" required="required" minlength="3"/>
 						</div>
 						<div class="form-group col-md-11">
 							<label for="nombre"><spring:message
 									code="empleado.apellido2"></spring:message></label>
-							<form:input path="apellido2" cssClass="form-control" />
+							<form:input path="apellido2" cssClass="form-control" required="required" minlength="3"/>
 						</div>
 						<div class="form-group col-md-11">
 							<label><spring:message code="empleado.departamento"></spring:message></label>
 							<div class="custom-control custom-radio">
 								<form:radiobuttons path="idDepartamento"
-									items="${departamentos}" itemLabel="nombre" itemValue="id" element="div class=\"col-12\"" cssClass="mr-2" />
+									items="${departamentos}" itemLabel="nombre" itemValue="id" element="div class=\"col-12\"" cssClass="mr-2" required="required"/>
 							</div>
 						</div>
 						<div class="form-group col-md-11">

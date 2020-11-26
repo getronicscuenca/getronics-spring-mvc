@@ -5,13 +5,9 @@ package es.getronics.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import es.getronics.base.dao.exception.GetronicsDaoException;
 import es.getronics.dto.EmpleadoDto;
-import es.getronics.exceptions.ExcepcionEmpleado;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
 
@@ -67,19 +63,8 @@ public class EmpleadoController {
 	}
 	
 	@RequestMapping(value="new", method=RequestMethod.POST)
-	public String insertarEmpleado(@ModelAttribute("empleado") @Valid EmpleadoDto empleado,
-			BindingResult bindingResult, Model model) {
-		
-		if (bindingResult.hasErrors()) { 
-			List<ObjectError> listaErrores = bindingResult.getAllErrors();
-			String mensajeError="";
-			for(ObjectError error:listaErrores) {
-				mensajeError=mensajeError+"</br>"+error.getCode();
-			}
-			model.addAttribute("mensaje", mensajeError);
-			return "empleado.error";
-		}
-		
+	public String insertarEmpleado(@ModelAttribute EmpleadoDto empleado, Model model) {
+				
 		if(empleado.getId() != null) {
 			empleadoService.update(empleado);
 		} else {
@@ -89,7 +74,7 @@ public class EmpleadoController {
 				//CUIDAOOOOO MIRAR ESTO BIEN
 				//departamentoService.nuevoEmpleDepartamento(empleado);
 			}
-			catch(ExcepcionEmpleado excepcion) {
+			catch(GetronicsDaoException excepcion) {
 				String mensaje= excepcion.getMessage();
 				model.addAttribute("mensaje", mensaje);
 				return "empleado.error";
@@ -101,15 +86,7 @@ public class EmpleadoController {
 	
 	@RequestMapping("delete/{id}")
 	public String eliminarEmpleado(@PathVariable Long id, Model model) {
-		try {
-			//departamentoService.eliminarEmpleDepartamento(id);
-			empleadoService.remove(id);
-		}
-		catch(ExcepcionEmpleado excepcion) {
-			String mensaje= excepcion.getMessage();
-			model.addAttribute("mensaje", mensaje);
-			return "empleado.error";
-		}
+		empleadoService.remove(id);
 		return "redirect:/empleado";
 	}
 	

@@ -8,6 +8,7 @@
 	<!-- Default Main Template -->
     <definition name=".outTemplate" template="/WEB-INF/jsp/templates/out.jsp">
         <put-attribute name="title" value="Getronics Cuenca" type="string" />
+        <put-attribute name="header" value="/WEB-INF/jsp/common/header.jsp" />
         <put-attribute name="footer" value="/WEB-INF/jsp/common/footer.jsp" />
         <put-attribute name="body" value="/WEB-INF/jsp/common/blank.jsp" />
     </definition>
@@ -37,6 +38,10 @@
         <put-attribute name="body" value="/WEB-INF/jsp/empleado/empleado.jsp" />
     </definition>
     
+    <definition name="empleado.error" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/empleado/error.jsp" />
+    </definition>
+    
     <definition name="departamento.list" extends=".mainTemplate">
         <put-attribute name="body" value="/WEB-INF/jsp/departamento/list.jsp" />
     </definition>
@@ -44,7 +49,7 @@
     <definition name="departamento.departamento" extends=".mainTemplate">
         <put-attribute name="body" value="/WEB-INF/jsp/departamento/departamento.jsp" />
     </definition>
-    
+        
     <definition name="departamento.detalle" extends=".mainTemplate">
         <put-attribute name="body" value="/WEB-INF/jsp/departamento/detalle.jsp" />
     </definition>
@@ -63,6 +68,10 @@
     
     <definition name="tecnologia.tecnologia" extends=".mainTemplate">
         <put-attribute name="body" value="/WEB-INF/jsp/tecnologia/tecnologia.jsp" />
+    </definition>
+    
+    <definition name="tecnologia.error" extends=".mainTemplate">
+        <put-attribute name="body" value="/WEB-INF/jsp/tecnologia/error.jsp" />
     </definition>
     
 </tiles-definitions>
