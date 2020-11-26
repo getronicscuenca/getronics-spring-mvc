@@ -8,6 +8,7 @@ import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
 import es.getronics.dto.KeyValueItem;
 import es.getronics.dto.TecnologiaDto;
+import es.getronics.exceptions.ExcepcionTecnologia;
 
 /**
  * Define las operaciones de negocio de alumnos
@@ -15,5 +16,7 @@ import es.getronics.dto.TecnologiaDto;
  * @author jgarcia
  */
 public interface TecnologiaService extends GenericService<TecnologiaDto, Tecnologia, DepartamentoDto, EmpleadoDto, Long> {
+	TecnologiaDto insert(TecnologiaDto dto) throws ExcepcionTecnologia;
+	void remove(Long id) throws ExcepcionTecnologia;
 	List<KeyValueItem> findAllAsItems();
 }

@@ -15,6 +15,7 @@ import es.getronics.dao.DepartamentoDao;
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
 import es.getronics.dto.TecnologiaDto;
+import es.getronics.exceptions.ExcepcionDepartamento;
 import es.getronics.services.DepartamentoService;
 
 
@@ -70,12 +71,35 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	}
 
 	@Override
-	public DepartamentoDto insert(DepartamentoDto dto) {
-		if(!departamentoDao.findByName(dto.getNombre()).isEmpty()) {
-			throw new GetronicsDaoException("departamento.already.exists");
-		}
+	public DepartamentoDto insert(DepartamentoDto dto) throws ExcepcionDepartamento{
+		//if(!departamentoDao.findByName(dto.getNombre()).isEmpty()) {
+		//	throw new GetronicsDaoException("departamento.already.exists");
+		//}
 		Departamento entity = departamentoConverter.map(dto);
-		dto= departamentoConverter.convert(departamentoDao.insert(entity));
+		
+		Boolean departamentoExiste=false;
+		
+		for(Departamento departamento:departamentoDao.findAll()) {
+			if(departamento.getNombre().equals(dto.getNombre())) {
+				departamentoExiste=true;
+			}
+		}
+		if(departamentoExiste) {
+			throw new ExcepcionDepartamento("El departamento ya existe");
+		}
+		else  
+			/*if(dto.getJefe()==null) {
+				throw new ExcepcionDepartamento("El departamento tiene que tener un jefe");
+			}
+			else*/
+				if (dto.getSelectedTecnologias()==null){
+					throw new ExcepcionDepartamento("El departamento tiene que tener al menos una tecnologia");
+				}
+				else {
+		
+				dto= departamentoConverter.convert(departamentoDao.insert(entity));
+				}
+		
 		return dto;
 	}
 
@@ -85,8 +109,15 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 	}
 
 	@Override
-	public void remove(Long id) {
-		departamentoDao.remove(id);
+	public void remove(Long id) throws ExcepcionDepartamento {
+		DepartamentoDto dto = departamentoConverter.convert(departamentoDao.findById(id));
+		if (!dto.getEmpleados().isEmpty()){
+		throw new ExcepcionDepartamento("No se puede eliminar el departamento porque tiene empleados");
+		}
+		else {
+			departamentoDao.remove(id);
+		}
+		
 	}
 
 	@Override
@@ -141,6 +172,13 @@ public class DepartamentoServiceImpl implements DepartamentoService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String findByName(DepartamentoDto departamento) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 	
 }
