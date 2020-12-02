@@ -13,7 +13,8 @@
 	<context:annotation-config/>
 	
 	<authentication-manager alias="authenticationManager" erase-credentials="true">
-		<authentication-provider user-service-ref="getronicsUserDetailsService" ref="getronicsAuthenticationProvider"></authentication-provider>
+		<authentication-provider ref="getronicsAuthenticationProvider" user-service-ref="getronicsUserDetailsService">
+		</authentication-provider>
 	</authentication-manager>
 
 	<beans:bean id="authenticationProcessingFilter"
@@ -37,14 +38,14 @@
 			</beans:bean>
 		</beans:property>
 	</beans:bean>
-
-	<beans:bean id="getronicsAuthenticationProvider" class="es.getronics.security.provider.GetronicsAuthenticationProvider">
-		<beans:property name="userDetailsService" ref="getronicsUserDetailsService" />
-	</beans:bean>
-
+	
 	<beans:bean id="getronicsUserDetailsService"
 		class="es.getronics.security.service.GetronicsUserDetailsService" />
 		
+	<beans:bean id="getronicsAuthenticationProvider" class="es.getronics.security.provider.GetronicsAuthenticationProvider">
+		<beans:property name="userDetailsService" ref="getronicsUserDetailsService" />
+	</beans:bean>
+	
 	<http auto-config="true" use-expressions="true" access-denied-page="/login">
 		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/index" access="hasRole('USERS_R')" method="GET" />
@@ -53,7 +54,7 @@
 		<intercept-url pattern="/departamento/**" access="hasRole('DEPARTMENTS_R')" method="GET" />
 		<intercept-url pattern="/departamento/**" access="hasRole('DEPARTMENTS_W')" method="POST" />
 		<intercept-url pattern="/tecnologia/**" access="hasRole('TECHNOLOGIES_R')" method="GET" />
-		<intercept-url pattern="/tecnologia/**" access="hasRole('TECHNOLOGIES_W')" method="GET" />
+		<intercept-url pattern="/tecnologia/**" access="hasRole('TECHNOLOGIES_W')" method="POST" />
 		<form-login login-page="/login" default-target-url="/index" />
 		<logout invalidate-session="true" logout-success-url="/"
 			logout-url="/j_spring_security_logout" />

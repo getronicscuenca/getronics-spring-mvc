@@ -21,7 +21,7 @@ public class DepartamentoDaoImpl extends GenericDaoImpl<Departamento, Long> impl
 		super(sessionFactory);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public List<Departamento> findByName(String name) {
 		DetachedCriteria criteria = createCriteria();

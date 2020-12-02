@@ -22,7 +22,16 @@ public class GetronicsUserDetailsService implements UserDetailsService {
 	private UserDao userDao;
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
+		
 		User user = userDao.findByName(username);
+				
+		/*if((user.getPassword().equals("user")&& user.getUsername().equals("user"))
+			||(user.getUsername().equals("manager")&& user.getPassword().equals("manager"))
+			||(user.getUsername().equals("admin")&& user.getPassword().equals("admin"))
+			||(user.getUsername().equals("superuser")&& user.getPassword().equals("superuser"))) {*/
+			
+		UserDetails userDetails;
+		
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		
 		for( Role role : user.getRoles()) {
@@ -31,7 +40,7 @@ public class GetronicsUserDetailsService implements UserDetailsService {
 			}
 		}
 		
-		UserDetails userDetails = new org.springframework.security.core.userdetails.User(
+		userDetails = new org.springframework.security.core.userdetails.User(
 				user.getUsername(), 
 				user.getPassword(),
 				user.isEnabled(),
@@ -39,7 +48,9 @@ public class GetronicsUserDetailsService implements UserDetailsService {
 				true,
 				true,
 				authorities);
+						
 		return userDetails;
+		
 	}
 
 }
