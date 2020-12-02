@@ -27,7 +27,7 @@ public class DepartamentoConverterImpl implements Converter<Departamento, Depart
 		DepartamentoDto result = new DepartamentoDto();
 		result.setId(source.getId());
 		result.setNombre(source.getNombre());
-		//result.setAlta(source.getAlta());
+		result.setAlta(source.getAlta());
 		result.setDescripcion(source.getDescripcion());
 		List<Long> selectedTecnologias = new ArrayList<Long>();
 		List<String> tecnologias = new ArrayList<String>();
@@ -54,7 +54,7 @@ public class DepartamentoConverterImpl implements Converter<Departamento, Depart
 		Departamento result = new Departamento();
 		result.setId(dto.getId());
 		result.setNombre(dto.getNombre());
-		//result.setAlta(dto.getAlta());
+		result.setAlta(dto.getAlta());
 		result.setDescripcion(dto.getDescripcion());
 		Set<Tecnologia> tecnologias = new HashSet<Tecnologia>();
 		if(dto.getSelectedTecnologias() != null) {

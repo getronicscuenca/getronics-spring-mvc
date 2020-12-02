@@ -13,7 +13,7 @@ public class DepartamentoDto {
 	private String nombre;
 	@NotBlank(message="La descripcion no puede estar vacia")
 	private String descripcion;
-	//private Date alta;
+	private Date alta;
 	private List<Long> selectedTecnologias;
 	private List<String> tecnologias;
 	private List<String> empleados;
@@ -36,6 +36,12 @@ public class DepartamentoDto {
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	public Date getAlta() {
+		return alta;
+	}
+	public void setAlta(Date alta) {
+		this.alta = alta;
 	}
 	public List<Long> getSelectedTecnologias() {
 		return selectedTecnologias;

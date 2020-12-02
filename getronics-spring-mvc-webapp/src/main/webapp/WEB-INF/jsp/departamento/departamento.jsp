@@ -44,15 +44,15 @@
 						<div class="form-group col-md-11">
 							
 							<spring:message code="departamento.nombre"></spring:message>
-							<form:errors path="nombre" cssClass="error"  />
+							<form:errors path="nombre" cssClass="error" />
 							<br>
-							<form:input path="nombre" cssClass="form-control" required="required" minlength="3" />
+							<form:input path="nombre" cssClass="form-control" />
 						</div>
 						<div class="form-group col-md-11">
 							<spring:message code="departamento.descripcion"></spring:message>
 							<form:errors path="descripcion" cssClass="error" />
 							<br>
-							<form:input path="descripcion" cssClass="form-control" required="required" minlength="3" />
+							<form:input path="descripcion" cssClass="form-control" />
 						</div>
 						
 						
@@ -61,7 +61,7 @@
 									code="departamento.tecnologia"></spring:message></label>
 						  <div class="w-100"></div>
 						  <div class="input-group-prepend">
-						    	<form:checkboxes items="${ tecnologias }" path="selectedTecnologias" itemLabel="value" itemValue="key" element="div class=\"input-group-text\"" cssClass="mr-2" required="required"/>
+						    	<form:checkboxes items="${ tecnologias }" path="selectedTecnologias" itemLabel="value" itemValue="key" element="div class=\"input-group-text\"" cssClass="mr-2"/>
 						  </div>
 						</div>
 						

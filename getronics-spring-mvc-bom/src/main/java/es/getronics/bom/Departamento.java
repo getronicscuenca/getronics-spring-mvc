@@ -6,7 +6,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-@Entity
+@Entity 
 @Table(name = "DEPARTAMENTO")
 public class Departamento implements Serializable {
 
@@ -19,15 +19,15 @@ public class Departamento implements Serializable {
 	private String nombre;
 	@Column(name = "DESCRIPCION")
 	private String descripcion;
-	//@Column(name = "ALTA")
-	//private Date alta;
+	@Column(name = "ALTA")
+	private Date alta;
 	
 	@OneToMany(mappedBy = "departamento")
 	private Set<Empleado> empleados;
 	
     @ManyToMany
     @JoinTable(
-    		name = "DEPARTAMENTO_TECNOLOGIA",
+    		name = "DEPARATAMENTO_TECNOLOGIA",
     		joinColumns = @JoinColumn(name = "departamento_id"),
     		inverseJoinColumns = @JoinColumn(name = "tecnologia_id"))
     private Set<Tecnologia> tecnologias;
@@ -54,6 +54,14 @@ public class Departamento implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public Date getAlta() {
+		return alta;
+	}
+
+	public void setAlta(Date alta) {
+		this.alta = alta;
 	}
 
 	public Set<Empleado> getEmpleados() {

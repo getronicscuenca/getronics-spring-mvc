@@ -7,11 +7,10 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.base.dao.exception.GetronicsDaoException;
 import es.getronics.dto.DepartamentoDto;
+import es.getronics.exceptions.ExcepcionDepartamento;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.TecnologiaService;
 import es.getronics.validators.DepartamentoValidator;
@@ -85,18 +85,25 @@ public class DepartamentoController {
 	
 	@RequestMapping(value = "new", method = RequestMethod.POST)
 	public String insertarDepartamento(@ModelAttribute(MODEL_OBJECT) @Valid DepartamentoDto departamento,
-			Model model) {
-			
-		if(departamento.getId() != null) {
+			BindingResult bindingResult, Model model) {
+		Date fecha = new Date();
+		if (bindingResult.hasErrors()) { 
+			List<ObjectError> listaErrores = bindingResult.getAllErrors();
+			String mensajeError="";
+			for(ObjectError error:listaErrores) {
+				mensajeError=mensajeError+"<br/>"+error.getCode();
+			}
+			model.addAttribute("mensaje", mensajeError);
+			return "departamento.error";
+		}
+
+		if (departamento.getId() != null) {
 			departamentoService.update(departamento);
 		} else {
-			//departamento.setAlta(fecha);
 			try {
-				departamentoService.insert(departamento);
-				//CUIDAOOOOO MIRAR ESTO BIEN
-				//departamentoService.nuevoEmpleDepartamento(empleado);
+			departamentoService.insert(departamento);
 			}
-			catch(GetronicsDaoException excepcion) {
+			catch(ExcepcionDepartamento excepcion) {
 				String mensaje= excepcion.getMessage();
 				model.addAttribute("mensaje", mensaje);
 				return "departamento.error";
@@ -111,6 +118,7 @@ public class DepartamentoController {
 		model.addAttribute(MODEL_OBJECT, departamentoService.findById(id));
 		return new ModelAndView(DEPARTAMENTO_DETALLE, model.asMap());
 	}
+
 	
 
 	@RequestMapping("delete/{id}")
@@ -118,14 +126,13 @@ public class DepartamentoController {
 		try {
 			departamentoService.remove(id);
 			}
-			catch(GetronicsDaoException excepcion) {
+			catch(ExcepcionDepartamento excepcion) {
 				String mensaje= excepcion.getMessage();
 				model.addAttribute("mensaje", mensaje);
 				return "departamento.error";
 			}
 			return "redirect:/departamento";
-
-	}
+		}
 
 	@RequestMapping(value = "alta/{id}", method = RequestMethod.POST)
 	public ModelAndView editarFecha(@PathVariable long id, Model model) {

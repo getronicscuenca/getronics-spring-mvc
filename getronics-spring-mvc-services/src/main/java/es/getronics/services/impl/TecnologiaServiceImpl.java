@@ -5,6 +5,7 @@ package es.getronics.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,11 @@ import es.getronics.base.dao.exception.GetronicsDaoException;
 import es.getronics.bom.Tecnologia;
 import es.getronics.converter.Converter;
 import es.getronics.dao.TecnologiaDao;
+import es.getronics.dto.DepartamentoDto;
+import es.getronics.dto.EmpleadoDto;
 import es.getronics.dto.KeyValueItem;
 import es.getronics.dto.TecnologiaDto;
+import es.getronics.exceptions.ExcepcionTecnologia;
 import es.getronics.services.TecnologiaService;
 
 /**
@@ -70,31 +74,34 @@ public class TecnologiaServiceImpl implements TecnologiaService {
 	}
 
 	@Override
-	public TecnologiaDto insert(TecnologiaDto dto) {
-Tecnologia entity = tecnologiaConverter.map(dto);
-		
-		Boolean tecnologiaExiste=false;
-		
-		for(Tecnologia tecnologia:tecnologiaDao.findAll()) {
-			if(tecnologia.getNombre().equals(dto.getNombre())) {
-				tecnologiaExiste=true;
+	public TecnologiaDto insert(TecnologiaDto dto) throws ExcepcionTecnologia{
+		//if(!tecnologiaDao.findByName(dto.getNombre()).isEmpty()) {
+				//	throw new GetronicsDaoException("tecnologia.already.exists");
+				//}
+				Tecnologia entity = tecnologiaConverter.map(dto);
+				
+				Boolean tecnologiaExiste=false;
+				
+				for(Tecnologia tecnologia:tecnologiaDao.findAll()) {
+					if(tecnologia.getNombre().equals(dto.getNombre())) {
+						tecnologiaExiste=true;
+					}
+				}
+				if(tecnologiaExiste) {
+					throw new ExcepcionTecnologia("La tecnologia ya existe");
+				}
+				else { 
+					dto = tecnologiaConverter.convert(tecnologiaDao.insert(entity));
+				}
+				
+				return dto;
 			}
-		}
-		if(tecnologiaExiste) {
-			throw new GetronicsDaoException("La tecnologia ya existe");
-		}
-		else { 
-			dto = tecnologiaConverter.convert(tecnologiaDao.insert(entity));
-		}
-		
-		return dto;
-	}
 	
 	@Override
-	public void remove(Long id) {
+	public void remove(Long id) throws ExcepcionTecnologia {
 		Tecnologia entity = tecnologiaDao.findById(id);
 		if (!entity.getDepartamentos().isEmpty()){
-		throw new GetronicsDaoException("No se puede eliminar la tecnologia porque pertenece a un Departamento");
+		throw new ExcepcionTecnologia("No se puede eliminar la tecnologia porque pertenece a un Departamento");
 		}
 		else {
 			tecnologiaDao.remove(id);
@@ -120,5 +127,54 @@ Tecnologia entity = tecnologiaConverter.map(dto);
 		}
 		return items;
 	}
+
+	@Override
+	public List<DepartamentoDto> T3findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateT3(DepartamentoDto entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public DepartamentoDto insertT3(DepartamentoDto entity) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<Long> convertToListId(Set<TecnologiaDto> source) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<TecnologiaDto> mapToListId(Set<Long> dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TecnologiaDto nuevoEmpleDepartamento(DepartamentoDto entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TecnologiaDto eliminarEmpleDepartamento(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TecnologiaDto nuevaTecnoDepartamento(EmpleadoDto entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 }

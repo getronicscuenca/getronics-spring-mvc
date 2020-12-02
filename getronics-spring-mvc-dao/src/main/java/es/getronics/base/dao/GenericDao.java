@@ -11,7 +11,7 @@ import org.hibernate.criterion.DetachedCriteria;
 /**
  * Define metodos genericos de los daos
  * 
- * @author jgarcia
+ * @author smartinez
  *
  */
 public interface GenericDao<T, ID extends Serializable> {
