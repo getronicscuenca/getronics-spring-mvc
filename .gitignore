@@ -2,3 +2,10 @@
 *.project
 *.classpath
 *.factorypath
+getronics-spring-security/target/classes/springSecurityContext.xml
+getronics-spring-security/target/classes/es/getronics/security/filter/GetronicsUsernamePasswordAuthenticationFilter.class
+getronics-spring-security/target/classes/es/getronics/security/provider/GetronicsAuthenticationProvider.class
+getronics-spring-security/target/classes/es/getronics/security/service/GetronicsUserDetailsService.class
+getronics-spring-security/target/classes/META-INF/MANIFEST.MF
+getronics-spring-security/target/classes/META-INF/maven/es.getronics/getronics-spring-security/pom.properties
+getronics-spring-security/target/classes/META-INF/maven/es.getronics/getronics-spring-security/pom.xml
