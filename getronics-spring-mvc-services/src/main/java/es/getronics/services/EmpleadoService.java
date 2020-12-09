@@ -2,18 +2,12 @@ package es.getronics.services;
 
 import es.getronics.base.services.GenericService;
 import es.getronics.bom.Empleado;
-import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
-import es.getronics.exceptions.ExcepcionDepartamento;
-import es.getronics.exceptions.ExcepcionEmpleado;
 
 /**
  * Define las operaciones de negocio de alumnos
  * 
- * @author smartinez
+ * @author jgarcia
  */
-public interface EmpleadoService extends GenericService<EmpleadoDto, Empleado, Empleado, Long> {
-	//String findByName(EmpleadoDto empleado);
-	EmpleadoDto insert(EmpleadoDto dto) throws ExcepcionEmpleado;
-	void remove(Long id) throws ExcepcionEmpleado;
+public interface EmpleadoService extends GenericService<EmpleadoDto, Empleado, Long> {
 }

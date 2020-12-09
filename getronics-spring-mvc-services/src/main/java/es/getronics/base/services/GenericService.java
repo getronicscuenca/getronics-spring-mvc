@@ -3,7 +3,6 @@ package es.getronics.base.services;
 import java.io.Serializable;
 import java.util.List;
 
-import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
 
 
@@ -13,7 +12,7 @@ import es.getronics.dto.EmpleadoDto;
  *
  * @param <T> DTO del servicio
  */
-public interface GenericService<T1, T2, T3, ID extends Serializable> {
+public interface GenericService<T1, T2, ID extends Serializable> {
 
 	/**
      * Buscar un instancia de T en el BBDD por su ID.
@@ -30,8 +29,6 @@ public interface GenericService<T1, T2, T3, ID extends Serializable> {
      * @return una lista de objetos de tipo T.  
      */
     List<T1> findAll();
-    
-    List<T3> findAllT3(T1 tipo1);
     
     /**
      * Devolver una lista ordenada de todos los objetos de tipo T
@@ -63,29 +60,20 @@ public interface GenericService<T1, T2, T3, ID extends Serializable> {
      * @param entity el entity de insertar
      * @return el entity nuevo. 
      */
-    T1 insert(T1 entity) throws Exception;
+    T1 insert(T1 entity);
 
-    //AÑADIR UN NUEVO EMPLEADO EN UN DEPARTAMENTO
-    T1 nuevoEmpleDepartamento(T3 entity);
-    
-    
-    //ELIMINAR UN EMPLEADO DE UN DEPARTAMENTO POR SU ID
-    T1 eliminarEmpleDepartamento(Long id);
-    
     /**
      * Borrar una instancia del BBDD.  
      * 
      * @param entity el entity de borrar. 
      */
-    
-    
     void remove(T1 entity);
     /**
      * Borrar una instancia del BBDD.  
      * 
      * @param id de la entidad a borrar. 
      */
-    void remove(ID id) throws Exception;
+    void remove(ID id);
     /**
      * Obtiene todas las entidades almacenadas en la base de datos para el ejemplo suministrado.
      *

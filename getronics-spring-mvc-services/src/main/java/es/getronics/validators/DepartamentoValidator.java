@@ -17,42 +17,24 @@ public class DepartamentoValidator implements Validator {
 
 	@Override
 	public void validate(Object target, Errors er) {
+		DepartamentoDto departamento = DepartamentoDto.class.cast(target);
 		
-		DepartamentoDto departamento =(DepartamentoDto) target;
+		ValidationUtils.rejectIfEmptyOrWhitespace(er, "nombre", "nombre_vacio");
 		
-		boolean espaciosBlancosNombre=departamento.getNombre().contains(" ");
-		boolean demasiadoGrandeNombre= (departamento.getNombre().length()>15);
-		boolean demasiadoPequenioNombre= (departamento.getNombre().length()<3);
-		boolean sinNumerosNombre= departamento.getNombre().toLowerCase().matches("(([a-z]*)(\s)*)*");
+		boolean espacioBlanco=departamento.getNombre().contains(" ");
+		boolean demasiadoGrande= (departamento.getNombre().length()>20);
+		boolean demasiadoPeke= (departamento.getNombre().length()<2);
+		boolean sinNumeros= departamento.getNombre().toLowerCase().matches("(([a-z]*)(\s)*)*");
 		
-		ValidationUtils.rejectIfEmptyOrWhitespace(er, "nombre", "Debe escribir un nombre");
+		if(espacioBlanco)
+			er.rejectValue("nombre","espaciosBlancos");
 		
-		if(espaciosBlancosNombre)
-			er.rejectValue("nombre","El nombre no puede tener espacios en blanco");
-		
-		if(demasiadoGrandeNombre)
-			er.rejectValue("nombre","El nombre es demasiado grande");
-		if(demasiadoPequenioNombre)
-			er.rejectValue("nombre","El nombre es demasiado pequeño");
-		if(!sinNumerosNombre)
-			er.rejectValue("nombre","El nombre no puede contener números");
-		
-		boolean espaciosBlancosDescripcion=departamento.getDesc().contains(" ");
-		boolean demasiadoGrandeDescripcion= (departamento.getDesc().length()>15);
-		boolean demasiadoPequenioDescripcion= (departamento.getDesc().length()<3);
-		boolean sinNumerosDescripcion= departamento.getDesc().toLowerCase().matches("(([a-z]*)(\s)*)*");
-		
-		ValidationUtils.rejectIfEmptyOrWhitespace(er, "desc", "Debe escribir una descripcion");
-		
-		if(espaciosBlancosDescripcion)
-			er.rejectValue("desc","La descripción no puede tener espacios en blanco");
-		
-		if(demasiadoGrandeDescripcion)
-			er.rejectValue("desc","La descripción es demasiado grande");
-		if(demasiadoPequenioDescripcion)
-			er.rejectValue("desc","La descripción es demasiado pequeña");
-		if(!sinNumerosDescripcion)
-			er.rejectValue("desc","La descripción no puede contener números");
+		if(demasiadoGrande)
+			er.rejectValue("nombre","demasiadoGrande");
+		if(demasiadoPeke)
+			er.rejectValue("nombre","demasiadoPeke");
+		if(!sinNumeros)
+			er.rejectValue("nombre","conNumeros");
 	}
 
 }

@@ -1,28 +1,15 @@
 package es.getronics.dto;
 
-import java.util.Set;
+import java.io.Serializable;
 
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
+public class TecnologiaDto implements Serializable {
 
-import es.getronics.bom.Departamento;
-import es.getronics.bom.Empleado;
-import es.getronics.bom.Tecnologia;
-
-public class TecnologiaDto {
+	private static final long serialVersionUID = -9054047698877645200L;
 
 	private Long id;
-	@NotEmpty (message="Debe poner un nombre")
-	@Length(min = 3, max = 15, message="Longitud de nombre incorrecta" )
 	private String nombre;
-	@NotEmpty(message="La descripcion no puede estar vacia")
-	private String desc;
-	
-	private Long idDepartamento;
-	private String departamento;
-			
-	private Set<Departamento> departamentos;
-	
+	private String descripcion;
+
 	public Long getId() {
 		return id;
 	}
@@ -39,37 +26,13 @@ public class TecnologiaDto {
 		this.nombre = nombre;
 	}
 
-	public String getDesc() {
-		return desc;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
-	public Set<Departamento> getDepartamentos() {
-		return departamentos;
-	}
-
-	public void setDepartamentos(Set<Departamento> departamentos) {
-		this.departamentos = departamentos;
-	}
-
-	public Long getIdDepartamento() {
-		return idDepartamento;
-	}
-
-	public void setIdDepartamento(Long idDepartamento) {
-		this.idDepartamento = idDepartamento;
-	}
-
-	public String getDepartamento() {
-		return departamento;
-	}
-
-	public void setDepartamento(String departamento) {
-		this.departamento = departamento;
-	}
-	
 	
 }

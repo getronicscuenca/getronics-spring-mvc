@@ -1,6 +1,10 @@
 package es.getronics.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,4 +22,10 @@ public class DepartamentoDaoImpl extends GenericDaoImpl<Departamento, Long> impl
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public List<Departamento> findByName(String name) {
+		DetachedCriteria criteria = createCriteria();
+		criteria.add(Restrictions.like("nombre", name));
+		return findByCriteria(criteria);
+	}
 }

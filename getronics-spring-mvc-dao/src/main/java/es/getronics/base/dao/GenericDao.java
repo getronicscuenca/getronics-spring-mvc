@@ -6,6 +6,8 @@ package es.getronics.base.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+
 /**
  * Define metodos genericos de los daos
  * 
@@ -29,6 +31,14 @@ public interface GenericDao<T, ID extends Serializable> {
      * @return una lista de objetos de tipo T.  
      */
     List<T> findAll();
+    
+    /**
+     * Devolver una lista de todos los objetos de tipo T
+     * en el BBDD. 
+     * 
+     * @return una lista de objetos de tipo T.  
+     */
+    List<T> findByCriteria(DetachedCriteria criteria);
     
     /**
      * Devolver una lista ordenada de todos los objetos de tipo T
@@ -101,4 +111,6 @@ public interface GenericDao<T, ID extends Serializable> {
 	 * Do rollback.
 	 */
 	public void doRollback();
+	
+	DetachedCriteria createCriteria();
 }

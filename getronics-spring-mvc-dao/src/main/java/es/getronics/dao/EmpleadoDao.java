@@ -3,8 +3,6 @@
  */
 package es.getronics.dao;
 
-import org.springframework.stereotype.Component;
-
 import es.getronics.base.dao.GenericDao;
 import es.getronics.bom.Empleado;
 

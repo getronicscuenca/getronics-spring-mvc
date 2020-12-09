@@ -20,13 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
-import es.getronics.exceptions.ExcepcionDepartamento;
 import es.getronics.exceptions.ExcepcionEmpleado;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
-import es.getronics.services.impl.EmpleadoServiceImpl;
 
 /**
  * Maneja las peticiones relacionadas con empleados
@@ -89,7 +86,8 @@ public class EmpleadoController {
 			//departamento.setAlta(fecha);
 			try {
 				empleadoService.insert(empleado);
-				departamentoService.nuevoEmpleDepartamento(empleado);
+				//CUIDAOOOOO MIRAR ESTO BIEN
+				//departamentoService.nuevoEmpleDepartamento(empleado);
 			}
 			catch(ExcepcionEmpleado excepcion) {
 				String mensaje= excepcion.getMessage();
@@ -104,7 +102,7 @@ public class EmpleadoController {
 	@RequestMapping("delete/{id}")
 	public String eliminarEmpleado(@PathVariable Long id, Model model) {
 		try {
-			departamentoService.eliminarEmpleDepartamento(id);
+			//departamentoService.eliminarEmpleDepartamento(id);
 			empleadoService.remove(id);
 		}
 		catch(ExcepcionEmpleado excepcion) {

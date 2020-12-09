@@ -4,7 +4,7 @@
 <spring:message code="empleado.new.title" var="insertTitle" />
 <spring:message code="empleado.update.title" var="updateTitle" />
 <c:choose>
-	<c:when test="${ alumno.id == null}">
+	<c:when test="${ empleado.id == null}">
 		<c:set value="${ insertTitle }" var="title" />
 	</c:when>
 	<c:otherwise>
@@ -25,23 +25,23 @@
 						<div class="form-group col-md-11">
 							<label for="nombre"><spring:message
 									code="empleado.nombre"></spring:message></label>
-							<form:input path="nombre" cssClass="form-control" required="required" minlength="3" maxlength="15" pattern="[A-Z][a-z]{2,15}" title="3 a 15 letras, sin números, empieza por mayúscula" />
+							<form:input path="nombre" cssClass="form-control" />
 						</div>
 						<div class="form-group col-md-11">
 							<label for="nombre"><spring:message
 									code="empleado.apellido1"></spring:message></label>
-							<form:input path="apellido1" cssClass="form-control" required="required" minlength="3" maxlength="15" pattern="[A-Z][a-z]{2,15}" title="3 a 15 letras, sin números, empieza por mayúscula"/>
+							<form:input path="apellido1" cssClass="form-control" />
 						</div>
 						<div class="form-group col-md-11">
 							<label for="nombre"><spring:message
 									code="empleado.apellido2"></spring:message></label>
-							<form:input path="apellido2" cssClass="form-control" required="required" minlength="3" maxlength="15" pattern="[A-Z][a-z]{2,15}" title="3 a 15 letras, sin números, empieza por mayúscula"/>
+							<form:input path="apellido2" cssClass="form-control" />
 						</div>
 						<div class="form-group col-md-11">
 							<label><spring:message code="empleado.departamento"></spring:message></label>
 							<div class="custom-control custom-radio">
 								<form:radiobuttons path="idDepartamento"
-									items="${departamentos}" itemLabel="nombre" itemValue="id" required="required" />
+									items="${departamentos}" itemLabel="nombre" itemValue="id" element="div class=\"col-12\"" cssClass="mr-2" />
 							</div>
 						</div>
 						<div class="form-group col-md-11">

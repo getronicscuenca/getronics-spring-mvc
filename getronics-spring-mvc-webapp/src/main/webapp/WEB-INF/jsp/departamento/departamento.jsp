@@ -28,42 +28,48 @@
 	</c:otherwise>
 </c:choose>
 
-<form:errors path="*" cssClass="errorblock" element="div" />
-
 <div class="row justify-content-center mt-5">
 	<div class="col-md-8">
 		<div class="card card-sm">
+
 			<form:form modelAttribute="departamento" action="${ url }"
 				cssClass="form-horizontal">
-
 				<fieldset>
 					<legend class="text-center header">${ title }</legend>
 					<form:hidden path="id" />
 					<div class="row justify-content-center">
-						<div class="form-group col-md-11">
-							<label for="nombre"><spring:message
-									code="departamento.nombre"></spring:message></label>
-							<form:input path="nombre" cssClass="form-control" required="required" minlength="3" maxlength="20" pattern="[A-Z][A-z]{2,20}" title="3 a 20 letras, sin números, empieza por mayúscula" />
-						</div>
-						<div class="form-group col-md-11">
-							<label for="desc"><spring:message
-									code="departamento.desc"></spring:message></label>
-							<form:input path="desc" cssClass="form-control" required="required" minlength="3" maxlength="25" pattern="[A-z]{3,25}" title="3 a 25 letras, sin números"/>
-						</div>
+
+						<form:errors path="*" cssClass="errorblock" element="div" />
 						
 						<div class="form-group col-md-11">
-							<label><spring:message code="departamento.jefe"></spring:message></label>
-							<div class="custom-control custom-radio">
-								<form:radiobuttons path="id"
-									items="${jefe}" itemLabel="nombre" itemValue="id" required="required" />
-							</div>
+							
+							<spring:message code="departamento.nombre"></spring:message>
+							<form:errors path="nombre" cssClass="error" />
+							<br>
+							<form:input path="nombre" cssClass="form-control" />
 						</div>
-															
 						<div class="form-group col-md-11">
-							<form:button value="submit" class="btn btn-info"><spring:message code="common.button.send"></spring:message></form:button>
+							<spring:message code="departamento.descripcion"></spring:message>
+							<form:errors path="descripcion" cssClass="error" />
+							<br>
+							<form:input path="descripcion" cssClass="form-control" />
 						</div>
 						
 						
+						<div class="input-group mb-3 col-md-11">
+						  <label for="selectedTecnologias"><spring:message
+									code="departamento.tecnologia"></spring:message></label>
+						  <div class="w-100"></div>
+						  <div class="input-group-prepend">
+						    	<form:checkboxes items="${ tecnologias }" path="selectedTecnologias" itemLabel="value" itemValue="key" element="div class=\"input-group-text\"" cssClass="mr-2"/>
+						  </div>
+						</div>
+						
+						<div class="form-group col-md-11">
+							<form:button value="submit" class="btn btn-info">
+								<spring:message code="common.button.send"></spring:message>
+							</form:button>
+						</div>
 					</div>
 				</fieldset>
 			</form:form>

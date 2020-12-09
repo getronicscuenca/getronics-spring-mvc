@@ -1,45 +1,24 @@
 package es.getronics.dto;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
-
-import es.getronics.bom.Empleado;
-import es.getronics.bom.Tecnologia;
 
 
 public class DepartamentoDto {
 
 	private Long id;
-	@NotEmpty (message="Debe poner un nombre")
-	@Length(min = 3, max = 15, message="Longitud de nombre incorrecta" )
+	@NotBlank
 	private String nombre;
-	@NotEmpty(message="La descripcion no puede estar vacia")
-	private String desc;
+	@NotBlank(message="La descripcion no puede estar vacia")
+	private String descripcion;
 	//private Date alta;
-	//private Long jefe;
-	private Long idJefe;
-	private String jefe;
-		
-	private Set<Empleado> empleados;
+	private List<Long> selectedTecnologias;
+	private List<String> tecnologias;
+	private List<String> empleados;
 	
-	private Set<Tecnologia> tecnologias;
-		
-	public Set<Tecnologia> getTecnologias() {
-		return tecnologias;
-	}
-	public void setTecnologias(Set<Tecnologia> tecnologias) {
-		this.tecnologias = tecnologias;
-	}
-	public Set<Empleado> getEmpleados() {
-		return empleados;
-	}
-	public void setEmpleados(Set<Empleado> empleados) {
-		this.empleados = empleados;
-	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -52,30 +31,29 @@ public class DepartamentoDto {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getDesc() {
-		return desc;
+	public String getDescripcion() {
+		return descripcion;
 	}
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
-	/*public Date getAlta() {
-		return alta;
+	public List<Long> getSelectedTecnologias() {
+		return selectedTecnologias;
 	}
-	public void setAlta(Date alta) {
-		this.alta = alta;
-	}*/
-	public Long getIdJefe() {
-		return idJefe;
+	public void setSelectedTecnologias(List<Long> selectedTecnologias) {
+		this.selectedTecnologias = selectedTecnologias;
 	}
-	public void setIdJefe(Long idJefe) {
-		this.idJefe = idJefe;
+	public List<String> getTecnologias() {
+		return tecnologias;
 	}
-	public String getJefe() {
-		return jefe;
+	public void setTecnologias(List<String> tecnologias) {
+		this.tecnologias = tecnologias;
 	}
-	public void setJefe(String jefe) {
-		this.jefe = jefe;
+	public List<String> getEmpleados() {
+		return empleados;
 	}
-		
-		
+	public void setEmpleados(List<String> empleados) {
+		this.empleados = empleados;
+	}
 }
+

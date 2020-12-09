@@ -2,12 +2,9 @@ package es.getronics.bom;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "DEPARTAMENTO")
@@ -17,40 +14,29 @@ public class Departamento implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	@Column(name = "NOMBRE")
-	@NotBlank
 	private String nombre;
 	@Column(name = "DESCRIPCION")
-	@NotBlank
-	private String desc;
-	
+	private String descripcion;
 	//@Column(name = "ALTA")
 	//private Date alta;
-	
-	//@Column(name="ID_JEFE") <<<<<FALTA>>>>
-	//@OneToOne(mappedBy="id")
-	private Empleado jefe;
 	
 	@OneToMany(mappedBy = "departamento")
 	private Set<Empleado> empleados;
 	
-	@ManyToMany(mappedBy= "departamento")
+    @ManyToMany
+    @JoinTable(
+    		name = "DEPARTAMENTO_TECNOLOGIA",
+    		joinColumns = @JoinColumn(name = "departamento_id"),
+    		inverseJoinColumns = @JoinColumn(name = "tecnologia_id"))
     private Set<Tecnologia> tecnologias;
 
-	public Empleado getJefe() {
-		return jefe;
-	}
-
-	public void setJefe(Empleado jefe) {
-		this.jefe = jefe;
-	}
-
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -62,21 +48,13 @@ public class Departamento implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public String getDesc() {
-		return desc;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
-
-	/*public Date getAlta() {
-		return alta;
-	}
-
-	public void setAlta(Date alta) {
-		this.alta = alta;
-	}*/
 
 	public Set<Empleado> getEmpleados() {
 		return empleados;
@@ -85,8 +63,7 @@ public class Departamento implements Serializable {
 	public void setEmpleados(Set<Empleado> empleados) {
 		this.empleados = empleados;
 	}
-	
-	
+
 	public Set<Tecnologia> getTecnologias() {
 		return tecnologias;
 	}
