@@ -2,8 +2,8 @@ package es.getronics.validators;
 
 public interface GenericValidator<T> {
 
-	void saveOrUpdate(T entity);
+	boolean supports(Class<T> clazz);
 
-	T insert(T entity);
+	void validate(T target);
 
 }
