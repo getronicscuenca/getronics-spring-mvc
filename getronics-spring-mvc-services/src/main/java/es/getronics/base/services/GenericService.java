@@ -58,8 +58,10 @@ public interface GenericService<T1, T2, ID extends Serializable> {
      * Insertar una nueva instancia de T en el BBDD. 
      * 
      * @param entity el entity de insertar
+     * @return 
      * @return el entity nuevo. 
      */
+    
     T1 insert(T1 entity);
 
     /**

@@ -88,8 +88,8 @@ public class TecnologiaController {
 
 	@InitBinder
 	public void binder(WebDataBinder binder) {
-		
-        binder.setValidator(new TecnologiaValidator()); 
+		binder.validate();
+        //binder.setValidator(new TecnologiaValidator()); 
         
 	}
 
