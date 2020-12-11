@@ -58,10 +58,10 @@ public abstract class GenericServiceImpl<T1, T2, ID extends Serializable> extend
 			}
 	}
 
-	public T1 insert(T1 entity) {
+	public T1 insert(T1 entity){
 		try {
 			validate(entity);
-			getHibernateTemplate().update(entity);
+			getHibernateTemplate().save(entity);
 			}catch(NullPointerException e) {
 				System.out.println("no puede estar vacio");
 			}

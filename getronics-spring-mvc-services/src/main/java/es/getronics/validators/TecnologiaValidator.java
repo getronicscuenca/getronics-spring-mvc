@@ -1,5 +1,6 @@
 package es.getronics.validators;
 
+
 public class TecnologiaValidator<T> implements GenericValidator<T> {
 
 	@Override
@@ -10,7 +11,7 @@ public class TecnologiaValidator<T> implements GenericValidator<T> {
 
 	@Override
 	public void validate(T target) {
-		if(target=="" || target==null) {
+		if(target==null) {
 			throw new NullPointerException();
 		}
 	}
