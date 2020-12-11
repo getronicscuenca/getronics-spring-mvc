@@ -12,6 +12,8 @@ import es.getronics.base.dao.GenericDao;
 import es.getronics.base.services.GenericService;
 import es.getronics.bom.Departamento;
 import es.getronics.dto.DepartamentoDto;
+import es.getronics.exceptions.DescripcionLargaException;
+import es.getronics.exceptions.NombreLargoException;
 import es.getronics.validators.GenericValidator;
 
 public abstract class GenericServiceImpl<T1, T2, ID extends Serializable> extends HibernateDaoSupport
@@ -44,7 +46,11 @@ public abstract class GenericServiceImpl<T1, T2, ID extends Serializable> extend
 		validate(entity);
 		getHibernateTemplate().update(entity);
 		}catch(NullPointerException e) {
-			System.out.println("no puede estar vacio");
+			e.printStackTrace();
+		} catch (NombreLargoException e) {
+			e.printStackTrace();
+		} catch (DescripcionLargaException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -53,9 +59,13 @@ public abstract class GenericServiceImpl<T1, T2, ID extends Serializable> extend
 		try {
 			validate(entity);
 			getHibernateTemplate().update(entity);
-			}catch(NullPointerException e) {
-				System.out.println("no puede estar vacio");
-			}
+		}catch(NullPointerException e) {
+			e.printStackTrace();
+		} catch (NombreLargoException e) {
+			e.printStackTrace();
+		} catch (DescripcionLargaException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public T1 insert(T1 entity){
@@ -63,7 +73,11 @@ public abstract class GenericServiceImpl<T1, T2, ID extends Serializable> extend
 			validate(entity);
 			getHibernateTemplate().save(entity);
 			}catch(NullPointerException e) {
-				System.out.println("no puede estar vacio");
+				e.printStackTrace();
+			} catch (NombreLargoException e) {
+				e.printStackTrace();
+			} catch (DescripcionLargaException e) {
+				e.printStackTrace();
 			}
 		return entity;
 	}
