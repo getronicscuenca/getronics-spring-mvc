@@ -1,9 +1,12 @@
 package es.getronics.validators;
 
+import org.springframework.stereotype.Component;
+
 import es.getronics.dto.TecnologiaDTO;
 import es.getronics.exceptions.DescripcionLargaException;
 import es.getronics.exceptions.NombreLargoException;
 
+@Component
 public class TecnologiaValidator<T> implements GenericValidator<T> {
 
 	@Override
@@ -22,7 +25,7 @@ public class TecnologiaValidator<T> implements GenericValidator<T> {
 		if(tec.getNombre()==null) {
 			throw new NullPointerException("el nombre no puede estar vacio");
 		}
-		if(tec.getNombre().length()>=25) {
+		if(tec.getNombre().length()>=10) {
 			throw new NombreLargoException("El nombre es demasiado largo");
 
 		}
@@ -32,6 +35,8 @@ public class TecnologiaValidator<T> implements GenericValidator<T> {
 		if(tec.getDescripcion().length()>=100) {
 			throw new DescripcionLargaException("la descripcion es demasiado larga");
 		}
+		
+				
 	}
 
 	

@@ -1,26 +1,17 @@
 package es.getronics.base.services.impl;
 
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import org.hibernate.SessionFactory;
-import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-
-import es.getronics.base.dao.GenericDao;
 import es.getronics.base.services.GenericService;
-import es.getronics.bom.Departamento;
-import es.getronics.dto.DepartamentoDto;
 import es.getronics.exceptions.DescripcionLargaException;
 import es.getronics.exceptions.NombreLargoException;
 import es.getronics.validators.GenericValidator;
 
 public abstract class GenericServiceImpl<T1, T2, ID extends Serializable> extends HibernateDaoSupport
-		implements GenericService<T1, T2, ID>, GenericValidator<T1> {
-
-	private GenericDao dao;
-	private ModelMapper modelMapper;
+		implements GenericService<T1, T2, ID> {
 
 	@Override
 	public T1 findById(ID id) {
@@ -39,13 +30,30 @@ public abstract class GenericServiceImpl<T1, T2, ID extends Serializable> extend
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Autowired
+	GenericValidator<T1> validator;
+
+	public T1 insert(T1 entity) {
+		try {
+			validator.validate(entity);
+			getHibernateTemplate().save(entity);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		} catch (NombreLargoException e) {
+			e.printStackTrace();
+		} catch (DescripcionLargaException e) {
+			e.printStackTrace();
+		}
+		return entity;
+	}
 
 	@Override
 	public void update(T1 entity) {
 		try {
-		validate(entity);
-		getHibernateTemplate().update(entity);
-		}catch(NullPointerException e) {
+			validator.validate(entity);
+			getHibernateTemplate().update(entity);
+		} catch (NullPointerException e) {
 			e.printStackTrace();
 		} catch (NombreLargoException e) {
 			e.printStackTrace();
@@ -57,29 +65,15 @@ public abstract class GenericServiceImpl<T1, T2, ID extends Serializable> extend
 	@Override
 	public void saveOrUpdate(T1 entity) {
 		try {
-			validate(entity);
+			validator.validate(entity);
 			getHibernateTemplate().update(entity);
-		}catch(NullPointerException e) {
+		} catch (NullPointerException e) {
 			e.printStackTrace();
 		} catch (NombreLargoException e) {
 			e.printStackTrace();
 		} catch (DescripcionLargaException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public T1 insert(T1 entity){
-		try {
-			validate(entity);
-			getHibernateTemplate().save(entity);
-			}catch(NullPointerException e) {
-				e.printStackTrace();
-			} catch (NombreLargoException e) {
-				e.printStackTrace();
-			} catch (DescripcionLargaException e) {
-				e.printStackTrace();
-			}
-		return entity;
 	}
 
 	@Override

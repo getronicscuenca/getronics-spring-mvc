@@ -55,12 +55,11 @@ public class TecnologiaController {
 	@RequestMapping(value = "new", method = RequestMethod.POST)
 	public ModelAndView insertarTecnologia( @ModelAttribute("tecnologia") @Valid TecnologiaDTO tecnologia,
 			BindingResult result, Model model) {
-		
 		if (result.hasErrors()) {
 			return new ModelAndView("tecnologia.nuevo");
 		}
 
-		if (tecnologia.getId() != null) {
+		if (tecnologia.getId() != null && tecnologia.getNombre() != null) {
 			tecnologiaService.update(tecnologia);
 			model.addAttribute("technologies", tecnologiaService.findAllTechnologies());
 			return new ModelAndView("tecnologia.list", model.asMap());
@@ -88,7 +87,7 @@ public class TecnologiaController {
 
 	@InitBinder
 	public void binder(WebDataBinder binder) {
-		binder.validate();
+		binder.validate(new TecnologiaValidator<Object>());
         //binder.setValidator(new TecnologiaValidator()); 
         
 	}

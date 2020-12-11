@@ -14,11 +14,11 @@ public class TecnologiaDTO implements Serializable {
 
 	private Long id;
 	
-	@NotNull
-	@Size(min=1,message="Nombre no valido")
+	/*@NotNull
+	@Size(min=1,message="Nombre no valido")*/
 	private String nombre;
-	@NotNull
-	@Size(min=1,message="Descripcion no valida")
+	/*@NotNull
+	@Size(min=1,message="Descripcion no valida")*/
 	private String descripcion;
 
 	public Long getId() {
