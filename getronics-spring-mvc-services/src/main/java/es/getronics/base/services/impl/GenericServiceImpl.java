@@ -34,7 +34,7 @@ public abstract class GenericServiceImpl<T1, T2, ID extends Serializable> extend
 	@Autowired
 	GenericValidator<T1> validator;
 
-	public T1 insert(T1 entity) {
+	public T1 insert(T1 entity) throws NullPointerException,NombreLargoException, DescripcionLargaException{
 		try {
 			validator.validate(entity);
 			getHibernateTemplate().save(entity);

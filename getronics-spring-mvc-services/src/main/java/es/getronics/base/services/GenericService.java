@@ -2,8 +2,8 @@ package es.getronics.base.services;
 
 import java.io.Serializable;
 import java.util.List;
-
-import es.getronics.dto.EmpleadoDto;
+import es.getronics.exceptions.DescripcionLargaException;
+import es.getronics.exceptions.NombreLargoException;
 
 
 /**
@@ -60,9 +60,12 @@ public interface GenericService<T1, T2, ID extends Serializable> {
      * @param entity el entity de insertar
      * @return 
      * @return el entity nuevo. 
+     * @throws DescripcionLargaException 
+     * @throws NombreLargoException 
+     * @throws NullPointerException 
      */
     
-    T1 insert(T1 entity);
+    T1 insert(T1 entity) throws NullPointerException,NombreLargoException,DescripcionLargaException;
 
     /**
      * Borrar una instancia del BBDD.  

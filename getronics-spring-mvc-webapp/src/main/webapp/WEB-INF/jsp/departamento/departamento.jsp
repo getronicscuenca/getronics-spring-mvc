@@ -40,12 +40,10 @@
 
 	<form:hidden path="id" />
 	<spring:message code="departamento.nombre"></spring:message>
-	<form:errors path="nombre" cssClass="error" />
 	<br>
 	<form:input path="nombre" />
 	<br>
 	<spring:message code="departamento.desc"></spring:message>
-	<form:errors path="desc" cssClass="error" />
 	<br>
 	<form:input path="desc" />
 	<br>

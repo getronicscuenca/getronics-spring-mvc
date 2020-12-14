@@ -22,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.dto.DepartamentoDto;
 import es.getronics.dto.EmpleadoDto;
+import es.getronics.exceptions.DescripcionLargaException;
+import es.getronics.exceptions.NombreLargoException;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
 import es.getronics.validators.DepartamentoValidator;
@@ -83,7 +85,7 @@ public class DepartamentoController {
 
 	@RequestMapping(value = "new", method = RequestMethod.POST)
 	public String insertarDepartmento(@ModelAttribute("departamento") @Valid DepartamentoDto departamento,
-			BindingResult bindingResult, Model model) {
+			BindingResult bindingResult, Model model) throws NullPointerException, NombreLargoException, DescripcionLargaException {
 		Date fecha = new Date();
 		String depar = departamentoService.findByName(departamento);
 		if (bindingResult.hasErrors()) {

@@ -6,11 +6,8 @@ package es.getronics.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import es.getronics.dto.TecnologiaDTO;
+import es.getronics.exceptions.DescripcionLargaException;
+import es.getronics.exceptions.NombreLargoException;
 import es.getronics.services.TecnologiaService;
 import es.getronics.validators.TecnologiaValidator;
 
@@ -37,10 +36,13 @@ public class TecnologiaController {
 
 	@Autowired
 	private TecnologiaService tecnologiaService;
+	
+	@Autowired
+	private TecnologiaValidator<TecnologiaDTO> tecnologiaValidator;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView findAllTechnologies() {
-		List<TecnologiaDTO> technologies = tecnologiaService.findAllTechnologies();
+		List<TecnologiaDTO> technologies = tecnologiaService.findAll();
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("technologies", technologies);
 		return new ModelAndView("tecnologia.list", model);
@@ -54,21 +56,22 @@ public class TecnologiaController {
 
 	@RequestMapping(value = "new", method = RequestMethod.POST)
 	public ModelAndView insertarTecnologia( @ModelAttribute("tecnologia") @Valid TecnologiaDTO tecnologia,
-			BindingResult result, Model model) {
+			BindingResult result, Model model)  throws NullPointerException, NombreLargoException, DescripcionLargaException {
 		if (result.hasErrors()) {
 			return new ModelAndView("tecnologia.nuevo");
 		}
 
 		if (tecnologia.getId() != null && tecnologia.getNombre() != null) {
 			tecnologiaService.update(tecnologia);
-			model.addAttribute("technologies", tecnologiaService.findAllTechnologies());
+			model.addAttribute("technologies", tecnologiaService.findAll());
 			return new ModelAndView("tecnologia.list", model.asMap());
 		} else {
 			tecnologiaService.insert(tecnologia);
-			model.addAttribute("technologies", tecnologiaService.findAllTechnologies());
+			model.addAttribute("technologies", tecnologiaService.findAll());
 			return new ModelAndView("tecnologia.list", model.asMap());
 
 		}
+
 
 	}
 
@@ -81,13 +84,13 @@ public class TecnologiaController {
 
 	@RequestMapping("delete/{id}")
 	public String deleteTecnologia(@PathVariable Long id, Model model) {
-		tecnologiaService.delete(id);
+		tecnologiaService.remove(id);
 		return "redirect:/tecnologia";
 	}
 
 	@InitBinder
 	public void binder(WebDataBinder binder) {
-		binder.validate(new TecnologiaValidator<Object>());
+		//binder.validate(tecnologiaValidator);
         //binder.setValidator(new TecnologiaValidator()); 
         
 	}

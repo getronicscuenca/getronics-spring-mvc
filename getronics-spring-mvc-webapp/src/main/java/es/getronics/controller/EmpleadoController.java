@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.getronics.dto.EmpleadoDto;
+import es.getronics.exceptions.DescripcionLargaException;
+import es.getronics.exceptions.NombreLargoException;
 import es.getronics.services.DepartamentoService;
 import es.getronics.services.EmpleadoService;
 
@@ -62,7 +64,7 @@ public class EmpleadoController {
 	}
 	
 	@RequestMapping(value="new", method=RequestMethod.POST)
-	public String insertarEmpleado(@ModelAttribute EmpleadoDto empleado, Model model) {
+	public String insertarEmpleado(@ModelAttribute EmpleadoDto empleado, Model model) throws NullPointerException, NombreLargoException, DescripcionLargaException {
 		if(empleado.getId() != null) {
 			empleadoService.update(empleado);
 		} else {

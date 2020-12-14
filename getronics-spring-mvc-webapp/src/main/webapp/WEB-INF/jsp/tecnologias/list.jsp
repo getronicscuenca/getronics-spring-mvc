@@ -1,7 +1,7 @@
 <%@ include file="../common/taglibs.jsp"%>
 <spring:url value="/tecnologia" var="url"></spring:url>
 
-<form:form modelAttribute="tecnologia" >
+<form:form modelAttribute="tecnologia" action="${url}">
 	<table class="table table-striped table-info">
 		<thead class="thead-light">
 			<th scope="col"><spring:message code="technology.code"></spring:message></th>
